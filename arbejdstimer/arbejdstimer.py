@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=expression-not-assigned,line-too-long
 """Working hours (Danish arbejdstimer) or not? API."""
+import datetime as dti
 import json
 import os
 import pathlib
@@ -15,6 +16,16 @@ ENCODING_ERRORS_POLICY = 'ignore'
 
 
 DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
+
+
+def weekday() -> int:
+    """Return current weekday."""
+    return dti.date.today().isoweekday()
+
+
+def no_weekend(day_number: int) -> bool:
+    """Return if day number is weekend."""
+    return day_number < 6
 
 
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
@@ -52,5 +63,11 @@ def main(argv: Union[List[str], None] = None) -> int:
         configuration = json.load(handle)
 
     print(f'configuration is ({configuration})')
+    week_day = weekday()
+    work_day = no_weekend(week_day)
+    if work_day:
+        print(f'Today ({dti.date.today()}) is not a weekend')
+    else:
+        print('Today is weekend.')
 
     return 0
