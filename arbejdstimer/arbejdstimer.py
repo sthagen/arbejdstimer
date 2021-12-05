@@ -69,5 +69,14 @@ def main(argv: Union[List[str], None] = None) -> int:
         print(f'Today ({dti.date.today()}) is not a weekend')
     else:
         print('Today is weekend.')
+        return 1
+
+    hour = dti.datetime.now().hour
+    if 6 < hour < 17:
+        print(f'At this hour ({hour}) is work time')
+    else:
+        print(f'No worktime at hour({hour}).')
+        return 1
+
 
     return 0
