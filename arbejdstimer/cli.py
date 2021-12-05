@@ -31,10 +31,10 @@ def callback(
     )
 ) -> None:
     """
-    Table (Finnish Taulukko) glued together to transform into hands-free living.
+    Working hours (Danish arbejdstimer) or not?
 
-    Given an html file or URL the tool produces a markdown file of the tables
-    below `arbejdstimer-md`.
+    Given a configuration file detect if today is a work day and
+    if at the time of request is a working hour.
     """
     if version:
         typer.echo(f'{APP_NAME} version {arbejdstimer.__version__}')
