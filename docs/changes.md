@@ -2,7 +2,7 @@
 
 ## 2021.12.21
 
-* Added initial configuration handling (using the data within)
+* Added configuration handling (using the holidays defined within)
 
 ## 2021.12.5
 
