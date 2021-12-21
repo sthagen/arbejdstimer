@@ -78,5 +78,4 @@ def main(argv: Union[List[str], None] = None) -> int:
         print(f'No worktime at hour({hour}).')
         return 1
 
-
     return 0
