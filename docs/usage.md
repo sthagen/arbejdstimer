@@ -3,9 +3,13 @@
 ## Is now a working day?
 
 ```console
-$ arbejdstimer now --config tests/fixtures/basic/minimal-config.json
-configuration is ({})
-Today is weekend.
+$ arbejdstimer now --config tests/fixtures/basic/holidays-config.json && echo "WORKTIME"
+read valid configuration from (tests/fixtures/basic/holidays-config.json)
+consider 11 holidays:
+- Today (2021-12-21) is not a weekend
+- Today (2021-12-21) is not a holiday
+- At this hour (14) is work time
+WORKTIME
 ```
 
 
