@@ -73,3 +73,10 @@ def test_at_verify_holidays_alien():
     assert at.verify(cfg) == expect  # type: ignore
     cfg = {**cfg, 'holidays': 42}
     assert at.verify(cfg) == expect  # type: ignore
+
+
+def test_at_verify_holidays_missing_date_range():
+    cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '1'}}
+    expect = (2, 'no. 2 configuration holidays entry has no date_range value (not present or list empty)')
+    cfg = {**cfg, 'holidays': [{'date_range': ['ignore']}, {}]}
+    assert at.verify(cfg) == expect  # type: ignore
