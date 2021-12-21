@@ -23,7 +23,7 @@ def test_at_verify_request_falsy_input():
 def test_at_main_holidays(capsys):
     assert at.main(['now', str(fix.CFG_FS_HOLIDAYS)]) == 0
     out, err = capsys.readouterr()
-    assert "'label': 'company holidays 2021/2022'" in out.lower()
+    assert 'consider 11 holidays' in out.lower()
     assert not err
 
 
