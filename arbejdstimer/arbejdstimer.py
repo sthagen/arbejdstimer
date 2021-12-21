@@ -35,8 +35,8 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
     if not cfg:
         return 0, 'empty configuration, using default'
 
-    if not cfg.get('_meta'):
-        return 2, 'configuration lacks required _meta section'
+    if not cfg.get('_meta') or not isinstance(cfg['_meta'], dict):
+        return 2, 'configuration lacks required _meta (object) section'
 
     meta = cfg['_meta']
     if not meta.get('combination_with_defaults'):
@@ -62,7 +62,7 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
 
     for nth, entry in enumerate(holidays, start=1):
         if not entry.get('date_range'):
-            return 2, f'{nth} configuration holidays entry has no date_range value (not present or list empty)'
+            return 2, f'no. {nth} configuration holidays entry has no date_range value (not present or list empty)'
 
     return 0, ''
 
