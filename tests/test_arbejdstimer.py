@@ -5,7 +5,7 @@ import tests.conftest as fix
 
 
 def test_at_main():
-    assert at.main(['now', str(fix.CFG_FS_EMPTY)]) == 0
+    assert at.main(['now', str(fix.CFG_FS_HOLIDAYS)]) == 0
 
 
 def test_at_verify_request_too_few():
