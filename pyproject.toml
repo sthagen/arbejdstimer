@@ -1,7 +1,7 @@
 [tool.pyflow]
 name = "arbejdstimer"
 py_version = "3.8"
-version = "2021.12.5"
+version = "2021.12.6"
 authors = ["Stefan Hagen <stefan@hagen.link>"]
 
 [tool.pyflow.scripts]
