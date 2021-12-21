@@ -12,7 +12,7 @@ def test_main_legacy_ok(capsys):
     inp = str(pathlib.Path('tests', 'fixtures', 'basic', 'minimal-config.json'))
     assert cli.main(['now', inp]) == 0
     out, err = capsys.readouterr()
-    assert 'configuration is' in out.lower()
+    assert 'read valid configuration:' in out.lower()
     assert not err
 
 

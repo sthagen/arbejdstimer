@@ -6,7 +6,7 @@ import json
 import os
 import pathlib
 import sys
-from typing import List, Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union, no_type_check
 
 DEBUG_VAR = 'ARBEJDSTIMER_DEBUG'
 DEBUG = os.getenv(DEBUG_VAR)
@@ -16,6 +16,7 @@ ENCODING_ERRORS_POLICY = 'ignore'
 
 
 DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
+CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
 
 
 def weekday() -> int:
@@ -26,6 +27,44 @@ def weekday() -> int:
 def no_weekend(day_number: int) -> bool:
     """Return if day number is weekend."""
     return day_number < 6
+
+
+@no_type_check
+def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
+    """Fail on invalid configuration."""
+    if not cfg:
+        return 0, 'empty configuration, using default'
+
+    if not cfg.get('_meta'):
+        return 2, 'configuration lacks required _meta section'
+
+    meta = cfg['_meta']
+    if not meta.get('combination_with_defaults'):
+        return 2, 'configuration lacks required rule for combination with defaults (expected value "or")'
+
+    if meta.get('application', 'NOT_PRESENT') != 'arbejdstimer':
+        return 2, 'configuration offers wrong application (name) value (expected arbejdstimer)'
+
+    api_version = meta.get('configuration_api_version', '0')
+    try:
+        api_version = int(api_version)
+        if api_version != 1:
+            return 2, 'configuration offers wrong or no api version (expected value "1")'
+    except ValueError:
+        return 1, 'configuration offers wrong api version value (expected value "1")'
+
+    if not cfg.get('holidays'):
+        return 2, 'configuration lacks holidays entry or list empty'
+
+    holidays = cfg['holidays']
+    if not isinstance(holidays, list):
+        return 2, 'configuration holidays entry is not a list'
+
+    for nth, entry in enumerate(holidays, start=1):
+        if not entry.get('date_range'):
+            return 2, f'{nth} configuration holidays entry has no date_range value (not present or list empty)'
+
+    return 0, ''
 
 
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
@@ -62,7 +101,12 @@ def main(argv: Union[List[str], None] = None) -> int:
     with open(config, 'rt', encoding=ENCODING) as handle:
         configuration = json.load(handle)
 
-    print(f'configuration is ({configuration})')
+    error, message = verify(configuration)
+    if error:
+        print(message, file=sys.stderr)
+        return error
+
+    print(f'read valid configuration: ({configuration})')
     week_day = weekday()
     work_day = no_weekend(week_day)
     if work_day:
