@@ -31,6 +31,31 @@ def no_weekend(day_number: int) -> bool:
 
 
 @no_type_check
+def apply(off_days: list[dti.date]) -> Tuple[int, str]:
+    """ddd"""
+    today = dti.date.today()
+    if today not in off_days:
+        print(f'- Today ({today}) is not a holiday')
+    else:
+        return 1, '- Today is a holiday.'
+
+    week_day = weekday(today)
+    work_day = no_weekend(week_day)
+    if work_day:
+        print(f'- Today ({today}) is not a weekend')
+    else:
+        return 1, '- Today is weekend.'
+
+    hour = dti.datetime.now().hour
+    if 6 < hour < 17:
+        print(f'- At this hour ({hour}) is work time')
+    else:
+        return 1, f'- No worktime at hour({hour}).'
+
+    return 0, ''
+
+
+@no_type_check
 def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date]]:
     """Load the configuration and return error, message and holidays list."""
     holidays = cfg.get('holidays')
@@ -144,26 +169,9 @@ def main(argv: Union[List[str], None] = None) -> int:
         return error
 
     print(f'consider {len(holidays)} holidays:')
-    today = dti.date.today()
-    week_day = weekday(today)
-    work_day = no_weekend(week_day)
-    if work_day:
-        print(f'- Today ({today}) is not a weekend')
-    else:
-        print('- Today is weekend.')
-        return 1
-
-    if today not in holidays:
-        print(f'- Today ({today}) is not a holiday')
-    else:
-        print('- Today is a holiday.')
-        return 1
-
-    hour = dti.datetime.now().hour
-    if 6 < hour < 17:
-        print(f'- At this hour ({hour}) is work time')
-    else:
-        print(f'- No worktime at hour({hour}).')
-        return 1
+    error, message = apply(holidays)
+    if error:
+        print(message, file=sys.stdout)
+        return error
 
     return 0
