@@ -25,3 +25,7 @@ def test_at_main_holidays(capsys):
     out, err = capsys.readouterr()
     assert "'label': 'company holidays 2021/2022'" in out.lower()
     assert not err
+
+
+def test_at_verify_no_meta():
+    assert at.verify({'a': 'b'}) == (2, 'configuration lacks required _meta section')  # type: ignore
