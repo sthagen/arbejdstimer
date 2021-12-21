@@ -80,3 +80,13 @@ def test_at_verify_holidays_missing_date_range():
     expect = (2, 'no. 2 configuration holidays entry has no date_range value (not present or list empty)')
     cfg = {**cfg, 'holidays': [{'date_range': ['ignore']}, {}]}
     assert at.verify(cfg) == expect  # type: ignore
+
+
+def test_at_load_and_apply_today_holiday(capsys):
+    error, message, holidays = at.load(fix.CFG_PY_TODAY_HOLIDAY)
+    assert not error
+    assert not message
+    assert at.apply(holidays) == (1, '- Today is a holiday.')
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
