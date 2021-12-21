@@ -13,7 +13,7 @@ Today is weekend.
 
 ```console
 $ arbejdstimer version
-Working hours (Danish arbejdstimer) or not? version 2021.12.5
+Working hours (Danish arbejdstimer) or not? version 2021.12.21
 ```
 
 ## General help
