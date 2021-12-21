@@ -28,4 +28,10 @@ def test_at_main_holidays(capsys):
 
 
 def test_at_verify_no_meta():
-    assert at.verify({'a': 'b'}) == (2, 'configuration lacks required _meta section')  # type: ignore
+    assert at.verify({'a': 'b'}) == (2, 'configuration lacks required _meta (object) section')  # type: ignore
+
+
+def test_at_verify_alien_meta():
+    assert at.verify({'_meta': 'b'}) == (2, 'configuration lacks required _meta (object) section')  # type: ignore
+    expect = (2, 'configuration lacks required rule for combination with defaults (expected value "or")')
+    assert at.verify({'_meta': {'a': 'b'}}) == expect  # type: ignore
