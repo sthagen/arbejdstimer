@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
-import pathlib
-
 import click
 import pytest
 
 import arbejdstimer.cli as cli
+import tests.conftest as fix
 
 
 def test_main_legacy_ok(capsys):
-    inp = str(pathlib.Path('tests', 'fixtures', 'basic', 'minimal-config.json'))
-    assert cli.main(['now', inp]) == 0
+    assert cli.main(['now', str(fix.CFG_FS_EMPTY)]) == 0
     out, err = capsys.readouterr()
     assert 'read valid configuration:' in out.lower()
     assert not err
@@ -26,9 +24,8 @@ def test_version_ok(capsys):
 
 
 def test_now_ok(capsys):
-    in_path = pathlib.Path('tests', 'fixtures', 'basic', 'minimal-config.json')
     with pytest.raises(SystemExit) as exec_info:
-        cli.now(conf=in_path)  # type: ignore
+        cli.now(conf=fix.CFG_FS_EMPTY)  # type: ignore
     assert exec_info.value.code == 0
     out, err = capsys.readouterr()
     assert 'read valid configuration: ({})' in out.lower()
@@ -36,9 +33,8 @@ def test_now_ok(capsys):
 
 
 def test_non_existing_configuration_file(capsys):
-    in_path = pathlib.Path('does', 'not', 'exist', 'hypothetical.json')
     with pytest.raises(SystemExit) as exec_info:
-        cli.now(conf=in_path)  # type: ignore
+        cli.now(conf=fix.CFG_FS_NOT_THERE)  # type: ignore
     assert exec_info.value.code == 1
     out, err = capsys.readouterr()
     assert 'config' in err.lower()
