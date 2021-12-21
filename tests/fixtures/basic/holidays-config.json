@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "application": "arbejdstimer",
+    "configuration_api_version": 1,
+    "combination_with_defaults": "or"
+  },
+  "holidays": [
+    {
+      "kind": "off_date",
+      "label": "public holiday",
+      "off_date": "2021-12-08"
+    },
+    {
+      "kind": "off_date_range_inclusive",
+      "label": "company holidays 2021/2022",
+      "off_date_range_inclusive": [
+        "2021-12-24",
+        "2022-01-02"
+      ]
+    }
+  ]
+}
