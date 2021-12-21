@@ -17,6 +17,7 @@ ENCODING_ERRORS_POLICY = 'ignore'
 
 DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
 CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
+DATE_FMT = '%Y-%m-%d'
 
 
 def weekday() -> int:
@@ -27,6 +28,36 @@ def weekday() -> int:
 def no_weekend(day_number: int) -> bool:
     """Return if day number is weekend."""
     return day_number < 6
+
+
+@no_type_check
+def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date]]:
+    """Load the configuration and return error, message and holidays list."""
+    holidays = cfg.get('holidays')
+    if not isinstance(holidays, list) or not holidays:
+        return 2, 'configuration lacks holidays entry or list empty', []
+
+    holidays_date_list = []
+    for nth, entry in enumerate(holidays, start=1):
+        date_range = entry['date_range']
+        if not isinstance(date_range, list) or not date_range:
+            return 1, f'no. {nth} configuration holidays entry date_range value is no list or empty', []
+
+        if len(date_range) == 1:
+            holidays_date_list.append(dti.datetime.strptime(date_range[0], DATE_FMT).date())
+        elif len(date_range) == 2:
+            data = sorted(date_range)
+            start, end = [dti.datetime.strptime(data[n], DATE_FMT).date() for n in (0, 1)]
+            current = start
+            holidays_date_list.append(current)
+            while current < end:
+                current += dti.timedelta(days=1)
+                holidays_date_list.append(current)
+        else:
+            for text in date_range:
+                holidays_date_list.append(dti.datetime.strptime(text, DATE_FMT).date())
+
+    return 0, '', sorted(holidays_date_list)
 
 
 @no_type_check
@@ -74,7 +105,7 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
 
     command, config = argv
 
-    if command not in ('now'):
+    if command not in ('now',):
         return 2, 'received unknown command', ['']
 
     if not config:
@@ -107,6 +138,12 @@ def main(argv: Union[List[str], None] = None) -> int:
         return error
 
     print(f'read valid configuration: ({configuration})')
+    error, message, holidays = load(configuration)
+    if error:
+        print(message, file=sys.stderr)
+        return error
+
+    print('Received holidays:', holidays)
     week_day = weekday()
     work_day = no_weekend(week_day)
     if work_day:
