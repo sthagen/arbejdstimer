@@ -35,7 +35,7 @@ def test_now_ok(capsys):
     assert not err
 
 
-def test_translate_non_existing_html(capsys):
+def test_non_existing_configuration_file(capsys):
     in_path = pathlib.Path('does', 'not', 'exist', 'hypothetical.json')
     with pytest.raises(SystemExit) as exec_info:
         cli.now(conf=in_path)  # type: ignore
