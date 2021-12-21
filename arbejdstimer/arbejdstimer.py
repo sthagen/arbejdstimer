@@ -20,9 +20,9 @@ CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]
 DATE_FMT = '%Y-%m-%d'
 
 
-def weekday() -> int:
+def weekday(date: dti.date) -> int:
     """Return current weekday."""
-    return dti.date.today().isoweekday()
+    return date.isoweekday()
 
 
 def no_weekend(day_number: int) -> bool:
@@ -137,26 +137,33 @@ def main(argv: Union[List[str], None] = None) -> int:
         print(message, file=sys.stderr)
         return error
 
-    print(f'read valid configuration: ({configuration})')
+    print(f'read valid configuration from ({config})')
     error, message, holidays = load(configuration)
     if error:
         print(message, file=sys.stderr)
         return error
 
-    print('Received holidays:', holidays)
-    week_day = weekday()
+    print(f'consider {len(holidays)} holidays:')
+    today = dti.date.today()
+    week_day = weekday(today)
     work_day = no_weekend(week_day)
     if work_day:
-        print(f'Today ({dti.date.today()}) is not a weekend')
+        print(f'- Today ({today}) is not a weekend')
     else:
-        print('Today is weekend.')
+        print('- Today is weekend.')
+        return 1
+
+    if today not in holidays:
+        print(f'- Today ({today}) is not a holiday')
+    else:
+        print('- Today is a holiday.')
         return 1
 
     hour = dti.datetime.now().hour
     if 6 < hour < 17:
-        print(f'At this hour ({hour}) is work time')
+        print(f'- At this hour ({hour}) is work time')
     else:
-        print(f'No worktime at hour({hour}).')
+        print(f'- No worktime at hour({hour}).')
         return 1
 
     return 0
