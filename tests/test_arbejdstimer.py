@@ -43,3 +43,14 @@ def test_at_verify_alien_application():
     assert at.verify(cfg) == expect  # type: ignore
     cfg = {'_meta': {'combination_with_defaults': 'or', 'application': 'alien'}}
     assert at.verify(cfg) == expect  # type: ignore
+
+
+def test_at_verify_alien_api_version():
+    expect = (2, 'configuration offers wrong or no api version (expected value "1")')
+    cfg = {'_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer'}}
+    assert at.verify(cfg) == expect  # type: ignore
+    cfg = {'_meta': {'combination_with_defaults': 'x', 'application': 'arbejdstimer', 'configuration_api_version': '2'}}
+    assert at.verify(cfg) == expect  # type: ignore
+    expect = (1, 'configuration offers wrong api version value (expected value "1")')
+    cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '_'}}
+    assert at.verify(cfg) == expect  # type: ignore
