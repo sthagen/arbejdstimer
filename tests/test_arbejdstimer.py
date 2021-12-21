@@ -60,5 +60,16 @@ def test_at_verify_no_holidays_alien_or_empty():
     cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '1'}}
     expect = (2, 'configuration lacks holidays entry or list empty')
     assert at.verify(cfg) == expect  # type: ignore
+    cfg = {**cfg, 'holidays': None}
+    assert at.verify(cfg) == expect  # type: ignore
     cfg = {**cfg, 'holidays': []}
+    assert at.verify(cfg) == expect  # type: ignore
+
+
+def test_at_verify_holidays_alien():
+    cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '1'}}
+    expect = (2, 'configuration holidays entry is not a list')
+    cfg = {**cfg, 'holidays': {'holi': 'days'}}
+    assert at.verify(cfg) == expect  # type: ignore
+    cfg = {**cfg, 'holidays': 42}
     assert at.verify(cfg) == expect  # type: ignore
