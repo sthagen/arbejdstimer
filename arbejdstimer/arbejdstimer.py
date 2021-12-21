@@ -35,7 +35,7 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date]]:
     """Load the configuration and return error, message and holidays list."""
     holidays = cfg.get('holidays')
     if not isinstance(holidays, list) or not holidays:
-        return 2, 'configuration lacks holidays entry or list empty', []
+        return 0, 'configuration lacks holidays entry or list empty', []
 
     holidays_date_list = []
     for nth, entry in enumerate(holidays, start=1):
