@@ -44,3 +44,7 @@ def test_non_existing_configuration_file(capsys):
     assert 'config' in err.lower()
     assert 'is no file' in err.lower()
     assert not out
+
+
+def test_callback_with_version_false():
+    assert cli.callback(False) is None
