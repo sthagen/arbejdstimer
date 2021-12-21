@@ -35,3 +35,11 @@ def test_at_verify_alien_meta():
     assert at.verify({'_meta': 'b'}) == (2, 'configuration lacks required _meta (object) section')  # type: ignore
     expect = (2, 'configuration lacks required rule for combination with defaults (expected value "or")')
     assert at.verify({'_meta': {'a': 'b'}}) == expect  # type: ignore
+
+
+def test_at_verify_alien_application():
+    expect = (2, 'configuration offers wrong application (name) value (expected arbejdstimer)')
+    cfg = {'_meta': {'combination_with_defaults': 'or'}}
+    assert at.verify(cfg) == expect  # type: ignore
+    cfg = {'_meta': {'combination_with_defaults': 'or', 'application': 'alien'}}
+    assert at.verify(cfg) == expect  # type: ignore
