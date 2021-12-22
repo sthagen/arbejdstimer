@@ -55,3 +55,9 @@ def test_api_date_range_duplicate():
     with pytest.raises(ValidationError, match=_subs(1, 'DateRange')) as err:
         _ = api.DateRange(__root__=['2021-12-31', '2021-12-31'])  # type: ignore
     assert '\n__root__\n  dates in a date range must be unique' in str(err.value)
+
+
+def test_api_working_hours_nine_to_five():
+    nine = api.Hour(__root__='9')  # type: ignore
+    five = api.Hour(__root__='17')  # type: ignore
+    assert api.WorkingHours(__root__=[nine, five]).__root__ == [nine, five]
