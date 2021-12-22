@@ -98,7 +98,9 @@
       "maxItems": 2,
       "items": {
         "type": "integer",
-        "default": 0
+        "default": 0,
+        "minimum": 0,
+        "maximum": 23
       },
       "additionalItems": false
     }
