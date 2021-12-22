@@ -44,3 +44,8 @@ def test_api_date_range_wun():
 def test_api_date_range_two():
     two = api.DateRange(__root__=['2021-12-31', '2022-01-01'])  # type: ignore
     assert two.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1)]
+
+
+def test_api_date_range_three():
+    three = api.DateRange(__root__=['2021-12-31', '2022-01-01', '2022-01-02'])  # type: ignore
+    assert three.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1), dti.date(2022, 1, 2)]
