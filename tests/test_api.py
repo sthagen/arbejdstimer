@@ -61,3 +61,10 @@ def test_api_working_hours_nine_to_five():
     nine = api.Hour(__root__='9')  # type: ignore
     five = api.Hour(__root__='17')  # type: ignore
     assert api.WorkingHours(__root__=[nine, five]).__root__ == [nine, five]
+
+
+def test_api_working_hours_nine_single_value():
+    nine = api.Hour(__root__='9')  # type: ignore
+    with pytest.raises(ValidationError, match=_subs(1, 'WorkingHours')) as err:
+        _ = api.WorkingHours(__root__=[nine])  # type: ignore
+    assert '\n__root__\n  ensure this value has at least 2 items' in str(err.value)
