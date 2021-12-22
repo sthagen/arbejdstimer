@@ -6,9 +6,9 @@
 $ arbejdstimer now -c tests/fixtures/basic/holidays-config.json || echo "OFF"
 read valid configuration from (tests/fixtures/basic/holidays-config.json)
 consider 11 holidays:
-- Today (2021-12-21) is not a holiday
-- Today (2021-12-21) is not a weekend
-- No worktime at hour(17).
+- Today (2021-12-22) is not a holiday
+- Today (2021-12-22) is not a weekend
+- No worktime at hour(7).
 OFF
 ```
 
