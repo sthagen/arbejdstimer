@@ -56,17 +56,17 @@ def apply(off_days: list[dti.date]) -> Tuple[int, str]:
 
 
 @no_type_check
-def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date]]:
-    """Load the configuration and return error, message and holidays list."""
+def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], Union[tuple[int, int], tuple[None, None]]]:
+    """Load the configuration and return error, message and holidays as well as working hours list."""
     holidays = cfg.get('holidays')
     if not isinstance(holidays, list) or not holidays:
-        return 0, 'configuration lacks holidays entry or list empty', []
+        return 0, 'configuration lacks holidays entry or list empty', [], (None, None)
 
     holidays_date_list = []
     for nth, entry in enumerate(holidays, start=1):
         date_range = entry['date_range']
         if not isinstance(date_range, list) or not date_range:
-            return 1, f'no. {nth} configuration holidays entry date_range value is no list or empty', []
+            return 1, f'no. {nth} configuration holidays entry date_range value is no list or empty', [], (None, None)
 
         if len(date_range) == 1:
             holidays_date_list.append(dti.datetime.strptime(date_range[0], DATE_FMT).date())
@@ -82,7 +82,7 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date]]:
             for text in date_range:
                 holidays_date_list.append(dti.datetime.strptime(text, DATE_FMT).date())
 
-    return 0, '', sorted(holidays_date_list)
+    return 0, '', sorted(holidays_date_list), (None, None)
 
 
 @no_type_check
@@ -176,7 +176,7 @@ def main(argv: Union[List[str], None] = None) -> int:
         return error
 
     print(f'read valid configuration from ({config})')
-    error, message, holidays = load(configuration)
+    error, message, holidays, working_hours = load(configuration)
     if error:
         print(message, file=sys.stderr)
         return error

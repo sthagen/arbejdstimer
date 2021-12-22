@@ -83,7 +83,7 @@ def test_at_verify_holidays_missing_date_range():
 
 
 def test_at_load_and_apply_today_holiday(capsys):
-    error, message, holidays = at.load(fix.CFG_PY_TODAY_HOLIDAY)
+    error, message, holidays, _ = at.load(fix.CFG_PY_TODAY_HOLIDAY)
     assert not error
     assert not message
     assert at.apply(holidays) == (1, '- Today is a holiday.')
