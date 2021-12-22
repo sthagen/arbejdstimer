@@ -49,3 +49,9 @@ def test_api_date_range_two():
 def test_api_date_range_three():
     three = api.DateRange(__root__=['2021-12-31', '2022-01-01', '2022-01-02'])  # type: ignore
     assert three.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1), dti.date(2022, 1, 2)]
+
+
+def test_api_date_range_duplicate():
+    with pytest.raises(ValidationError, match=_subs(1, 'DateRange')) as err:
+        _ = api.DateRange(__root__=['2021-12-31', '2021-12-31'])  # type: ignore
+    assert '\n__root__\n  dates in a date range must be unique' in str(err.value)
