@@ -82,3 +82,13 @@ def test_api_working_hours_nine_nine_five_triplet():
     with pytest.raises(ValidationError, match=_subs(1, 'WorkingHours')) as err:
         _ = api.WorkingHours(__root__=[nine, nine, five])  # type: ignore
     assert '\n__root__\n  ensure this value has at most 2 items' in str(err.value)
+
+
+def test_api_holiday_wun():
+    wun = api.DateRange(__root__=['2021-12-31'])  # type: ignore
+    holiday = api.Holiday(date_range=wun)
+    assert holiday.date_range.__root__ == [dti.date(2021, 12, 31)]
+    assert holiday.json() == '{"label": "", "date_range": ["2021-12-31"]}'
+    data = {'label': '', 'date_range': ['2021-12-31']}
+    another_holiday = api.Holiday(**data)  # type: ignore
+    assert holiday == another_holiday
