@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+import datetime as dti
+
 import pytest
 from pydantic.error_wrappers import ValidationError
 
@@ -32,3 +34,8 @@ def test_api_hour_no_digit():
     with pytest.raises(ValidationError, match=_subs(1, 'Hour')) as err:
         _ = api.Hour(__root__='_')  # type: ignore
     assert '\n__root__\n  value is not a valid integer' in str(err.value)
+
+
+def test_api_date_range_wun():
+    wun = api.DateRange(__root__=['2021-12-31'])  # type: ignore
+    assert wun.__root__ == [dti.date(2021, 12, 31)]
