@@ -8,7 +8,7 @@ import tests.conftest as fix
 
 
 def test_main_legacy_ok(capsys):
-    assert cli.main(['now', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
+    assert cli.main(['explain', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
     out, err = capsys.readouterr()
     assert 'read valid configuration from (' in out.lower()
     assert not err
@@ -26,6 +26,15 @@ def test_version_ok(capsys):
 def test_now_ok(capsys):
     with pytest.raises(SystemExit) as exec_info:
         cli.now(conf=fix.CFG_FS_EMPTY)  # type: ignore
+    assert exec_info.value.code in (0, 1)
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
+def test_explain_ok(capsys):
+    with pytest.raises(SystemExit) as exec_info:
+        cli.explain(conf=fix.CFG_FS_EMPTY)  # type: ignore
     assert exec_info.value.code in (0, 1)
     out, err = capsys.readouterr()
     assert 'read valid configuration from (' in out.lower()

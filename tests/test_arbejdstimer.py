@@ -21,7 +21,7 @@ def test_at_verify_request_falsy_input():
 
 
 def test_at_main_holidays(capsys):
-    assert at.main(['now', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
+    assert at.main(['explain', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
     out, err = capsys.readouterr()
     assert 'consider 11 holidays' in out.lower()
     assert not err
@@ -93,7 +93,7 @@ def test_at_load_and_apply_today_holiday(capsys):
     error, message, holidays, _ = at.load(fix.CFG_PY_TODAY_HOLIDAY)
     assert not error
     assert not message
-    assert at.apply(holidays, (None, None)) == (1, '- Today is a holiday.')
+    assert at.apply(holidays, (None, None), 'explain') == (1, '- Today is a holiday.')
     out, err = capsys.readouterr()
     assert not out
     assert not err
