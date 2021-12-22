@@ -17,6 +17,7 @@ ENCODING_ERRORS_POLICY = 'ignore'
 
 DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
 CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
+WORKING_HOURS_TYPE = Union[tuple[int, int], tuple[None, None]]
 DATE_FMT = '%Y-%m-%d'
 
 
@@ -31,8 +32,9 @@ def no_weekend(day_number: int) -> bool:
 
 
 @no_type_check
-def apply(off_days: list[dti.date]) -> Tuple[int, str]:
+def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE) -> Tuple[int, str]:
     """ddd"""
+    working_hours = working_hours if working_hours != (None, None) else (7, 16)
     today = dti.date.today()
     if today not in off_days:
         print(f'- Today ({today}) is not a holiday')
@@ -47,7 +49,7 @@ def apply(off_days: list[dti.date]) -> Tuple[int, str]:
         return 1, '- Today is weekend.'
 
     hour = dti.datetime.now().hour
-    if 6 < hour < 17:
+    if working_hours[0] <= hour <= working_hours[1]:
         print(f'- At this hour ({hour}) is work time')
     else:
         return 1, f'- No worktime at hour({hour}).'
@@ -56,7 +58,7 @@ def apply(off_days: list[dti.date]) -> Tuple[int, str]:
 
 
 @no_type_check
-def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], Union[tuple[int, int], tuple[None, None]]]:
+def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
     """Load the configuration and return error, message and holidays as well as working hours list."""
     holidays = cfg.get('holidays')
     if not isinstance(holidays, list) or not holidays:
@@ -82,7 +84,9 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], Union[tuple[int, int]
             for text in date_range:
                 holidays_date_list.append(dti.datetime.strptime(text, DATE_FMT).date())
 
-    return 0, '', sorted(holidays_date_list), (None, None)
+    working_hours = cfg.get('working_hours', [None, None])
+
+    return 0, '', sorted(holidays_date_list), tuple(working_hours)
 
 
 @no_type_check
@@ -182,7 +186,7 @@ def main(argv: Union[List[str], None] = None) -> int:
         return error
 
     print(f'consider {len(holidays)} holidays:')
-    error, message = apply(holidays)
+    error, message = apply(holidays, working_hours)
     if error:
         print(message, file=sys.stdout)
         return error

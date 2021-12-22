@@ -86,7 +86,7 @@ def test_at_load_and_apply_today_holiday(capsys):
     error, message, holidays, _ = at.load(fix.CFG_PY_TODAY_HOLIDAY)
     assert not error
     assert not message
-    assert at.apply(holidays) == (1, '- Today is a holiday.')
+    assert at.apply(holidays, (None, None)) == (1, '- Today is a holiday.')
     out, err = capsys.readouterr()
     assert not out
     assert not err
