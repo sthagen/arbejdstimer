@@ -33,7 +33,7 @@ def test_at_verify_no_meta():
 
 def test_at_verify_alien_meta():
     assert at.verify({'_meta': 'b'}) == (2, 'configuration lacks required _meta (object) section')  # type: ignore
-    expect = (2, 'configuration lacks required rule for combination with defaults (expected value "or")')
+    expect = (2, 'configuration offers wrong application (name) value (expected arbejdstimer)')
     assert at.verify({'_meta': {'a': 'b'}}) == expect  # type: ignore
 
 
@@ -46,20 +46,23 @@ def test_at_verify_alien_application():
 
 
 def test_at_verify_alien_api_version():
-    expect = (2, 'configuration offers wrong or no api version (expected value "1")')
     cfg = {'_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer'}}
+    expect = (2, 'configuration offers wrong or no api version (expected value "1")')
     assert at.verify(cfg) == expect  # type: ignore
     cfg = {'_meta': {'combination_with_defaults': 'x', 'application': 'arbejdstimer', 'configuration_api_version': '2'}}
+    expect = (2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented')
     assert at.verify(cfg) == expect  # type: ignore
-    expect = (1, 'configuration offers wrong api version value (expected value "1")')
+    expect = (2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented')
     cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '_'}}
     assert at.verify(cfg) == expect  # type: ignore
 
 
 def test_at_verify_no_holidays_alien_or_empty():
-    cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '1'}}
-    expect = (2, 'configuration lacks holidays entry or list empty')
-    assert at.verify(cfg) == expect  # type: ignore
+    expect = (0, '')
+    cfg = {
+        '_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer', 'configuration_api_version': '1'}
+    }
+    assert at.verify(cfg) == expect
     cfg = {**cfg, 'holidays': None}
     assert at.verify(cfg) == expect  # type: ignore
     cfg = {**cfg, 'holidays': []}
@@ -67,7 +70,9 @@ def test_at_verify_no_holidays_alien_or_empty():
 
 
 def test_at_verify_holidays_alien():
-    cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '1'}}
+    cfg = {
+        '_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer', 'configuration_api_version': '1'}
+    }
     expect = (2, 'configuration holidays entry is not a list')
     cfg = {**cfg, 'holidays': {'holi': 'days'}}
     assert at.verify(cfg) == expect  # type: ignore
@@ -76,7 +81,9 @@ def test_at_verify_holidays_alien():
 
 
 def test_at_verify_holidays_missing_date_range():
-    cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '1'}}
+    cfg = {
+        '_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer', 'configuration_api_version': '1'}
+    }
     expect = (2, 'no. 2 configuration holidays entry has no date_range value (not present or list empty)')
     cfg = {**cfg, 'holidays': [{'date_range': ['ignore']}, {}]}
     assert at.verify(cfg) == expect  # type: ignore

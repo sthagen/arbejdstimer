@@ -99,8 +99,9 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
         return 2, 'configuration lacks required _meta (object) section'
 
     meta = cfg['_meta']
-    if not meta.get('combination_with_defaults'):
-        return 2, 'configuration lacks required rule for combination with defaults (expected value "or")'
+    default_combination_rule = 'or'
+    if meta.get('combination_with_defaults', default_combination_rule) != default_combination_rule:
+        return 2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented'
 
     if meta.get('application', 'NOT_PRESENT') != 'arbejdstimer':
         return 2, 'configuration offers wrong application (name) value (expected arbejdstimer)'
@@ -113,16 +114,14 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
     except ValueError:
         return 1, 'configuration offers wrong api version value (expected value "1")'
 
-    if not cfg.get('holidays'):
-        return 2, 'configuration lacks holidays entry or list empty'
+    if cfg.get('holidays'):
+        holidays = cfg['holidays']
+        if not isinstance(holidays, list):
+            return 2, 'configuration holidays entry is not a list'
 
-    holidays = cfg['holidays']
-    if not isinstance(holidays, list):
-        return 2, 'configuration holidays entry is not a list'
-
-    for nth, entry in enumerate(holidays, start=1):
-        if not entry.get('date_range'):
-            return 2, f'no. {nth} configuration holidays entry has no date_range value (not present or list empty)'
+        for nth, entry in enumerate(holidays, start=1):
+            if not entry.get('date_range'):
+                return 2, f'no. {nth} configuration holidays entry has no date_range value (not present or list empty)'
 
     if cfg.get('working_hours'):
         working_hours = cfg['working_hours']

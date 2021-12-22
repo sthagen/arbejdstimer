@@ -9,7 +9,12 @@ import arbejdstimer.arbejdstimer as at
 CFG_FS_EMPTY = pathlib.Path('tests', 'fixtures', 'basic', 'minimal-config.json')
 CFG_FS_HOLIDAYS = pathlib.Path('tests', 'fixtures', 'basic', 'holidays-config.json')
 CFG_FS_NOT_THERE = pathlib.Path('does', 'not', 'exist', 'hypothetical.json')
-CFG_PY_EMPTY = {}
+CFG_PY_EMPTY = {
+    '_meta': {
+        'application': 'arbejdstimer',
+        'configuration_api_version': '1',
+    }
+}
 
 TODAY = dti.date.today()
 CFG_PY_TODAY_HOLIDAY = {
