@@ -19,6 +19,7 @@ CFG_PY_TODAY_HOLIDAY = {
         'configuration_api_version': '1',
     },
     'holidays': [{'date_range': [TODAY.strftime(at.DATE_FMT)]}],
+    'working_hours': [8, 17],
 }
 
 ENCODING = 'utf-8'
