@@ -25,6 +25,7 @@ Default configuration at `$HOME/.arbejdstimer.json` content from example at
         "2022-01-02"
       ]
     }
-  ]
+  ],
+  "working_hours": [8, 17]
 }
 ```
