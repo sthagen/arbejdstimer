@@ -2,16 +2,24 @@
 
 ## Is now a working day?
 
+Silent answer:
+
 ```console
-$ arbejdstimer now -c tests/fixtures/basic/holidays-config.json || echo "OFF"
+$ arbejdstimer now --config tests/fixtures/basic/holidays-config.json || echo "OFF"
+OFF
+```
+
+Explaining the reasons and answering:
+
+```console
+$ arbejdstimer explain --config tests/fixtures/basic/holidays-config.json || echo "OFF"
 read valid configuration from (tests/fixtures/basic/holidays-config.json)
 consider 11 holidays:
 - Today (2021-12-22) is not a holiday
 - Today (2021-12-22) is not a weekend
-- No worktime at hour(7).
+- No worktime at hour(21).
 OFF
 ```
-
 
 ## Version command
 
@@ -31,13 +39,33 @@ Usage: arbejdstimer [OPTIONS] COMMAND [ARGS]...
   Given a configuration file detect if today is a work day and if at the time
   of request is a working hour.
 
+  Return code of 0 indicates work time, 1 no work time, and 2 usage error.
+
+  Additional help available per command adding the -h/--help option
+
 Options:
   -V, --version  Display the arbejdstimer version and exit
   -h, --help     Show this message and exit.
 
 Commands:
-  now      Answer the question if now is a working hour.
+  explain  Explain the answer to the question if now is a working hour...
+  now      Silently answer the question if now is a working hour (per...
   version  Display the arbejdstimer version and exit
+```
+
+## Help on explain command
+
+```console
+$ arbejdstimer explain --help
+Usage: arbejdstimer explain [OPTIONS]
+
+  Explain the answer to the question if now is a working hour (in addition to
+  the return code 0 for yes, and 1 for no).
+
+Options:
+  -c, --config <configpath>  Path to config file (default is
+                             $HOME/.arbejdstimer.json)
+  -h, --help                 Show this message and exit.
 ```
 
 ## Help on now command
@@ -46,7 +74,8 @@ Commands:
 $ arbejdstimer now --help
 Usage: arbejdstimer now [OPTIONS]
 
-  Answer the question if now is a working hour.
+  Silently answer the question if now is a working hour (per return code 0 for
+  yes, and 1 for no).
 
 Options:
   -c, --config <configpath>  Path to config file (default is
