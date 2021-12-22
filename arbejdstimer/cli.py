@@ -35,6 +35,10 @@ def callback(
 
     Given a configuration file detect if today is a work day and
     if at the time of request is a working hour.
+
+    Return code of 0 indicates work time, 1 no work time, and 2 usage error.
+
+    Additional help available per command adding the -h/--help option
     """
     if version:
         typer.echo(f'{APP_NAME} version {arbejdstimer.__version__}')
@@ -52,9 +56,29 @@ def now(
     ),
 ) -> int:
     """
-    Answer the question if now is a working hour.
+    Silently answer the question if now is a working hour (per return code 0 for yes, and 1 for no).
     """
     command = 'now'
+    config = conf if conf else pathlib.Path.home() / at.DEFAULT_CONFIG_NAME
+    action = [command, str(config)]
+    return sys.exit(at.main(action))
+
+
+@app.command('explain')
+def explain(
+    conf: str = typer.Option(
+        '',
+        '-c',
+        '--config',
+        help='Path to config file (default is $HOME/.arbejdstimer.json)',
+        metavar='<configpath>',
+    ),
+) -> int:
+    """
+    Explain the answer to the question if now is a working hour
+    (in addition to the return code 0 for yes, and 1 for no).
+    """
+    command = 'explain'
     config = conf if conf else pathlib.Path.home() / at.DEFAULT_CONFIG_NAME
     action = [command, str(config)]
     return sys.exit(at.main(action))

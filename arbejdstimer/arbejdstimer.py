@@ -14,7 +14,6 @@ DEBUG = os.getenv(DEBUG_VAR)
 ENCODING = 'utf-8'
 ENCODING_ERRORS_POLICY = 'ignore'
 
-
 DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
 CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
 WORKING_HOURS_TYPE = Union[tuple[int, int], tuple[None, None]]
@@ -32,25 +31,28 @@ def no_weekend(day_number: int) -> bool:
 
 
 @no_type_check
-def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE) -> Tuple[int, str]:
+def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str) -> Tuple[int, str]:
     """ddd"""
     working_hours = working_hours if working_hours != (None, None) else (7, 16)
     today = dti.date.today()
     if today not in off_days:
-        print(f'- Today ({today}) is not a holiday')
+        if cmd == 'explain':
+            print(f'- Today ({today}) is not a holiday')
     else:
         return 1, '- Today is a holiday.'
 
     week_day = weekday(today)
     work_day = no_weekend(week_day)
     if work_day:
-        print(f'- Today ({today}) is not a weekend')
+        if cmd == 'explain':
+            print(f'- Today ({today}) is not a weekend')
     else:
         return 1, '- Today is weekend.'
 
     hour = dti.datetime.now().hour
     if working_hours[0] <= hour <= working_hours[1]:
-        print(f'- At this hour ({hour}) is work time')
+        if cmd == 'explain':
+            print(f'- At this hour ({hour}) is work time')
     else:
         return 1, f'- No worktime at hour({hour}).'
 
@@ -146,7 +148,7 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
 
     command, config = argv
 
-    if command not in ('now',):
+    if command not in ('explain', 'now'):
         return 2, 'received unknown command', ['']
 
     if not config:
@@ -175,19 +177,24 @@ def main(argv: Union[List[str], None] = None) -> int:
 
     error, message = verify(configuration)
     if error:
-        print(message, file=sys.stderr)
+        if command == 'explain':
+            print(message, file=sys.stderr)
         return error
 
-    print(f'read valid configuration from ({config})')
+    if command == 'explain':
+        print(f'read valid configuration from ({config})')
     error, message, holidays, working_hours = load(configuration)
     if error:
-        print(message, file=sys.stderr)
+        if command == 'explain':
+            print(message, file=sys.stderr)
         return error
 
-    print(f'consider {len(holidays)} holidays:')
-    error, message = apply(holidays, working_hours)
+    if command == 'explain':
+        print(f'consider {len(holidays)} holidays:')
+    error, message = apply(holidays, working_hours, command)
     if error:
-        print(message, file=sys.stdout)
+        if command == 'explain':
+            print(message, file=sys.stdout)
         return error
 
     return 0
