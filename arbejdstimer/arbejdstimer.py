@@ -120,6 +120,19 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
         if not entry.get('date_range'):
             return 2, f'no. {nth} configuration holidays entry has no date_range value (not present or list empty)'
 
+    if cfg.get('working_hours'):
+        working_hours = cfg['working_hours']
+        if not isinstance(working_hours, list):
+            return 2, 'configuration working_hours entry is not a list'
+
+        if sorted(working_hours) != working_hours:
+            return 2, 'disordered configuration working_hours entry (first must precede or be equal to last hour)'
+
+        try:
+            _ = [int(hour) for hour in working_hours]
+        except ValueError:
+            return 2, 'configuration working_hours entries must be integer values'
+
     return 0, ''
 
 
