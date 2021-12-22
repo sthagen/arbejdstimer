@@ -39,3 +39,8 @@ def test_api_hour_no_digit():
 def test_api_date_range_wun():
     wun = api.DateRange(__root__=['2021-12-31'])  # type: ignore
     assert wun.__root__ == [dti.date(2021, 12, 31)]
+
+
+def test_api_date_range_two():
+    two = api.DateRange(__root__=['2021-12-31', '2022-01-01'])  # type: ignore
+    assert two.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1)]
