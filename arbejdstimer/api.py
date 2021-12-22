@@ -45,12 +45,12 @@ class Meta(BaseModel):
     )
 
 
-class HourValue(BaseModel):
+class Hour(BaseModel):
     __root__: conint(ge=0, le=23)  # type: ignore
 
 
 class WorkingHours(BaseModel):
-    __root__: List[HourValue] = Field(
+    __root__: List[Hour] = Field(
         ...,
         description=(
             'The mandatory two entries are interpreted as inclusive range of 24 hour start and end integer values.'
