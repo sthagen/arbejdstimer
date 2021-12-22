@@ -5,9 +5,9 @@ from __future__ import annotations
 
 from datetime import date
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, no_type_check
 
-from pydantic import BaseModel, Extra, Field, conint
+from pydantic import BaseModel, Extra, Field, conint, validator
 
 
 class AppName(Enum):
@@ -70,6 +70,13 @@ class DateRange(BaseModel):
         min_items=1,
         title='Date Ranges',
     )
+
+    @no_type_check
+    @validator('__root__')
+    def is_unique(cls, v):
+        if v and 1 < len(v) != len(set(v)):
+            raise ValueError('dates in a date range must be unique')
+        return v
 
 
 class Holiday(BaseModel):
