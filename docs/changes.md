@@ -1,5 +1,9 @@
 # Change History
 
+## 2021.12.27
+
+* Replaced the current configuration loading with model based approach (implements #12)
+
 ## 2021.12.22
 
 * Started a data driven configuration validation behind the moon (not yet active) 
