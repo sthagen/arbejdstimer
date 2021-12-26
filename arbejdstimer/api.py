@@ -100,9 +100,6 @@ class Holidays(BaseModel):
 
 
 class Arbejdstimer(BaseModel):
-    class Config:
-        extra = Extra.forbid
-
-    _meta: Optional[Meta] = None
-    holidays: Optional[Holidays] = None
-    working_hours: Optional[WorkingHours] = None
+    _meta: Optional[Meta]
+    holidays: Optional[Holidays]
+    working_hours: Optional[WorkingHours]

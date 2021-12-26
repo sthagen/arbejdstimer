@@ -6,6 +6,8 @@ import pytest
 from pydantic.error_wrappers import ValidationError
 
 import arbejdstimer.api as api
+import arbejdstimer.arbejdstimer as at
+import tests.conftest as fix
 
 
 def _subs(count: int, what: str) -> str:
@@ -90,5 +92,13 @@ def test_api_holiday_wun():
     assert holiday.date_range.__root__ == [dti.date(2021, 12, 31)]
     assert holiday.json() == '{"label": "", "date_range": ["2021-12-31"]}'
     data = {'label': '', 'date_range': ['2021-12-31']}
+    # noinspection Pydantic
     another_holiday = api.Holiday(**data)  # type: ignore
     assert holiday == another_holiday
+
+
+def test_api_today():
+    # noinspection Pydantic
+    cfg = api.Arbejdstimer(**fix.CFG_PY_TODAY_HOLIDAY)
+    today_rep = fix.TODAY.strftime(at.DATE_FMT)
+    assert cfg.json() == f'{{"holidays": [{{"label": "", "date_range": ["{today_rep}"]}}], "working_hours": [8, 17]}}'
