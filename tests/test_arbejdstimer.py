@@ -33,7 +33,7 @@ def test_at_verify_no_meta():
 
 def test_at_verify_alien_meta():
     expect = (2, 'configuration offers wrong application (name) value (expected arbejdstimer)')
-    assert at.verify({'operator': 'or', 'name': 'arbejdstimer'}) == expect  # type: ignore
+    assert at.verify({'operator': 'or', 'application': None}) == expect  # type: ignore
 
 
 def test_at_verify_alien_application():
