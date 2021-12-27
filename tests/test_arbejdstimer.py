@@ -93,33 +93,51 @@ def test_at_load_alien_api_version():
 
 
 def test_at_load_no_holidays_alien_or_empty():
-    expect = (0, '')
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
-    assert at.load(cfg) == expect  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
+    assert code == 0
+    assert message == ''
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
+
     cfg = {**cfg, 'holidays': None}
-    assert at.load(cfg) == expect  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
+    assert code == 0
+    assert message == ''
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
+
     cfg = {**cfg, 'holidays': []}
-    assert at.load(cfg) == expect  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
+    assert code == 0
+    assert message == ''
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
 
 def test_at_load_holidays_alien():
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
     cfg = {**cfg, 'holidays': {'holi': 'days'}}
-    code, message = at.load(cfg)  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
     expected_part = '1 validation error for Arbejdstimer\nholidays -> __root__\n  value is not a valid list'
     assert expected_part in message
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
     cfg = {**cfg, 'holidays': 42}
-    code, message = at.verify(cfg)  # type: ignore
+    code, message, holidays, hours = at.verify(cfg)  # type: ignore
     assert code == 2
     assert expected_part in message
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
 
 def test_at_load_holidays_missing_date_range():
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
     cfg = {**cfg, 'holidays': [{'at': ['ignore']}, {}]}
-    code, message = at.load(cfg)  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
+    assert code == 2
     expected_parts = (
         '2 validation errors for Arbejdstimer',
         'holidays -> __root__ -> 0 -> at -> __root__ -> 0',
@@ -129,6 +147,8 @@ def test_at_load_holidays_missing_date_range():
     )
     for part in expected_parts:
         assert part in message
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
 
 def test_at_load_and_apply_today_holiday(capsys):
