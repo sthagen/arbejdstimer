@@ -68,9 +68,9 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
 
     holidays_date_list = []
     for nth, entry in enumerate(holidays, start=1):
-        date_range = entry['date_range']
+        date_range = entry['at']
         if not isinstance(date_range, list) or not date_range:
-            return 1, f'no. {nth} configuration holidays entry date_range value is no list or empty', [], (None, None)
+            return 1, f'no. {nth} configuration holidays entry at value is no list or empty', [], (None, None)
 
         if len(date_range) == 1:
             holidays_date_list.append(dti.datetime.strptime(date_range[0], DATE_FMT).date())
@@ -97,18 +97,18 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
     if not cfg:
         return 0, 'empty configuration, using default'
 
-    if not cfg.get('_meta') or not isinstance(cfg['_meta'], dict):
-        return 2, 'configuration lacks required _meta (object) section'
+    if not cfg.get('operator') or not isinstance(cfg['operator'], str):
+        return 2, 'configuration lacks required operator entry'
 
-    meta = cfg['_meta']
+    combination_with_defaults = cfg['operator']
     default_combination_rule = 'or'
-    if meta.get('combination_with_defaults', default_combination_rule) != default_combination_rule:
+    if combination_with_defaults != default_combination_rule:
         return 2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented'
 
-    if meta.get('application', 'NOT_PRESENT') != 'arbejdstimer':
+    if cfg.get('application', 'NOT_PRESENT') != 'arbejdstimer':
         return 2, 'configuration offers wrong application (name) value (expected arbejdstimer)'
 
-    api_version = meta.get('configuration_api_version', '0')
+    api_version = cfg.get('api', '0')
     try:
         api_version = int(api_version)
         if api_version != 1:
