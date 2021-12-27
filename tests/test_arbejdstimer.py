@@ -28,7 +28,7 @@ def test_at_main_holidays(capsys):
 
 
 def test_at_verify_no_meta():
-    assert at.verify({'a': 'b'}) == (2, 'configuration lacks required _meta (object) section')  # type: ignore
+    assert at.verify({'a': 'b'}) == (2, 'configuration lacks required operator entry')  # type: ignore
 
 
 def test_at_verify_alien_meta():
