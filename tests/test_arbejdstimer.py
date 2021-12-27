@@ -53,14 +53,30 @@ def test_at_verify_alien_application():
 
 def test_at_verify_alien_api_version():
     cfg = {'operator': 'or', 'application': 'b', 'api': None}
-    expect = (2, 'configuration offers wrong application (name) value (expected arbejdstimer)')
-    assert at.verify(cfg) == expect  # type: ignore
+    code, message = at.verify(cfg)  # type: ignore
+    assert code == 2
+    expected_part = (
+        '1 validation error for Arbejdstimer\napplication\n  value is not a valid enumeration member;'
+        " permitted: 'arbejdstimer'"
+    )
+    assert expected_part in message
+
     cfg = {'operator': 'dirac', 'application': 'arbejdstimer', 'api': 1}
-    expect = (2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented')
-    assert at.verify(cfg) == expect  # type: ignore
+    code, message = at.verify(cfg)  # type: ignore
+    assert code == 2
+    expected_part = (
+        '1 validation error for Arbejdstimer\noperator\n  value is not a valid enumeration member;'
+        " permitted: 'and', 'or', 'xor'"
+    )
+    assert expected_part in message
+
     cfg = {'operator': 42, 'application': 'arbejdstimer', 'api': 1}
-    expect = (2, 'configuration lacks required operator entry')
-    assert at.verify(cfg) == expect  # type: ignore
+    code, message = at.verify(cfg)  # type: ignore
+    expected_part = (
+        '1 validation error for Arbejdstimer\noperator\n  value is not a valid enumeration member;'
+        " permitted: 'and', 'or', 'xor'"
+    )
+    assert expected_part in message
 
 
 def test_at_verify_no_holidays_alien_or_empty():
@@ -84,9 +100,17 @@ def test_at_verify_holidays_alien():
 
 def test_at_verify_holidays_missing_date_range():
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
-    expect = (2, 'no. 2 configuration holidays entry has no at values (not present or list empty)')
     cfg = {**cfg, 'holidays': [{'at': ['ignore']}, {}]}
-    assert at.verify(cfg) == expect  # type: ignore
+    code, message = at.verify(cfg)  # type: ignore
+    expected_parts = (
+        '2 validation errors for Arbejdstimer',
+        'holidays -> __root__ -> 0 -> at -> __root__ -> 0',
+        'invalid date format',
+        'holidays -> __root__ -> 1 -> at',
+        'field required',
+    )
+    for part in expected_parts:
+        assert part in message
 
 
 def test_at_load_and_apply_today_holiday(capsys):
