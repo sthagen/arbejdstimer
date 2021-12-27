@@ -105,16 +105,17 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
     if combination_with_defaults != default_combination_rule:
         return 2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented'
 
-    if cfg.get('application', 'NOT_PRESENT') != 'arbejdstimer':
+    if cfg.get('application', 'NOT_PRESENT') not in ('arbejdstimer', 'NOT_PRESENT'):
         return 2, 'configuration offers wrong application (name) value (expected arbejdstimer)'
 
-    api_version = cfg.get('api', '0')
-    try:
-        api_version = int(api_version)
-        if api_version != 1:
-            return 2, 'configuration offers wrong or no api version (expected value "1")'
-    except ValueError:
-        return 1, 'configuration offers wrong api version value (expected value "1")'
+    api_version = cfg.get('api', None)
+    if api_version is not None:
+        try:
+            api_version = int(api_version)
+            if api_version != 1:
+                return 2, 'configuration offers wrong or no api version (expected value "1")'
+        except ValueError:
+            return 1, 'configuration offers wrong api version value (expected value "1")'
 
     if cfg.get('holidays'):
         holidays = cfg['holidays']
