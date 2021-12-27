@@ -11,6 +11,7 @@ CFG_FS_HOLIDAYS = pathlib.Path('tests', 'fixtures', 'basic', 'holidays-config.js
 CFG_FS_TRIPLET_HOLIDAYS = pathlib.Path('tests', 'fixtures', 'basic', 'triplet-holidays-config.json')
 CFG_FS_NOT_THERE = pathlib.Path('does', 'not', 'exist', 'hypothetical.json')
 CFG_FS_NO_JSON_EXTENSION = pathlib.Path('tests', 'fixtures', 'basic', 'this-has-no-json-extens.ion')
+CFG_FS_INVALID_MINIMAL = pathlib.Path('tests', 'fixtures', 'basic', 'invalid-minimal-config.json')
 CFG_PY_EMPTY = {
     'operator': 'or',
 }

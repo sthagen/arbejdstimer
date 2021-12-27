@@ -9,8 +9,23 @@ def _subs(count: int, what: str) -> str:
     return f'{count} validation error{"" if count == 1 else "s"} for {what}'
 
 
-def test_at_main():
+def test_at_main_now():
     assert at.main(['now', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
+
+
+def test_at_main_explain():
+    assert at.main(['explain', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
+
+
+def test_at_main_explain_load_error_processing(capsys):
+    assert at.main(['explain', str(fix.CFG_FS_INVALID_MINIMAL)]) == 2
+    out, err = capsys.readouterr()
+    assert not out
+    message_part = (
+        '1 validation error for arbejdstimer\noperator\n  value is not a valid enumeration member;'
+        " permitted: 'and', 'or', 'xor'"
+    )
+    assert message_part in err.lower()
 
 
 def test_at_verify_request_too_few():
