@@ -1,0 +1,16 @@
+{
+  "api": 1,
+  "application": "arbejdstimer",
+  "operator": "or",
+  "holidays": [
+    {
+      "label": "triplet holiday",
+      "at": [
+        "2021-12-29",
+        "2021-12-30",
+        "2021-12-31"
+      ]
+    }
+  ],
+  "working_hours": [8, 17]
+}
