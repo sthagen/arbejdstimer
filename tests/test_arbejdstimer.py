@@ -55,10 +55,8 @@ def test_at_verify_alien_api_version():
 
 def test_at_verify_no_holidays_alien_or_empty():
     expect = (0, '')
-    cfg = {
-        '_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer', 'configuration_api_version': '1'}
-    }
-    assert at.verify(cfg) == expect
+    cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
+    assert at.verify(cfg) == expect  # type: ignore
     cfg = {**cfg, 'holidays': None}
     assert at.verify(cfg) == expect  # type: ignore
     cfg = {**cfg, 'holidays': []}
