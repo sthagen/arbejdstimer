@@ -36,6 +36,10 @@ def test_at_load_empty():
     assert at.load({}) == (0, 'empty configuration, using default', [], at.DEFAULT_WORK_HOURS_MARKER)
 
 
+def test_at_load_falsy():
+    assert at.load(None) == (0, 'empty configuration, using default', [], at.DEFAULT_WORK_HOURS_MARKER)  # type: ignore
+
+
 def test_at_load_no_meta():
     message = '1 validation error for Arbejdstimer\noperator\n  field required (type=value_error.missing)'
     assert at.load({'a': 'b'}) == (2, message, [], at.DEFAULT_WORK_HOURS_MARKER)  # type: ignore
