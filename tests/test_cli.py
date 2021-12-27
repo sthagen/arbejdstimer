@@ -52,5 +52,15 @@ def test_non_existing_configuration_file(capsys):
     assert not out
 
 
+def test_existing_configuration_file_with_non_json_extension(capsys):
+    with pytest.raises(SystemExit) as exec_info:
+        cli.now(conf=fix.CFG_FS_NO_JSON_EXTENSION)  # type: ignore
+    assert exec_info.value.code == 1
+    out, err = capsys.readouterr()
+    assert 'config' in err.lower()
+    assert 'config has not .json extension' in err.lower()
+    assert not out
+
+
 def test_callback_with_version_false():
     assert cli.callback(False) is None

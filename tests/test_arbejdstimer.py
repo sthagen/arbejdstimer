@@ -167,3 +167,11 @@ def test_at_load_and_apply_today_holiday(capsys):
     out, err = capsys.readouterr()
     assert not out
     assert not err
+
+
+def test_at_load_triplet_holidays(capsys):
+    error, message, holidays, hours = at.load(fix.CFG_PY_TRIPLET_HOLIDAYS)
+    assert not error
+    assert not message
+    assert len(holidays) == 3
+    assert hours == tuple(fix.CFG_PY_TRIPLET_HOLIDAYS['working_hours'])
