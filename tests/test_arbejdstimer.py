@@ -72,6 +72,7 @@ def test_at_verify_alien_api_version():
 
     cfg = {'operator': 42, 'application': 'arbejdstimer', 'api': 1}
     code, message = at.verify(cfg)  # type: ignore
+    assert code == 2
     expected_part = (
         '1 validation error for Arbejdstimer\noperator\n  value is not a valid enumeration member;'
         " permitted: 'and', 'or', 'xor'"
@@ -91,11 +92,16 @@ def test_at_verify_no_holidays_alien_or_empty():
 
 def test_at_verify_holidays_alien():
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
-    expect = (2, 'configuration holidays entry is not a list')
     cfg = {**cfg, 'holidays': {'holi': 'days'}}
-    assert at.verify(cfg) == expect  # type: ignore
+    code, message = at.verify(cfg)  # type: ignore
+    assert code == 2
+    expected_part = '1 validation error for Arbejdstimer\nholidays -> __root__\n  value is not a valid list'
+    assert expected_part in message
+
     cfg = {**cfg, 'holidays': 42}
-    assert at.verify(cfg) == expect  # type: ignore
+    code, message = at.verify(cfg)  # type: ignore
+    assert code == 2
+    assert expected_part in message
 
 
 def test_at_verify_holidays_missing_date_range():
