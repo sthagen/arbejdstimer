@@ -42,14 +42,14 @@ def test_at_verify_alien_application():
 
 
 def test_at_verify_alien_api_version():
-    cfg = {'_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer'}}
-    expect = (2, 'configuration offers wrong or no api version (expected value "1")')
+    cfg = {'operator': 'or', 'application': 'b', 'api': None}
+    expect = (2, 'configuration offers wrong application (name) value (expected arbejdstimer)')
     assert at.verify(cfg) == expect  # type: ignore
-    cfg = {'_meta': {'combination_with_defaults': 'x', 'application': 'arbejdstimer', 'configuration_api_version': '2'}}
+    cfg = {'operator': 'dirac', 'application': 'arbejdstimer', 'api': 1}
     expect = (2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented')
     assert at.verify(cfg) == expect  # type: ignore
-    expect = (2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented')
-    cfg = {'_meta': {'combination_with_defaults': 'y', 'application': 'arbejdstimer', 'configuration_api_version': '_'}}
+    cfg = {'operator': 42, 'application': 'arbejdstimer', 'api': 1}
+    expect = (2, 'configuration lacks required operator entry')
     assert at.verify(cfg) == expect  # type: ignore
 
 
