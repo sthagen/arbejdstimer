@@ -22,6 +22,7 @@ DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
 CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
 WORKING_HOURS_TYPE = Union[tuple[int, int], tuple[None, None]]
 DATE_FMT = '%Y-%m-%d'
+DEFAULT_WORK_HOURS_MARKER = (None, None)
 
 
 def weekday(date: dti.date) -> int:
@@ -66,46 +67,40 @@ def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str)
 @no_type_check
 def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
     """Load the configuration and return error, message and holidays as well as working hours list."""
-    holidays = cfg.get('holidays')
-    if not isinstance(holidays, list) or not holidays:
-        return 0, 'configuration lacks holidays entry or list empty', [], (None, None)
-
-    holidays_date_list = []
-    for nth, entry in enumerate(holidays, start=1):
-        date_range = entry['at']
-        if not isinstance(date_range, list) or not date_range:
-            return 1, f'no. {nth} configuration holidays entry at value is no list or empty', [], (None, None)
-
-        if len(date_range) == 1:
-            holidays_date_list.append(dti.datetime.strptime(date_range[0], DATE_FMT).date())
-        elif len(date_range) == 2:
-            data = sorted(date_range)
-            start, end = [dti.datetime.strptime(data[n], DATE_FMT).date() for n in (0, 1)]
-            current = start
-            holidays_date_list.append(current)
-            while current < end:
-                current += dti.timedelta(days=1)
-                holidays_date_list.append(current)
-        else:
-            for text in date_range:
-                holidays_date_list.append(dti.datetime.strptime(text, DATE_FMT).date())
-
-    working_hours = cfg.get('working_hours', [None, None])
-
-    return 0, '', sorted(holidays_date_list), tuple(working_hours)
-
-
-@no_type_check
-def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
-    """Fail on invalid configuration."""
     if not cfg:
-        return 0, 'empty configuration, using default'
+        return 0, 'empty configuration, using default', [], DEFAULT_WORK_HOURS_MARKER
 
     try:
-        _ = api.Arbejdstimer(**cfg)
-        return 0, ''
+        model = api.Arbejdstimer(**cfg)
     except ValidationError as err:
-        return 2, str(err)
+        return 2, str(err), [], (None, None)
+
+    holidays_date_list = []
+    if model.holidays:
+        holidays = model.dict()['holidays']
+        for nth, holiday in enumerate(holidays, start=1):
+            if not holiday or not holiday.get('at'):
+                message = f'no. {nth} configuration holidays entry at value is no list or empty'
+                return 1, message, [], DEFAULT_WORK_HOURS_MARKER
+            dates = holiday['at']
+            if len(dates) == 1:
+                holidays_date_list.append(dates[0])
+            elif len(dates) == 2:
+                data = sorted(dates)
+                start, end = [data[n] for n in (0, 1)]
+                current = start
+                holidays_date_list.append(current)
+                while current < end:
+                    current += dti.timedelta(days=1)
+                    holidays_date_list.append(current)
+            else:
+                for a_date in dates:
+                    holidays_date_list.append(a_date)
+
+    working_hours = DEFAULT_WORK_HOURS_MARKER
+    if model.working_hours:
+        working_hours = tuple(sorted(model.working_hours.dict().get('__root__', [None, None])))
+    return 0, '', sorted(holidays_date_list), working_hours
 
 
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
@@ -142,19 +137,13 @@ def main(argv: Union[List[str], None] = None) -> int:
     with open(config, 'rt', encoding=ENCODING) as handle:
         configuration = json.load(handle)
 
-    error, message = verify(configuration)
-    if error:
-        if command == 'explain':
-            print(message, file=sys.stderr)
-        return error
-
-    if command == 'explain':
-        print(f'read valid configuration from ({config})')
     error, message, holidays, working_hours = load(configuration)
     if error:
         if command == 'explain':
             print(message, file=sys.stderr)
         return error
+    if command == 'explain':
+        print(f'read valid configuration from ({config})')
 
     if command == 'explain':
         print(f'consider {len(holidays)} holidays:')
