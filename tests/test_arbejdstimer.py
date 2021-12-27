@@ -32,6 +32,10 @@ def test_at_main_holidays(capsys):
     assert not err
 
 
+def test_at_load_empty():
+    assert at.load({}) == (0, 'empty configuration, using default', [], at.DEFAULT_WORK_HOURS_MARKER)
+
+
 def test_at_load_no_meta():
     message = '1 validation error for Arbejdstimer\noperator\n  field required (type=value_error.missing)'
     assert at.load({'a': 'b'}) == (2, message, [], at.DEFAULT_WORK_HOURS_MARKER)  # type: ignore
