@@ -64,9 +64,7 @@ def test_at_verify_no_holidays_alien_or_empty():
 
 
 def test_at_verify_holidays_alien():
-    cfg = {
-        '_meta': {'combination_with_defaults': 'or', 'application': 'arbejdstimer', 'configuration_api_version': '1'}
-    }
+    cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
     expect = (2, 'configuration holidays entry is not a list')
     cfg = {**cfg, 'holidays': {'holi': 'days'}}
     assert at.verify(cfg) == expect  # type: ignore
