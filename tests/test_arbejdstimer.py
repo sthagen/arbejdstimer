@@ -4,6 +4,11 @@ import arbejdstimer.arbejdstimer as at
 import tests.conftest as fix
 
 
+def _subs(count: int, what: str) -> str:
+    """DRY."""
+    return f'{count} validation error{"" if count == 1 else "s"} for {what}'
+
+
 def test_at_main():
     assert at.main(['now', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
 
@@ -28,7 +33,8 @@ def test_at_main_holidays(capsys):
 
 
 def test_at_verify_no_meta():
-    assert at.verify({'a': 'b'}) == (2, 'configuration lacks required operator entry')  # type: ignore
+    message = '1 validation error for Arbejdstimer\noperator\n  field required (type=value_error.missing)'
+    assert at.verify({'a': 'b'}) == (2, message)  # type: ignore
 
 
 def test_at_verify_alien_meta():

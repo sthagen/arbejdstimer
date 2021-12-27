@@ -8,6 +8,10 @@ import pathlib
 import sys
 from typing import List, Optional, Tuple, Union, no_type_check
 
+from pydantic.error_wrappers import ValidationError
+
+import arbejdstimer.api as api
+
 DEBUG_VAR = 'ARBEJDSTIMER_DEBUG'
 DEBUG = os.getenv(DEBUG_VAR)
 
@@ -97,49 +101,55 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
     if not cfg:
         return 0, 'empty configuration, using default'
 
-    if not cfg.get('operator') or not isinstance(cfg['operator'], str):
-        return 2, 'configuration lacks required operator entry'
+    try:
+        _ = api.Arbejdstimer(**cfg)
+        return 0, ''
+    except ValidationError as err:
+        return 2, str(err)
 
-    combination_with_defaults = cfg['operator']
-    default_combination_rule = 'or'
-    if combination_with_defaults != default_combination_rule:
-        return 2, 'configuration provides rule for combination with defaults (expected value "or") not yet implemented'
-
-    if cfg.get('application', 'NOT_PRESENT') not in ('arbejdstimer', 'NOT_PRESENT'):
-        return 2, 'configuration offers wrong application (name) value (expected arbejdstimer)'
-
-    api_version = cfg.get('api', None)
-    if api_version is not None:
-        try:
-            api_version = int(api_version)
-            if api_version != 1:
-                return 2, 'configuration offers wrong or no api version (expected value "1")'
-        except ValueError:
-            return 1, 'configuration offers wrong api version value (expected value "1")'
-
-    if cfg.get('holidays'):
-        holidays = cfg['holidays']
-        if not isinstance(holidays, list):
-            return 2, 'configuration holidays entry is not a list'
-
-        for nth, entry in enumerate(holidays, start=1):
-            if not entry.get('at'):
-                return 2, f'no. {nth} configuration holidays entry has no at values (not present or list empty)'
-
-    if cfg.get('working_hours'):
-        working_hours = cfg['working_hours']
-        if not isinstance(working_hours, list):
-            return 2, 'configuration working_hours entry is not a list'
-
-        if sorted(working_hours) != working_hours:
-            return 2, 'disordered configuration working_hours entry (first must precede or be equal to last hour)'
-
-        try:
-            _ = [int(hour) for hour in working_hours]
-        except ValueError:
-            return 2, 'configuration working_hours entries must be integer values'
-
-    return 0, ''
+    # if not cfg.get('operator') or not isinstance(cfg['operator'], str):
+    #     return 2, 'configuration lacks required operator entry'
+    #
+    # combination_with_defaults = cfg['operator']
+    # default_combination_rule = 'or'
+    # if combination_with_defaults != default_combination_rule:
+    #     return 2, 'configuration provides rule for combination with defaults (expected value "or") not implemented'
+    #
+    # if cfg.get('application', 'NOT_PRESENT') not in ('arbejdstimer', 'NOT_PRESENT'):
+    #     return 2, 'configuration offers wrong application (name) value (expected arbejdstimer)'
+    #
+    # api_version = cfg.get('api', None)
+    # if api_version is not None:
+    #     try:
+    #         api_version = int(api_version)
+    #         if api_version != 1:
+    #             return 2, 'configuration offers wrong or no api version (expected value "1")'
+    #     except ValueError:
+    #         return 1, 'configuration offers wrong api version value (expected value "1")'
+    #
+    # if cfg.get('holidays'):
+    #     holidays = cfg['holidays']
+    #     if not isinstance(holidays, list):
+    #         return 2, 'configuration holidays entry is not a list'
+    #
+    #     for nth, entry in enumerate(holidays, start=1):
+    #         if not entry.get('at'):
+    #             return 2, f'no. {nth} configuration holidays entry has no at values (not present or list empty)'
+    #
+    # if cfg.get('working_hours'):
+    #     working_hours = cfg['working_hours']
+    #     if not isinstance(working_hours, list):
+    #         return 2, 'configuration working_hours entry is not a list'
+    #
+    #     if sorted(working_hours) != working_hours:
+    #         return 2, 'disordered configuration working_hours entry (first must precede or be equal to last hour)'
+    #
+    #     try:
+    #         _ = [int(hour) for hour in working_hours]
+    #     except ValueError:
+    #         return 2, 'configuration working_hours entries must be integer values'
+    #
+    # return 0, ''
 
 
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
