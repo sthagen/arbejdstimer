@@ -229,3 +229,13 @@ def test_at_apply_now_sunday_midnight():
     error, message = at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now')
     assert error == 1
     assert message == '- Today is weekend.'
+
+
+def test_at_apply_explain_monday_noon(capsys):
+    at.weekday = fix.always_monday
+    at.the_hour = fix.the_noon_hour
+    assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'explain') == (0, '')
+    out, err = capsys.readouterr()
+    assert f'- Today ({fix.TODAY}) is not a holiday' in out
+    assert f'- At this hour ({at.the_hour()}) is work time' in out
+    assert not err
