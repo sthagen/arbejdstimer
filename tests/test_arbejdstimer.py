@@ -33,15 +33,12 @@ def test_at_verify_no_meta():
 
 def test_at_verify_alien_meta():
     expect = (2, 'configuration offers wrong application (name) value (expected arbejdstimer)')
-    assert at.verify({'operator': 'or', 'application': 'b'}) == expect  # type: ignore
+    assert at.verify({'operator': 'or', 'name': 'arbejdstimer'}) == expect  # type: ignore
 
 
 def test_at_verify_alien_application():
     expect = (2, 'configuration offers wrong application (name) value (expected arbejdstimer)')
-    cfg = {'_meta': {'combination_with_defaults': 'or'}}
-    assert at.verify(cfg) == expect  # type: ignore
-    cfg = {'_meta': {'combination_with_defaults': 'or', 'application': 'alien'}}
-    assert at.verify(cfg) == expect  # type: ignore
+    assert at.verify({'operator': 'or', 'application': 'b'}) == expect  # type: ignore
 
 
 def test_at_verify_alien_api_version():
