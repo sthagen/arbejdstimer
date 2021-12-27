@@ -38,7 +38,11 @@ def test_at_load_no_meta():
 
 
 def test_at_load_alien_meta():
-    assert at.load({'operator': 'or', 'application': None}) == (0, '')  # type: ignore
+    code, message, holidays, hours = at.load({'operator': 'or', 'application': None})  # type: ignore
+    assert code == 0
+    assert message == ''
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
 
 def test_at_load_alien_application():
