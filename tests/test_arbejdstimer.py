@@ -13,6 +13,10 @@ def test_at_main_now():
     assert at.main(['now', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
 
 
+def test_at_main_now_meta_only():
+    assert at.main(['now', str(fix.CFG_FS_META_ONLY)]) in (0, 1)
+
+
 def test_at_main_now_load_error_processing(capsys):
     assert at.main(['now', str(fix.CFG_FS_INVALID_MINIMAL)]) == 2
     out, err = capsys.readouterr()
