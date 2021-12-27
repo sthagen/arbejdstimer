@@ -66,7 +66,10 @@ def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str)
 
 @no_type_check
 def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
-    """Load the configuration and return error, message and holidays as well as working hours list."""
+    """Load the configuration and return error, message and holidays as well as working hours list.
+
+    The holidays as well as non-default working hours will be ordered.
+    """
     if not cfg:
         return 0, 'empty configuration, using default', [], DEFAULT_WORK_HOURS_MARKER
 
