@@ -32,3 +32,33 @@ with open(CFG_FS_HOLIDAYS, 'rt', encoding=ENCODING) as handle:
 
 with open(CFG_FS_TRIPLET_HOLIDAYS, 'rt', encoding=ENCODING) as handle:
     CFG_PY_TRIPLET_HOLIDAYS = json.load(handle)
+
+
+def always_monday(date: dti.date) -> int:  # type: ignore
+    """Return current weekday mock for Monday."""
+    return 1
+
+
+def always_sunday(date: dti.date) -> int:  # type: ignore
+    """Return current weekday mock for Sunday."""
+    return 7
+
+
+def never_weekend(day_number: int) -> bool:  # type: ignore
+    """Return if day number is weekend mock for never."""
+    return True
+
+
+def always_weekend(day_number: int) -> bool:  # type: ignore
+    """Return if day number is weekend mock for always."""
+    return False
+
+
+def the_zero_hour() -> int:
+    """Return the hour of day as integer within [0, 23] mock 0."""
+    return 0
+
+
+def the_noon_hour() -> int:
+    """Return the hour of day as integer within [0, 23] mock 12."""
+    return 12
