@@ -206,14 +206,26 @@ def test_at_load_triplet_holidays():
 def test_at_apply_now_monday_noon():
     at.weekday = fix.always_monday
     at.the_hour = fix.the_noon_hour
-    error, message = at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now')
-    assert not error
-    assert not message
+    assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now') == (0, '')
 
 
 def test_at_apply_now_sunday_noon():
     at.weekday = fix.always_sunday
     at.the_hour = fix.the_noon_hour
+    error, message = at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now')
+    assert error == 1
+    assert message == '- Today is weekend.'
+
+
+def test_at_apply_now_monday_midnight():
+    at.weekday = fix.always_monday
+    at.the_hour = fix.the_zero_hour
+    assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now') == (1, f'- No worktime at hour({at.the_hour()}).')
+
+
+def test_at_apply_now_sunday_midnight():
+    at.weekday = fix.always_sunday
+    at.the_hour = fix.the_zero_hour
     error, message = at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now')
     assert error == 1
     assert message == '- Today is weekend.'
