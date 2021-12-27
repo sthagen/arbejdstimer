@@ -126,7 +126,7 @@ def test_at_load_holidays_alien():
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
     cfg = {**cfg, 'holidays': 42}
-    code, message, holidays, hours = at.verify(cfg)  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
     assert expected_part in message
     assert holidays == []
