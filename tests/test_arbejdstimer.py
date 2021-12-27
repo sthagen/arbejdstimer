@@ -195,9 +195,17 @@ def test_at_load_and_apply_today_holiday(capsys):
     assert not err
 
 
-def test_at_load_triplet_holidays(capsys):
+def test_at_load_triplet_holidays():
     error, message, holidays, hours = at.load(fix.CFG_PY_TRIPLET_HOLIDAYS)
     assert not error
     assert not message
     assert len(holidays) == 3
     assert hours == tuple(fix.CFG_PY_TRIPLET_HOLIDAYS['working_hours'])
+
+
+def test_at_apply_now_monday_noon():
+    at.weekday = fix.always_monday
+    at.the_hour = fix.the_noon_hour
+    error, message = at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now')
+    assert not error
+    assert not message
