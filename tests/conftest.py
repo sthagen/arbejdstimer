@@ -10,20 +10,15 @@ CFG_FS_EMPTY = pathlib.Path('tests', 'fixtures', 'basic', 'minimal-config.json')
 CFG_FS_HOLIDAYS = pathlib.Path('tests', 'fixtures', 'basic', 'holidays-config.json')
 CFG_FS_NOT_THERE = pathlib.Path('does', 'not', 'exist', 'hypothetical.json')
 CFG_PY_EMPTY = {
-    '_meta': {
-        'application': 'arbejdstimer',
-        'configuration_api_version': '1',
-    }
+    'operator': 'or',
 }
 
 TODAY = dti.date.today()
 CFG_PY_TODAY_HOLIDAY = {
-    '_meta': {
-        'combination_with_defaults': 'or',
-        'application': 'arbejdstimer',
-        'configuration_api_version': '1',
-    },
-    'holidays': [{'date_range': [TODAY.strftime(at.DATE_FMT)]}],
+    'api': 1,
+    'application': 'arbejdstimer',
+    'operator': 'or',
+    'holidays': [{'at': [TODAY.strftime(at.DATE_FMT)]}],
     'working_hours': [8, 17],
 }
 

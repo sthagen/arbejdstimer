@@ -39,24 +39,24 @@ def test_api_hour_no_digit():
 
 
 def test_api_date_range_wun():
-    wun = api.DateRange(__root__=['2021-12-31'])  # type: ignore
+    wun = api.Dates(__root__=['2021-12-31'])  # type: ignore
     assert wun.__root__ == [dti.date(2021, 12, 31)]
 
 
 def test_api_date_range_two():
-    two = api.DateRange(__root__=['2021-12-31', '2022-01-01'])  # type: ignore
+    two = api.Dates(__root__=['2021-12-31', '2022-01-01'])  # type: ignore
     assert two.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1)]
 
 
 def test_api_date_range_three():
-    three = api.DateRange(__root__=['2021-12-31', '2022-01-01', '2022-01-02'])  # type: ignore
+    three = api.Dates(__root__=['2021-12-31', '2022-01-01', '2022-01-02'])  # type: ignore
     assert three.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1), dti.date(2022, 1, 2)]
 
 
 def test_api_date_range_duplicate():
-    with pytest.raises(ValidationError, match=_subs(1, 'DateRange')) as err:
-        _ = api.DateRange(__root__=['2021-12-31', '2021-12-31'])  # type: ignore
-    assert '\n__root__\n  dates in a date range must be unique' in str(err.value)
+    with pytest.raises(ValidationError, match=_subs(1, 'Dates')) as err:
+        _ = api.Dates(__root__=['2021-12-31', '2021-12-31'])  # type: ignore
+    assert '\n__root__\n  dates must be unique' in str(err.value)
 
 
 def test_api_working_hours_nine_to_five():
@@ -87,11 +87,11 @@ def test_api_working_hours_nine_nine_five_triplet():
 
 
 def test_api_holiday_wun():
-    wun = api.DateRange(__root__=['2021-12-31'])  # type: ignore
-    holiday = api.Holiday(date_range=wun)
-    assert holiday.date_range.__root__ == [dti.date(2021, 12, 31)]
-    assert holiday.json() == '{"label": "", "date_range": ["2021-12-31"]}'
-    data = {'label': '', 'date_range': ['2021-12-31']}
+    wun = api.Dates(__root__=['2021-12-31'])  # type: ignore
+    holiday = api.Holiday(at=wun)
+    assert holiday.at.__root__ == [dti.date(2021, 12, 31)]
+    assert holiday.json() == '{"label": "", "at": ["2021-12-31"]}'
+    data = {'label': '', 'at': ['2021-12-31']}
     # noinspection Pydantic
     another_holiday = api.Holiday(**data)  # type: ignore
     assert holiday == another_holiday
@@ -101,4 +101,8 @@ def test_api_today():
     # noinspection Pydantic
     cfg = api.Arbejdstimer(**fix.CFG_PY_TODAY_HOLIDAY)
     today_rep = fix.TODAY.strftime(at.DATE_FMT)
-    assert cfg.json() == f'{{"holidays": [{{"label": "", "date_range": ["{today_rep}"]}}], "working_hours": [8, 17]}}'
+    expected = (
+        '{"api": 1, "application": "arbejdstimer", "operator": "or",'
+        f' "holidays": [{{"label": "", "at": ["{today_rep}"]}}], "working_hours": [8, 17]}}'
+    )
+    assert cfg.json() == expected
