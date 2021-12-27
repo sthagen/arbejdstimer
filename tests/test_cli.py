@@ -42,6 +42,16 @@ def test_explain_ok(capsys):
     assert not err
 
 
+def test_at_main_explain_meta_only(capsys):
+    with pytest.raises(SystemExit) as exec_info:
+        cli.explain(conf=fix.CFG_FS_META_ONLY)
+    assert exec_info.value.code in (0, 1)
+    out, err = capsys.readouterr()
+    message_part = 'read valid configuration from (tests/fixtures/basic/meta-only-config.json)\nconsider 0 holidays:'
+    assert message_part in out.lower()
+    assert not err
+
+
 def test_non_existing_configuration_file(capsys):
     with pytest.raises(SystemExit) as exec_info:
         cli.now(conf=fix.CFG_FS_NOT_THERE)  # type: ignore
