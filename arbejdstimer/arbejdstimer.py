@@ -35,9 +35,14 @@ def no_weekend(day_number: int) -> bool:
     return day_number < 6
 
 
+def the_hour() -> int:
+    """Return the hour of day as integer within [0, 23]."""
+    return dti.datetime.now().hour
+
+
 @no_type_check
 def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str) -> Tuple[int, str]:
-    """ddd"""
+    """Apply the effective rules to the current date and time."""
     working_hours = working_hours if working_hours != (None, None) else (7, 16)
     today = dti.date.today()
     if today not in off_days:
@@ -46,15 +51,14 @@ def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str)
     else:
         return 1, '- Today is a holiday.'
 
-    week_day = weekday(today)
-    work_day = no_weekend(week_day)
+    work_day = no_weekend(weekday(today))
     if work_day:
         if cmd == 'explain':
             print(f'- Today ({today}) is not a weekend')
     else:
         return 1, '- Today is weekend.'
 
-    hour = dti.datetime.now().hour
+    hour = the_hour()
     if working_hours[0] <= hour <= working_hours[1]:
         if cmd == 'explain':
             print(f'- At this hour ({hour}) is work time')
