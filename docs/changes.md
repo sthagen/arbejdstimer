@@ -3,6 +3,7 @@
 ## 2021.12.27
 
 * Replaced the current configuration loading with model based approach (implements #12)
+* Increased test (branch) coverage
 
 ## 2021.12.22
 

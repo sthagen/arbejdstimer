@@ -15,9 +15,7 @@ Explaining the reasons and answering:
 $ arbejdstimer explain --config tests/fixtures/basic/holidays-config.json || echo "OFF"
 read valid configuration from (tests/fixtures/basic/holidays-config.json)
 consider 11 holidays:
-- Today (2021-12-22) is not a holiday
-- Today (2021-12-22) is not a weekend
-- No worktime at hour(21).
+- Today is a holiday.
 OFF
 ```
 

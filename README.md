@@ -13,4 +13,7 @@ Working hours (Danish arbejdstimer) or not?
 
 Experimental.
 
+Downloads/month via pepy.tech:
+[![downloads](https://pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)
+
 **Note**: The default branch is `default`.
