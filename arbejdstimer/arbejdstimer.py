@@ -82,9 +82,6 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
     if model.holidays:
         holidays = model.dict()['holidays']
         for nth, holiday in enumerate(holidays, start=1):
-            if not holiday or not holiday.get('at'):
-                message = f'no. {nth} configuration holidays entry at value is no list or empty'
-                return 1, message, [], DEFAULT_WORK_HOURS_MARKER
             dates = holiday['at']
             if len(dates) == 1:
                 holidays_date_list.append(dates[0])
