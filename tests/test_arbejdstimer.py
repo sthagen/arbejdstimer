@@ -32,68 +32,76 @@ def test_at_main_holidays(capsys):
     assert not err
 
 
-def test_at_verify_no_meta():
+def test_at_load_no_meta():
     message = '1 validation error for Arbejdstimer\noperator\n  field required (type=value_error.missing)'
-    assert at.verify({'a': 'b'}) == (2, message)  # type: ignore
+    assert at.load({'a': 'b'}) == (2, message, [], at.DEFAULT_WORK_HOURS_MARKER)  # type: ignore
 
 
-def test_at_verify_alien_meta():
-    assert at.verify({'operator': 'or', 'application': None}) == (0, '')  # type: ignore
+def test_at_load_alien_meta():
+    assert at.load({'operator': 'or', 'application': None}) == (0, '')  # type: ignore
 
 
-def test_at_verify_alien_application():
-    code, message = at.verify({'operator': 'or', 'application': 'b'})  # type: ignore
+def test_at_load_alien_application():
+    code, message, holidays, hours = at.load({'operator': 'or', 'application': 'b'})  # type: ignore
     assert code == 2
     expected_part = (
         '1 validation error for Arbejdstimer\napplication\n  value is not a valid enumeration member;'
         " permitted: 'arbejdstimer'"
     )
     assert expected_part in message
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
 
-def test_at_verify_alien_api_version():
+def test_at_load_alien_api_version():
     cfg = {'operator': 'or', 'application': 'b', 'api': None}
-    code, message = at.verify(cfg)  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
     expected_part = (
         '1 validation error for Arbejdstimer\napplication\n  value is not a valid enumeration member;'
         " permitted: 'arbejdstimer'"
     )
     assert expected_part in message
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
     cfg = {'operator': 'dirac', 'application': 'arbejdstimer', 'api': 1}
-    code, message = at.verify(cfg)  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
     expected_part = (
         '1 validation error for Arbejdstimer\noperator\n  value is not a valid enumeration member;'
         " permitted: 'and', 'or', 'xor'"
     )
     assert expected_part in message
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
     cfg = {'operator': 42, 'application': 'arbejdstimer', 'api': 1}
-    code, message = at.verify(cfg)  # type: ignore
+    code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
     expected_part = (
         '1 validation error for Arbejdstimer\noperator\n  value is not a valid enumeration member;'
         " permitted: 'and', 'or', 'xor'"
     )
     assert expected_part in message
+    assert holidays == []
+    assert hours == at.DEFAULT_WORK_HOURS_MARKER
 
 
-def test_at_verify_no_holidays_alien_or_empty():
+def test_at_load_no_holidays_alien_or_empty():
     expect = (0, '')
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
-    assert at.verify(cfg) == expect  # type: ignore
+    assert at.load(cfg) == expect  # type: ignore
     cfg = {**cfg, 'holidays': None}
-    assert at.verify(cfg) == expect  # type: ignore
+    assert at.load(cfg) == expect  # type: ignore
     cfg = {**cfg, 'holidays': []}
-    assert at.verify(cfg) == expect  # type: ignore
+    assert at.load(cfg) == expect  # type: ignore
 
 
-def test_at_verify_holidays_alien():
+def test_at_load_holidays_alien():
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
     cfg = {**cfg, 'holidays': {'holi': 'days'}}
-    code, message = at.verify(cfg)  # type: ignore
+    code, message = at.load(cfg)  # type: ignore
     assert code == 2
     expected_part = '1 validation error for Arbejdstimer\nholidays -> __root__\n  value is not a valid list'
     assert expected_part in message
@@ -104,10 +112,10 @@ def test_at_verify_holidays_alien():
     assert expected_part in message
 
 
-def test_at_verify_holidays_missing_date_range():
+def test_at_load_holidays_missing_date_range():
     cfg = {'operator': 'or', 'application': 'arbejdstimer', 'api': 1}
     cfg = {**cfg, 'holidays': [{'at': ['ignore']}, {}]}
-    code, message = at.verify(cfg)  # type: ignore
+    code, message = at.load(cfg)  # type: ignore
     expected_parts = (
         '2 validation errors for Arbejdstimer',
         'holidays -> __root__ -> 0 -> at -> __root__ -> 0',
