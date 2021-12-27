@@ -122,8 +122,8 @@ def verify(cfg: CFG_TYPE) -> Tuple[int, str]:
             return 2, 'configuration holidays entry is not a list'
 
         for nth, entry in enumerate(holidays, start=1):
-            if not entry.get('date_range'):
-                return 2, f'no. {nth} configuration holidays entry has no date_range value (not present or list empty)'
+            if not entry.get('at'):
+                return 2, f'no. {nth} configuration holidays entry has no at values (not present or list empty)'
 
     if cfg.get('working_hours'):
         working_hours = cfg['working_hours']
