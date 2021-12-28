@@ -19,6 +19,30 @@ app = typer.Typer(
     no_args_is_help=True,
 )
 
+TEMPLATE_EXAMPLE = """\
+{
+  "api": 1,
+  "application": "arbejdstimer",
+  "operator": "or",
+  "holidays": [
+    {
+      "label": "public holiday",
+      "at": [
+        "2021-12-08"
+      ]
+    },
+    {
+      "label": "company holidays 2021/2022",
+      "at": [
+        "2021-12-24",
+        "2022-01-02"
+      ]
+    }
+  ],
+  "working_hours": [8, 17]
+}
+"""
+
 
 @app.callback(invoke_without_command=True)
 def callback(
@@ -43,6 +67,15 @@ def callback(
     if version:
         typer.echo(f'{APP_NAME} version {arbejdstimer.__version__}')
         raise typer.Exit()
+
+
+@app.command('template')
+def app_template() -> int:
+    """
+    Write a template of a JSON configuration to standard out and exit
+    """
+    sys.stdout.write(TEMPLATE_EXAMPLE)
+    return sys.exit(0)
 
 
 @app.command('now')
