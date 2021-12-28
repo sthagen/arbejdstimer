@@ -1,5 +1,11 @@
 # Change History
 
+## 2021.12.28
+
+* Provided the CLI template command to generate an example configuration (implements #4)
+* Added tests to cover the new functionalities
+* Updated documentation
+
 ## 2021.12.27
 
 * Replaced the current configuration loading with model based approach (implements #12)
