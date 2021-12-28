@@ -42,6 +42,15 @@ def test_explain_ok(capsys):
     assert not err
 
 
+def test_template_ok(capsys):
+    with pytest.raises(SystemExit) as exec_info:
+        cli.app_template()
+    assert exec_info.value.code == 0
+    out, err = capsys.readouterr()
+    assert 'company holidays 2021/2022' in out.lower()
+    assert not err
+
+
 def test_at_main_explain_meta_only(capsys):
     with pytest.raises(SystemExit) as exec_info:
         cli.explain(conf=fix.CFG_FS_META_ONLY)
