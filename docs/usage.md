@@ -23,7 +23,7 @@ OFF
 
 ```console
 $ arbejdstimer version
-Working hours (Danish arbejdstimer) or not? version 2021.12.27
+Working hours (Danish arbejdstimer) or not? version 2021.12.28
 ```
 
 ## General help
