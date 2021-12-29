@@ -30,6 +30,42 @@ consider 3 holidays:
 - At this hour (8) is work time
 ```
 
+The same example from test fixtures with verbatim explanation mode on:
+
+```console
+$ arbejdstimer explain -v -c tests/fixtures/basic/triplet-holidays-config.json
+read valid configuration from (tests/fixtures/basic/triplet-holidays-config.json)
+configuration has 19 lines of (indented) JSON content:
+    1 | {
+    2 |   "api": 1,
+    3 |   "application": "arbejdstimer",
+    4 |   "operator": "or",
+    5 |   "holidays": [
+    6 |     {
+    7 |       "label": "triplet holiday",
+    8 |       "at": [
+    9 |         "2021-12-29",
+   10 |         "2021-12-30",
+   11 |         "2021-12-31"
+   12 |       ]
+   13 |     }
+   14 |   ],
+   15 |   "working_hours": [
+   16 |     8,
+   17 |     17
+   18 |   ]
+   19 | }
+effective configuration:
+- given 3 holidays within [2021-12-29, 2021-12-31]:
+  + 2021-12-29
+  + 2021-12-30
+  + 2021-12-31
+- working hours:
+  + [8, 17] (from configuration)
+evaluation:
+- Today is a holiday.
+```
+
 Retrieving a starter template for the configuration (default place is `$HOME/.arbejdstimer.json`):
 
 ```console
@@ -69,7 +105,7 @@ $ cat tests/fixtures/basic/minimal-config.json
 
 ```console
 $ arbejdstimer version
-Working hours (Danish arbejdstimer) or not? version 2021.12.28
+Working hours (Danish arbejdstimer) or not? version 2021.12.29
 ```
 
 ## General help
@@ -110,6 +146,8 @@ Usage: arbejdstimer explain [OPTIONS]
 Options:
   -c, --config <configpath>  Path to config file (default is
                              $HOME/.arbejdstimer.json)
+  -v, --verbose              Be more verbatim providing the effective config
+                             values (default is false if not provided)
   -h, --help                 Show this message and exit.
 ```
 
