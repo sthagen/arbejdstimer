@@ -181,8 +181,8 @@ $ arbejdstimer explain [OPTIONS]
 
 **Options**:
 
-* `-c, --config <configpath>`: Path to config file (default is $HOME/.arbejdstimer.json)  [default: ]
-* `-v, --verbose`: Be more verbatim providing the effective config values (default is false if not provided)  [default: False]
+* `-c, --config <configpath>`: Path to config file [default: $HOME/.arbejdstimer.json]
+* `-v, --verbose`: Be more verbatim providing the effective config values [default: False]
 * `-h, --help`: Show this message and exit.
 
 ### `arbejdstimer now`
@@ -197,7 +197,7 @@ $ arbejdstimer now [OPTIONS]
 
 **Options**:
 
-* `-c, --config <configpath>`: Path to config file (default is $HOME/.arbejdstimer.json)  [default: ]
+* `-c, --config <configpath>`: Path to config file [default: $HOME/.arbejdstimer.json]
 * `-h, --help`: Show this message and exit.
 
 ### `arbejdstimer template`
