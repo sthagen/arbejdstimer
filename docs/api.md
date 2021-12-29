@@ -28,7 +28,7 @@ Default configuration at `$HOME/.arbejdstimer.json` content from example at
 }
 ```
 
-### JSON Schema for Configuration API version 1
+### JSON Schema for Version 1
 
 The configuration API schema is available at
 https://github.com/sthagen/arbejdstimer/api/1/arbejdstimer-configuration-schema.json: 
