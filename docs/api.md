@@ -1,6 +1,6 @@
 # API
 
-## Configuration API
+## Configuration Data API
 
 Default configuration at `$HOME/.arbejdstimer.json` content from example at
 `tests/fixtures/basic/holidays-config.json`:
@@ -28,7 +28,7 @@ Default configuration at `$HOME/.arbejdstimer.json` content from example at
 }
 ```
 
-## JSON Schema for Configuration API version 1
+### JSON Schema for Configuration API version 1
 
 The configuration API schema is available at
 https://github.com/sthagen/arbejdstimer/api/1/arbejdstimer-configuration-schema.json: 
@@ -136,3 +136,95 @@ https://github.com/sthagen/arbejdstimer/api/1/arbejdstimer-configuration-schema.
   ]
 }
 ```
+
+## Commandline API
+
+### `arbejdstimer`
+
+Working hours (Danish arbejdstimer) or not?
+
+Given a configuration file detect if today is a work day and
+if at the time of request is a working hour.
+
+Return code of 0 indicates work time, 1 no work time, and 2 usage error.
+
+Additional help available per command adding the -h/--help option
+
+**Usage**:
+
+```console
+$ arbejdstimer [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `-V, --version`: Display the arbejdstimer version and exit  [default: False]
+* `-h, --help`: Show this message and exit.
+
+**Commands**:
+
+* `explain`: Explain the answer to the question if now is...
+* `now`: Silently answer the question if now is a...
+* `template`: Write a template of a JSON configuration to...
+* `version`: Display the arbejdstimer version and exit
+
+### `arbejdstimer explain`
+
+Explain the answer to the question if now is a working hour
+(in addition to the return code 0 for yes, and 1 for no).
+
+**Usage**:
+
+```console
+$ arbejdstimer explain [OPTIONS]
+```
+
+**Options**:
+
+* `-c, --config <configpath>`: Path to config file (default is $HOME/.arbejdstimer.json)  [default: ]
+* `-v, --verbose`: Be more verbatim providing the effective config values (default is false if not provided)  [default: False]
+* `-h, --help`: Show this message and exit.
+
+### `arbejdstimer now`
+
+Silently answer the question if now is a working hour (per return code 0 for yes, and 1 for no).
+
+**Usage**:
+
+```console
+$ arbejdstimer now [OPTIONS]
+```
+
+**Options**:
+
+* `-c, --config <configpath>`: Path to config file (default is $HOME/.arbejdstimer.json)  [default: ]
+* `-h, --help`: Show this message and exit.
+
+### `arbejdstimer template`
+
+Write a template of a JSON configuration to standard out and exit
+
+**Usage**:
+
+```console
+$ arbejdstimer template [OPTIONS]
+```
+
+**Options**:
+
+* `-h, --help`: Show this message and exit.
+
+### `arbejdstimer version`
+
+Display the arbejdstimer version and exit
+
+**Usage**:
+
+```console
+$ arbejdstimer version [OPTIONS]
+```
+
+**Options**:
+
+* `-h, --help`: Show this message and exit.
+
