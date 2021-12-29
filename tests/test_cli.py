@@ -34,7 +34,17 @@ def test_now_ok(capsys):
 
 def test_explain_ok(capsys):
     with pytest.raises(SystemExit) as exec_info:
-        cli.explain(conf=fix.CFG_FS_EMPTY)  # type: ignore
+        cli.explain(conf=fix.CFG_FS_EMPTY, verbose=False)  # type: ignore
+    assert exec_info.value.code in (0, 1)
+    out, err = capsys.readouterr()
+    assert 'read valid configuration from (' in out.lower()
+    assert 'consider 0 holidays' in out.lower()
+    assert not err
+
+
+def test_explain_enforce_defaults_ok(capsys):
+    with pytest.raises(SystemExit) as exec_info:
+        cli.explain_enforce_defaults(conf=fix.CFG_FS_EMPTY)  # type: ignore
     assert exec_info.value.code in (0, 1)
     out, err = capsys.readouterr()
     assert 'read valid configuration from (' in out.lower()
@@ -53,11 +63,35 @@ def test_template_ok(capsys):
 
 def test_at_main_explain_meta_only(capsys):
     with pytest.raises(SystemExit) as exec_info:
-        cli.explain(conf=fix.CFG_FS_META_ONLY)
+        cli.explain(conf=fix.CFG_FS_META_ONLY, verbose=False)
     assert exec_info.value.code in (0, 1)
     out, err = capsys.readouterr()
     message_part = 'read valid configuration from (tests/fixtures/basic/meta-only-config.json)\nconsider 0 holidays:'
     assert message_part in out.lower()
+    assert not err
+
+
+def test_at_main_explain_verbatim_meta_only(capsys):
+    with pytest.raises(SystemExit) as exec_info:
+        cli.explain(conf=fix.CFG_FS_META_ONLY, verbose=True)
+    assert exec_info.value.code in (0, 1)
+    out, err = capsys.readouterr()
+    message_parts = (
+        'read valid configuration from (tests/fixtures/basic/meta-only-config.json)',
+        'configuration has 5 lines of (indented) JSON content:',
+        '   1 | {',
+        '   2 |   "api": 1,',
+        '   3 |   "application": "arbejdstimer",',
+        '   4 |   "operator": "or"',
+        '   5 | }',
+        'effective configuration:',
+        '- no holidays defined in (tests/fixtures/basic/meta-only-config.json):',
+        '- working hours:',
+        '  + [7, 16] (application default)',
+        'evaluation:',
+    )
+    for message_part in message_parts:
+        assert message_part in out
     assert not err
 
 
