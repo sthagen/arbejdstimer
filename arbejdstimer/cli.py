@@ -106,12 +106,21 @@ def explain(
         help='Path to config file (default is $HOME/.arbejdstimer.json)',
         metavar='<configpath>',
     ),
+    verbose: bool = typer.Option(
+        '',
+        '-v',
+        '--verbose',
+        help='Be more verbatim providing the effective config values (default is false if not provided)',
+        metavar='<bool>',
+    ),
 ) -> int:
     """
     Explain the answer to the question if now is a working hour
     (in addition to the return code 0 for yes, and 1 for no).
     """
     command = 'explain'
+    if verbose:
+        command += '_verbatim'
     config = conf if conf else pathlib.Path.home() / at.DEFAULT_CONFIG_NAME
     action = [command, str(config)]
     return sys.exit(at.main(action))

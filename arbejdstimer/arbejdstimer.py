@@ -46,21 +46,21 @@ def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str)
     working_hours = working_hours if working_hours != (None, None) else (7, 16)
     today = dti.date.today()
     if today not in off_days:
-        if cmd == 'explain':
+        if cmd.startswith('explain'):
             print(f'- Today ({today}) is not a holiday')
     else:
         return 1, '- Today is a holiday.'
 
     work_day = no_weekend(weekday(today))
     if work_day:
-        if cmd == 'explain':
+        if cmd.startswith('explain'):
             print(f'- Today ({today}) is not a weekend')
     else:
         return 1, '- Today is weekend.'
 
     hour = the_hour()
     if working_hours[0] <= hour <= working_hours[1]:
-        if cmd == 'explain':
+        if cmd.startswith('explain'):
             print(f'- At this hour ({hour}) is work time')
     else:
         return 1, f'- No worktime at hour({hour}).'
@@ -114,7 +114,7 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
 
     command, config = argv
 
-    if command not in ('explain', 'now'):
+    if command not in ('explain', 'explain_verbatim', 'now'):
         return 2, 'received unknown command', ['']
 
     if not config:
@@ -143,17 +143,17 @@ def main(argv: Union[List[str], None] = None) -> int:
 
     error, message, holidays, working_hours = load(configuration)
     if error:
-        if command == 'explain':
+        if command.startswith('explain'):
             print(message, file=sys.stderr)
         return error
-    if command == 'explain':
+    if command.startswith('explain'):
         print(f'read valid configuration from ({config})')
 
-    if command == 'explain':
+    if command.startswith('explain'):
         print(f'consider {len(holidays)} holidays:')
     error, message = apply(holidays, working_hours, command)
     if error:
-        if command == 'explain':
+        if command.startswith('explain'):
             print(message, file=sys.stdout)
         return error
 
