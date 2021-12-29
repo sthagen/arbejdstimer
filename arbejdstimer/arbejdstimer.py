@@ -158,6 +158,7 @@ def main(argv: Union[List[str], None] = None) -> int:
             print(f'configuration has {line_count} line{"" if line_count == 1 else "s"} of (indented) JSON content:')
             for line, content in enumerate(lines, start=1):
                 print(f'  {line:>{counter_width + 1}} | {content}')
+
     if command == 'explain':
         print(f'consider {len(holidays)} holidays:')
     elif command == 'explain_verbatim':
@@ -175,6 +176,7 @@ def main(argv: Union[List[str], None] = None) -> int:
             effective_range = DEFAULT_WORK_HOURS_CLOSED_INTERVAL
             print(f'  + [{effective_range[0]}, {effective_range[1]}] (application default)')
         print('evaluation:')
+
     error, message = apply(holidays, working_hours, command)
     if error:
         if command.startswith('explain'):
