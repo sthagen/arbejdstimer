@@ -107,7 +107,7 @@ def explain(
         metavar='<configpath>',
     ),
     verbose: bool = typer.Option(
-        '',
+        False,
         '-v',
         '--verbose',
         help='Be more verbatim providing the effective config values (default is false if not provided)',
