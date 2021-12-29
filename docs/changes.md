@@ -1,5 +1,9 @@
 # Change History
 
+## 2021.12.29
+
+* Created a way to directly display the active configuration (values) (implements #11)
+
 ## 2021.12.28
 
 * Provided the CLI template command to generate an example configuration (implements #4)
