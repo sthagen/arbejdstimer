@@ -23,6 +23,7 @@ CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]
 WORKING_HOURS_TYPE = Union[tuple[int, int], tuple[None, None]]
 DATE_FMT = '%Y-%m-%d'
 DEFAULT_WORK_HOURS_MARKER = (None, None)
+DEFAULT_WORK_HOURS_CLOSED_INTERVAL = (7, 16)
 
 
 def weekday(date: dti.date) -> int:
@@ -43,7 +44,7 @@ def the_hour() -> int:
 @no_type_check
 def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str) -> Tuple[int, str]:
     """Apply the effective rules to the current date and time."""
-    working_hours = working_hours if working_hours != (None, None) else (7, 16)
+    working_hours = working_hours if working_hours != (None, None) else DEFAULT_WORK_HOURS_CLOSED_INTERVAL
     today = dti.date.today()
     if today not in off_days:
         if cmd.startswith('explain'):
@@ -144,13 +145,36 @@ def main(argv: Union[List[str], None] = None) -> int:
     error, message, holidays, working_hours = load(configuration)
     if error:
         if command.startswith('explain'):
+            print('Configuration file failed to parse (INVALID)')
             print(message, file=sys.stderr)
         return error
-    if command.startswith('explain'):
-        print(f'read valid configuration from ({config})')
 
     if command.startswith('explain'):
+        print(f'read valid configuration from ({config})')
+        if command == 'explain_verbatim':
+            lines = json.dumps(configuration, indent=2).split('\n')
+            line_count = len(lines)
+            counter_width = len(str(line_count))
+            print(f'configuration has {line_count} line{"" if line_count == 1 else "s"} of (indented) JSON content:')
+            for line, content in enumerate(lines, start=1):
+                print(f'  {line:>{counter_width + 1}} | {content}')
+    if command == 'explain':
         print(f'consider {len(holidays)} holidays:')
+    elif command == 'explain_verbatim':
+        print('effective configuration:')
+        if holidays:
+            print(f'- given {len(holidays)} holidays within [{holidays[0]}, {holidays[-1]}]:')
+            for holiday in holidays:
+                print(f'  + {holiday}')
+        else:
+            print(f'- no holidays defined in ({config}):')
+        print('- working hours:')
+        if working_hours != DEFAULT_WORK_HOURS_MARKER:
+            print(f'  + [{working_hours[0]}, {working_hours[1]}] (from configuration)')
+        else:
+            effective_range = DEFAULT_WORK_HOURS_CLOSED_INTERVAL
+            print(f'  + [{effective_range[0]}, {effective_range[1]}] (application default)')
+        print('evaluation:')
     error, message = apply(holidays, working_hours, command)
     if error:
         if command.startswith('explain'):
