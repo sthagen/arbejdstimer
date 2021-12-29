@@ -31,7 +31,7 @@ def test_at_main_explain():
 def test_at_main_explain_load_error_processing(capsys):
     assert at.main(['explain', str(fix.CFG_FS_INVALID_MINIMAL)]) == 2
     out, err = capsys.readouterr()
-    assert not out
+    assert 'Configuration file failed to parse (INVALID)' in out
     message_part = (
         '1 validation error for arbejdstimer\noperator\n  value is not a valid enumeration member;'
         " permitted: 'and', 'or', 'xor'"
