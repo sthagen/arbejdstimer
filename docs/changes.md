@@ -4,7 +4,7 @@
 
 * Created a way to directly display the active configuration (values) by adding a -v/--verbose flag to the explain command (implements #11)
 * Enhanced the failed parse of configuration file error report (implements #15)
-* Prepare programmatic API by providing defaults as named module level values (implements #16)
+* Prepared programmatic API by providing defaults as named module level values (implements #16)
 
 ## 2021.12.28
 
