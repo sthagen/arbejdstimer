@@ -168,7 +168,7 @@ $ arbejdstimer [OPTIONS] COMMAND [ARGS]...
 * `template`: Write a template of a JSON configuration to...
 * `version`: Display the arbejdstimer version and exit
 
-### `arbejdstimer explain`
+#### `explain`
 
 Explain the answer to the question if now is a working hour
 (in addition to the return code 0 for yes, and 1 for no).
@@ -185,7 +185,7 @@ $ arbejdstimer explain [OPTIONS]
 * `-v, --verbose`: Be more verbatim providing the effective config values [default: False]
 * `-h, --help`: Show this message and exit.
 
-### `arbejdstimer now`
+#### `now`
 
 Silently answer the question if now is a working hour (per return code 0 for yes, and 1 for no).
 
@@ -200,7 +200,7 @@ $ arbejdstimer now [OPTIONS]
 * `-c, --config <configpath>`: Path to config file [default: $HOME/.arbejdstimer.json]
 * `-h, --help`: Show this message and exit.
 
-### `arbejdstimer template`
+#### `template`
 
 Write a template of a JSON configuration to standard out and exit
 
@@ -214,7 +214,7 @@ $ arbejdstimer template [OPTIONS]
 
 * `-h, --help`: Show this message and exit.
 
-### `arbejdstimer version`
+#### `version`
 
 Display the arbejdstimer version and exit
 
