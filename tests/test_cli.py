@@ -95,6 +95,47 @@ def test_at_main_explain_verbatim_meta_only(capsys):
     assert not err
 
 
+def test_at_main_explain_verbatim_triplet_holidays(capsys):
+    with pytest.raises(SystemExit) as exec_info:
+        cli.explain(conf=fix.CFG_FS_TRIPLET_HOLIDAYS, verbose=True)
+    assert exec_info.value.code in (0, 1)
+    out, err = capsys.readouterr()
+    message_parts = (
+        'read valid configuration from (tests/fixtures/basic/triplet-holidays-config.json)',
+        'configuration has 19 lines of (indented) JSON content:',
+        '    1 | {',
+        '    2 |   "api": 1,',
+        '    3 |   "application": "arbejdstimer",',
+        '    4 |   "operator": "or",',
+        '    5 |   "holidays": [',
+        '    6 |     {',
+        '    7 |       "label": "triplet holiday",',
+        '    8 |       "at": [',
+        '    9 |         "2021-12-29",',
+        '   10 |         "2021-12-30",',
+        '   11 |         "2021-12-31"',
+        '   12 |       ]',
+        '   13 |     }',
+        '   14 |   ],',
+        '   15 |   "working_hours": [',
+        '   16 |     8,',
+        '   17 |     17',
+        '   18 |   ]',
+        '   19 | }',
+        'effective configuration:',
+        '- given 3 holidays within [2021-12-29, 2021-12-31]:',
+        '  + 2021-12-29',
+        '  + 2021-12-30',
+        '  + 2021-12-31',
+        '- working hours:',
+        '  + [8, 17] (from configuration)',
+        'evaluation:',
+    )
+    for message_part in message_parts:
+        assert message_part in out
+    assert not err
+
+
 def test_non_existing_configuration_file(capsys):
     with pytest.raises(SystemExit) as exec_info:
         cli.now(conf=fix.CFG_FS_NOT_THERE)  # type: ignore
