@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.6.27
+
+* Updated dependencies
+
 ## 2021.12.29
 
 * Created a way to directly display the active configuration (values) by adding a -v/--verbose flag to the explain command (implements #11)
