@@ -1,2 +1,2 @@
 pydantic==1.9.1
-typer==0.4.1
+typer==0.4.2
