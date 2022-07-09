@@ -48,6 +48,7 @@ class Dates(BaseModel):
 
     @no_type_check
     @validator('__root__')
+    @classmethod
     def is_unique(cls, v):
         if v and 1 < len(v) != len(set(v)):
             raise ValueError('dates must be unique')
