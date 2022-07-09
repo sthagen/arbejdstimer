@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
-import arbejdstimer.arbejdstimer as at
 import test.conftest as fix
+
+import arbejdstimer.arbejdstimer as at
 
 
 def _subs(count: int, what: str) -> str:

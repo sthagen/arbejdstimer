@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+import test.conftest as fix
+
 import click
 import pytest
 
 import arbejdstimer.cli as cli
-import test.conftest as fix
 
 
 def test_main_legacy_ok(capsys):

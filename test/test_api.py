@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 import datetime as dti
+import test.conftest as fix
 
 import pytest
 from pydantic.error_wrappers import ValidationError
 
 import arbejdstimer.api as api
 import arbejdstimer.arbejdstimer as at
-import test.conftest as fix
 
 
 def _subs(count: int, what: str) -> str:
