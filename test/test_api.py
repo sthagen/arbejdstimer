@@ -7,7 +7,7 @@ from pydantic.error_wrappers import ValidationError
 
 import arbejdstimer.api as api
 import arbejdstimer.arbejdstimer as at
-import tests.conftest as fix
+import test.conftest as fix
 
 
 def _subs(count: int, what: str) -> str:

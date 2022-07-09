@@ -4,7 +4,7 @@ import click
 import pytest
 
 import arbejdstimer.cli as cli
-import tests.conftest as fix
+import test.conftest as fix
 
 
 def test_main_legacy_ok(capsys):
@@ -66,7 +66,7 @@ def test_at_main_explain_meta_only(capsys):
         cli.explain(conf=fix.CFG_FS_META_ONLY, verbose=False)
     assert exec_info.value.code in (0, 1)
     out, err = capsys.readouterr()
-    message_part = 'read valid configuration from (tests/fixtures/basic/meta-only-config.json)\nconsider 0 holidays:'
+    message_part = 'read valid configuration from (test/fixtures/basic/meta-only-config.json)\nconsider 0 holidays:'
     assert message_part in out.lower()
     assert not err
 
@@ -77,7 +77,7 @@ def test_at_main_explain_verbatim_meta_only(capsys):
     assert exec_info.value.code in (0, 1)
     out, err = capsys.readouterr()
     message_parts = (
-        'read valid configuration from (tests/fixtures/basic/meta-only-config.json)',
+        'read valid configuration from (test/fixtures/basic/meta-only-config.json)',
         'configuration has 5 lines of (indented) JSON content:',
         '   1 | {',
         '   2 |   "api": 1,',
@@ -85,7 +85,7 @@ def test_at_main_explain_verbatim_meta_only(capsys):
         '   4 |   "operator": "or"',
         '   5 | }',
         'effective configuration:',
-        '- no holidays defined in (tests/fixtures/basic/meta-only-config.json):',
+        '- no holidays defined in (test/fixtures/basic/meta-only-config.json):',
         '- working hours:',
         '  + [7, 16] (application default)',
         'evaluation:',
@@ -101,7 +101,7 @@ def test_at_main_explain_verbatim_triplet_holidays(capsys):
     assert exec_info.value.code in (0, 1)
     out, err = capsys.readouterr()
     message_parts = (
-        'read valid configuration from (tests/fixtures/basic/triplet-holidays-config.json)',
+        'read valid configuration from (test/fixtures/basic/triplet-holidays-config.json)',
         'configuration has 19 lines of (indented) JSON content:',
         '    1 | {',
         '    2 |   "api": 1,',

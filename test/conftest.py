@@ -6,13 +6,13 @@ import pathlib
 
 import arbejdstimer.arbejdstimer as at
 
-CFG_FS_EMPTY = pathlib.Path('tests', 'fixtures', 'basic', 'minimal-config.json')
-CFG_FS_META_ONLY = pathlib.Path('tests', 'fixtures', 'basic', 'meta-only-config.json')
-CFG_FS_HOLIDAYS = pathlib.Path('tests', 'fixtures', 'basic', 'holidays-config.json')
-CFG_FS_TRIPLET_HOLIDAYS = pathlib.Path('tests', 'fixtures', 'basic', 'triplet-holidays-config.json')
+CFG_FS_EMPTY = pathlib.Path('test', 'fixtures', 'basic', 'minimal-config.json')
+CFG_FS_META_ONLY = pathlib.Path('test', 'fixtures', 'basic', 'meta-only-config.json')
+CFG_FS_HOLIDAYS = pathlib.Path('test', 'fixtures', 'basic', 'holidays-config.json')
+CFG_FS_TRIPLET_HOLIDAYS = pathlib.Path('test', 'fixtures', 'basic', 'triplet-holidays-config.json')
 CFG_FS_NOT_THERE = pathlib.Path('does', 'not', 'exist', 'hypothetical.json')
-CFG_FS_NO_JSON_EXTENSION = pathlib.Path('tests', 'fixtures', 'basic', 'this-has-no-json-extens.ion')
-CFG_FS_INVALID_MINIMAL = pathlib.Path('tests', 'fixtures', 'basic', 'invalid-minimal-config.json')
+CFG_FS_NO_JSON_EXTENSION = pathlib.Path('test', 'fixtures', 'basic', 'this-has-no-json-extens.ion')
+CFG_FS_INVALID_MINIMAL = pathlib.Path('test', 'fixtures', 'basic', 'invalid-minimal-config.json')
 CFG_PY_EMPTY = {
     'operator': 'or',
 }
