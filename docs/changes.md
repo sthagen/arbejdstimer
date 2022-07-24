@@ -1,5 +1,12 @@
 # Change History
 
+## 2022.7.24
+
+* Bumped dependencies for development and test
+* Moved documentation to https://codes.dilettant.life/docs/arbejdstimer
+* Moved tracker to https://todo.sr.ht/~sthagen/arbejdstimer
+* Moved normative source repo to https://git.sr.ht/~sthagen/arbejdstimer
+
 ## 2022.6.27
 
 * Updated dependencies
