@@ -12,7 +12,7 @@ Working hours (Danish arbejdstimer) or not?
 
 ## Bug Tracker
 
-Feature requests and bug reports are bested entered in the [todos of arbejdstimer](https://todo.sr.ht/~sthagen/arbejdstimer).
+Feature requests and bug reports are best entered in the [todos of arbejdstimer](https://todo.sr.ht/~sthagen/arbejdstimer).
 
 ## Primary Source repository
 
