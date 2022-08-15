@@ -20,8 +20,12 @@ Feature requests and bug reports are best entered in the [todos of arbejdstimer]
 
 ## Primary Source repository
 
-The primary source repository of [arbejdstimer is at sourcehut](https://git.sr.ht/~sthagen/arbejdstimer)
-a collection of tools useful for software development.
+The primary source of `arbejdstimer` lives somewhere on a mountain in Central Switzerland.
+But, we use decentralized version control (git), so any clone can become the source to everyone's benefit, no central only code.
+Anyway, the preferred public clones of `arbejdstimer` are:
+
+* [on codeberg](https://codeberg.org/sthagen/arbejdstimer) - a collaboration platform and git hosting for free and open source software, content and projects.
+* [at sourcehut](https://git.sr.ht/~sthagen/arbejdstimer) - a collection of tools useful for software development.
 
 ## Status
 
