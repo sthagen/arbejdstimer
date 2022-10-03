@@ -26,6 +26,13 @@ DEFAULT_WORK_HOURS_MARKER = (None, None)
 DEFAULT_WORK_HOURS_CLOSED_INTERVAL = (7, 16)
 
 
+@no_type_check
+def load_config(path_or_str):
+    """DRY."""
+    with open(path_or_str, 'rt', encoding=ENCODING) as handle:
+        return json.load(handle)
+
+
 def weekday(date: dti.date) -> int:
     """Return current weekday."""
     return date.isoweekday()
@@ -44,16 +51,14 @@ def the_hour() -> int:
 @no_type_check
 def days_of_year(day=None) -> list[dti.date]:
     """Return all days of the year that contains the day."""
-    if day is None:
-        day = dti.date.today()
-    year = day.year
+    year = dti.date.today().year if day is None else day.year
     d_start = dti.date(year, 1, 1)
     d_end = dti.date(year, 12, 31)
     return [d_start + dti.timedelta(days=x) for x in range((d_end - d_start).days + 1)]
 
 
 @no_type_check
-def workdays_of_year(off_days: list[dti.date], days=days_of_year(None)) -> list[dti.date]:
+def workdays(off_days: list[dti.date], days=days_of_year(None)) -> list[dti.date]:
     """Return all workdays of the year that contains the day."""
     return [cand for cand in days if cand not in off_days and no_weekend(weekday(cand))]
 
@@ -135,6 +140,13 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
     return 0, '', sorted(holidays_date_list), working_hours
 
 
+@no_type_check
+def workdays_from_config(cfg: CFG_TYPE, day=None) -> list[dti.date]:
+    """Ja, ja, ja."""
+    error, _, holidays, _ = load(cfg)
+    return [] if error else workdays(holidays, days=days_of_year(day))
+
+
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
     """Fail with grace."""
     if not argv or len(argv) != 2:
@@ -166,9 +178,7 @@ def main(argv: Union[List[str], None] = None) -> int:
 
     command, config = strings
 
-    with open(config, 'rt', encoding=ENCODING) as handle:
-        configuration = json.load(handle)
-
+    configuration = load_config(config)
     error, message, holidays, working_hours = load(configuration)
     if error:
         if command.startswith('explain'):
