@@ -1,5 +1,10 @@
 # Change History
 
+## 2022.10.3
+
+* Added API methods to query all working days of a year
+* Migrated to pyproject.toml based packaging
+
 ## 2022.7.24
 
 * Bumped dependencies for development and test
