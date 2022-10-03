@@ -42,23 +42,33 @@ def the_hour() -> int:
 
 
 @no_type_check
+def workday(off_days: list[dti.date], cmd: str, day=None) -> Tuple[int, str]:
+    """Apply the effective rules to the given date (default today)."""
+    if day is None:
+        day = dti.date.today()
+    if day not in off_days:
+        if cmd.startswith('explain'):
+            print(f'- Day ({day}) is not a holiday')
+    else:
+        return 1, '- Day is a holiday.'
+
+    work_day = no_weekend(weekday(day))
+    if work_day:
+        if cmd.startswith('explain'):
+            print(f'- Day ({day}) is not a weekend')
+    else:
+        return 1, '- Day is weekend.'
+
+    return 0, ''
+
+
+@no_type_check
 def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str) -> Tuple[int, str]:
     """Apply the effective rules to the current date and time."""
     working_hours = working_hours if working_hours != (None, None) else DEFAULT_WORK_HOURS_CLOSED_INTERVAL
-    today = dti.date.today()
-    if today not in off_days:
-        if cmd.startswith('explain'):
-            print(f'- Today ({today}) is not a holiday')
-    else:
-        return 1, '- Today is a holiday.'
-
-    work_day = no_weekend(weekday(today))
-    if work_day:
-        if cmd.startswith('explain'):
-            print(f'- Today ({today}) is not a weekend')
-    else:
-        return 1, '- Today is weekend.'
-
+    code, message = workday(off_days, cmd, day=None)
+    if code:
+        return code, message
     hour = the_hour()
     if working_hours[0] <= hour <= working_hours[1]:  # type: ignore
         if cmd.startswith('explain'):

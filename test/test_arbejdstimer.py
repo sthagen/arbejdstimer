@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 import test.conftest as fix
 
 import arbejdstimer.arbejdstimer as at
@@ -190,7 +188,7 @@ def test_at_load_and_apply_today_holiday(capsys):
     error, message, holidays, _ = at.load(fix.CFG_PY_TODAY_HOLIDAY)
     assert not error
     assert not message
-    assert at.apply(holidays, (None, None), 'explain') == (1, '- Today is a holiday.')
+    assert at.apply(holidays, (None, None), 'explain') == (1, '- Day is a holiday.')
     out, err = capsys.readouterr()
     assert not out
     assert not err
@@ -215,7 +213,7 @@ def test_at_apply_now_sunday_noon():
     at.the_hour = fix.the_noon_hour
     error, message = at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now')
     assert error == 1
-    assert message == '- Today is weekend.'
+    assert message == '- Day is weekend.'
 
 
 def test_at_apply_now_monday_midnight():
@@ -229,7 +227,7 @@ def test_at_apply_now_sunday_midnight():
     at.the_hour = fix.the_zero_hour
     error, message = at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now')
     assert error == 1
-    assert message == '- Today is weekend.'
+    assert message == '- Day is weekend.'
 
 
 def test_at_apply_explain_monday_noon(capsys):
@@ -237,6 +235,6 @@ def test_at_apply_explain_monday_noon(capsys):
     at.the_hour = fix.the_noon_hour
     assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'explain') == (0, '')
     out, err = capsys.readouterr()
-    assert f'- Today ({fix.TODAY}) is not a holiday' in out
+    assert f'- Day ({fix.TODAY}) is not a holiday' in out
     assert f'- At this hour ({at.the_hour()}) is work time' in out
     assert not err
