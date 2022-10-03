@@ -1,5 +1,16 @@
 # API
 
+## Programmatic usage
+
+``` python
+import arbejdstimer.arbejdstimer as api
+
+CONFIG_PATH = '.arbejdstimer.json'
+workdays = api.workdays_from_config(api.load_config(CONFIG_PATH))
+print(len(workdays))  # 246 for 2022 in some location
+print(len(api.days_of_year()))  # 365 ...
+```
+
 ## Configuration Data API
 
 Default configuration at `$HOME/.arbejdstimer.json` content from example at
