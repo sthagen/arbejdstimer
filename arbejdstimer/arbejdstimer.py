@@ -42,6 +42,23 @@ def the_hour() -> int:
 
 
 @no_type_check
+def days_of_year(day=None) -> list[dti.date]:
+    """Return all days of the year that contains the day."""
+    if day is None:
+        day = dti.date.today()
+    year = day.year
+    d_start = dti.date(year, 1, 1)
+    d_end = dti.date(year, 12, 31)
+    return [d_start + dti.timedelta(days=x) for x in range((d_end - d_start).days + 1)]
+
+
+@no_type_check
+def workdays_of_year(off_days: list[dti.date], days=days_of_year(None)) -> list[dti.date]:
+    """Return all workdays of the year that contains the day."""
+    return [cand for cand in days if cand not in off_days and no_weekend(weekday(cand))]
+
+
+@no_type_check
 def workday(off_days: list[dti.date], cmd: str, day=None) -> Tuple[int, str]:
     """Apply the effective rules to the given date (default today)."""
     if day is None:
