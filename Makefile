@@ -1,8 +1,9 @@
-SHELL = /bin/bash
-
 .DEFAULT_GOAL := all
+black = black -S -l 120 --target-version py310 arbejdstimer test
+flake8 = flake8 arbejdstimer test
 isort = isort arbejdstimer test
-black = black -S -l 120 --target-version py39 arbejdstimer test
+pytest = pytest --asyncio-mode=strict --cov=arbejdstimer --cov-report term-missing:skip-covered --cov-branch --log-format="%(levelname)s %(message)s"
+types = mypy arbejdstimer
 
 .PHONY: install
 install:
@@ -31,13 +32,13 @@ lint:
 	$(isort) --check-only --df
 	$(black) --check --diff
 
-.PHONY: mypy
-mypy:
-	mypy arbejdstimer
+.PHONY: types
+types:
+	$(mypy)
 
 .PHONY: test
 test: clean
-	pytest --asyncio-mode=strict --cov=arbejdstimer --cov-report term-missing:skip-covered --cov-branch --log-format="%(levelname)s %(message)s"
+	$(pytest)
 
 .PHONY: testcov
 testcov: test
@@ -45,7 +46,26 @@ testcov: test
 	@coverage html
 
 .PHONY: all
-all: lint mypy testcov
+all: lint types testcov
+
+.PHONY: sbom
+sbom:
+	@./gen-sbom
+	@cog -I. -P -c -r --check --markers="[[fill ]]] [[[end]]]" -p "from gen_sbom import *;from gen_licenses import *" docs/third-party/README.md
+
+.PHONY: version
+version:
+	@cog -I. -P -c -r --check --markers="[[fill ]]] [[[end]]]" -p "from gen_version import *" arbejdstimer/__init__.py
+
+.PHONY: secure
+secure:
+	@bandit --output current-bandit.json --baseline baseline-bandit.json --format json --recursive --quiet --exclude ./test,./build arbejdstimer
+	@diff -Nu {baseline,current}-bandit.json; printf "^ Only the timestamps ^^ ^^ ^^ ^^ ^^ ^^ should differ. OK?\n"
+
+.PHONY: baseline
+baseline:
+	@bandit --output baseline-bandit.json --format json --recursive --quiet --exclude ./test,./build arbejdstimer
+	@cat baseline-bandit.json; printf "\n^ The new baseline ^^ ^^ ^^ ^^ ^^ ^^. OK?\n"
 
 .PHONY: clean
 clean:
