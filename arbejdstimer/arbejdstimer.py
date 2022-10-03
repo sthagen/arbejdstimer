@@ -60,7 +60,7 @@ def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str)
         return 1, '- Today is weekend.'
 
     hour = the_hour()
-    if working_hours[0] <= hour <= working_hours[1]:
+    if working_hours[0] <= hour <= working_hours[1]:  # type: ignore
         if cmd.startswith('explain'):
             print(f'- At this hour ({hour}) is work time')
     else:
@@ -79,7 +79,7 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
         return 0, 'empty configuration, using default', [], DEFAULT_WORK_HOURS_MARKER
 
     try:
-        model = api.Arbejdstimer(**cfg)
+        model = api.Arbejdstimer(**cfg)  # type: ignore
     except ValidationError as err:
         return 2, str(err), [], (None, None)
 
@@ -104,7 +104,7 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
 
     working_hours = DEFAULT_WORK_HOURS_MARKER
     if model.working_hours:
-        working_hours = tuple(sorted(model.working_hours.dict().get('__root__', [None, None])))
+        working_hours = tuple(sorted(model.working_hours.dict().get('__root__', [None, None])))  # type: ignore
     return 0, '', sorted(holidays_date_list), working_hours
 
 
