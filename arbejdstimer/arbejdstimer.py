@@ -64,6 +64,18 @@ def workdays(off_days: list[dti.date], days=days_of_year(None)) -> list[dti.date
 
 
 @no_type_check
+def workdays_count_per_month(work_days) -> dict[str, int]:
+    """Return the workday count per month of the year that contains the day."""
+    per = {}
+    for work_day in work_days:
+        month = work_day.strftime('%Y-%m')
+        if month not in per:
+            per[month] = 0
+        per[month] += 1
+    return per
+
+
+@no_type_check
 def workday(off_days: list[dti.date], cmd: str, day=None) -> Tuple[int, str]:
     """Apply the effective rules to the given date (default today)."""
     if day is None:
