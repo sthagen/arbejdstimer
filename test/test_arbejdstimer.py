@@ -1,3 +1,4 @@
+import datetime as dti
 import test.conftest as fix
 
 import arbejdstimer.arbejdstimer as at
@@ -238,3 +239,8 @@ def test_at_apply_explain_monday_noon(capsys):
     assert f'- Day ({fix.TODAY}) is not a holiday' in out
     assert f'- At this hour ({at.the_hour()}) is work time' in out
     assert not err
+
+
+def test_workdays_count_per_month():
+    wds = [dti.date(2022, 1, 3), dti.date(2022, 12, 1), dti.date(2022, 12, 2)]
+    assert at.workdays_count_per_month(wds) == {'2022-01': 1, '2022-12': 2}
