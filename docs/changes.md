@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.10.5
+
+* Added API method to query the count of working days per month of a year
+
 ## 2022.10.3
 
 * Added API methods to query all working days of a year
