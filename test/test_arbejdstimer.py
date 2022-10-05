@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import datetime as dti
-||||||| 539abf5
-=======
 import datetime as dti
 
->>>>>>> f184af21211c8f03f8ede2727bf9c12f2a8d183c
 import test.conftest as fix
 
 import arbejdstimer.arbejdstimer as at
