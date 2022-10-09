@@ -105,7 +105,7 @@ $ cat tests/fixtures/basic/minimal-config.json
 
 ```console
 $ arbejdstimer version
-Working hours (Danish arbejdstimer) or not? version 2022.6.27
+Working hours (Danish arbejdstimer) or not? version 2022.10.9+parent.00983310
 ```
 
 ## General help
