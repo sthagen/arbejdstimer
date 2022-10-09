@@ -1,5 +1,4 @@
 import datetime as dti
-
 import test.conftest as fix
 
 import arbejdstimer.arbejdstimer as at
