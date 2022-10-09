@@ -1,7 +1,10 @@
 import datetime as dti
 import test.conftest as fix
 
+import pytest
+
 import arbejdstimer.arbejdstimer as at
+from arbejdstimer import date_from_fractional_year, day_count, day_count_from_date, fractional_year_from_date
 
 
 def _subs(count: int, what: str) -> str:
@@ -244,3 +247,31 @@ def test_at_apply_explain_monday_noon(capsys):
 def test_workdays_count_per_month():
     wds = [dti.date(2022, 1, 3), dti.date(2022, 12, 1), dti.date(2022, 12, 2)]
     assert at.workdays_count_per_month(wds) == {'2022-01': 1, '2022-12': 2}
+
+
+def test_day_count_2020():
+    assert day_count(2020) == 366
+
+
+def test_day_count_2022():
+    assert day_count(2022) == 365
+
+
+def test_day_count_from_date():
+    assert day_count_from_date(dti.date(2022, 1, 1)) == 365
+
+
+def test_fractional_year_from_date():
+    assert fractional_year_from_date(dti.date(2022, 1, 1)) == 2022.0
+
+
+def test_fractional_year_from_date_half_in_year():
+    assert fractional_year_from_date(dti.date(2022, 7, 1)) == pytest.approx(2022.5, abs=0.01)
+
+
+def test_date_from_fractional_year():
+    assert date_from_fractional_year(2022.0) == dti.date(2022, 1, 1)
+
+
+def test_date_from_fractional_year_halfway():
+    assert date_from_fractional_year(2022.5) == dti.date(2022, 7, 1)
