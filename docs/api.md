@@ -2,13 +2,35 @@
 
 ## Programmatic usage
 
-``` python
+```python
 import arbejdstimer.arbejdstimer as api
 
 CONFIG_PATH = '.arbejdstimer.json'
 workdays = api.workdays_from_config(api.load_config(CONFIG_PATH))
 print(len(workdays))  # 246 for 2022 in some location
 print(len(api.days_of_year()))  # 365 ...
+```
+
+## Interactive Session
+
+```python
+>>> import datetime as dti
+>>> from arbejdstimer import date_from_fractional_year, day_count
+>>> from arbejdstimer import day_count_from_date, fractional_year_from_date
+>>> day_count(2020)
+366
+>>> day_count(2022)
+365
+>>> day_count_from_date(dti.date(2022, 1, 1))
+365
+>>> fractional_year_from_date(dti.date(2022, 1, 1))
+2022.0
+>>> fractional_year_from_date(dti.date(2022, 7, 1))
+2022.495890410959
+>>> date_from_fractional_year(2022.0)
+datetime.date(2022, 1, 1)
+>>> date_from_fractional_year(2022.5)
+datetime.date(2022, 7, 1)
 ```
 
 ## Configuration Data API
