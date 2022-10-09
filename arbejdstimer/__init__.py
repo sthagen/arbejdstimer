@@ -24,8 +24,7 @@ def date_from_fractional_year(date: float) -> dti.date:
     """Going back ..."""
     y_int = int(date)
     rest_y_float = date - y_int
-    days_in_year = 365 + calendar.isleap(y_int)
-    rest_d_float = round(rest_y_float * days_in_year, 1)
+    rest_d_float = round(rest_y_float * day_count(y_int), 1)
     if rest_d_float:
         day_counts = [c for _, c in (calendar.monthrange(y_int, m) for m in range(1, 12 + 1))]
         day_cum = [day_counts[0]] + [0] * 11
@@ -46,5 +45,4 @@ def date_from_fractional_year(date: float) -> dti.date:
 
 def fractional_year_from_date(date: dti.date) -> float:
     """... and forth."""
-    days_in_year = float(365 + calendar.isleap(date.year))
-    return date.year + ((date - dti.date(date.year, 1, 1)).days / days_in_year)
+    return date.year + ((date - dti.date(date.year, 1, 1)).days / day_count(date.year))
