@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.10.9
+
+* Added functions day_count, day_count_from_date, date_from_fractional_year, and fractional_year_from_date
+ 
 ## 2022.10.5
 
 * Added API method to query the count of working days per month of a year
