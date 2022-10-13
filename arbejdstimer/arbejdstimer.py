@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=expression-not-assigned,line-too-long
 """Working hours (Danish arbejdstimer) or not? API."""
+import copy
 import datetime as dti
 import json
 import os
@@ -64,6 +65,12 @@ def workdays(off_days: list[dti.date], days=days_of_year(None)) -> list[dti.date
 
 
 @no_type_check
+def workdays_of_month(work_days, month) -> list[dti.date]:
+    """Return all workdays of the month."""
+    return [work_day for work_day in work_days if work_day.strftime('%Y-%m') == month]
+
+
+@no_type_check
 def workdays_count_per_month(work_days) -> dict[str, int]:
     """Return the workday count per month of the year that contains the day."""
     per = {}
@@ -73,6 +80,45 @@ def workdays_count_per_month(work_days) -> dict[str, int]:
             per[month] = 0
         per[month] += 1
     return per
+
+
+@no_type_check
+def cumulative_workdays_count_per_month(work_days) -> dict[str, int]:
+    """Return the cumulative workday count per month of the year that contains the day."""
+    per = workdays_count_per_month(work_days)
+    months = list(per)
+    cum = copy.deepcopy(per)
+    for slot, month in enumerate(months, start=1):
+        cum[month] = sum(per[m] for m in months[:slot])
+    return cum
+
+
+@no_type_check
+def workdays_count_of_month_in_between(work_days, month, day, first_month, last_month) -> int:
+    """Return the workday count of month to date for day (incl.) given first and last month."""
+    per = workdays_count_per_month(work_days)
+    if month not in per or month < first_month or month > last_month:
+        return 0
+
+    wds = workdays_of_month(work_days, month)
+    return sum(1 for d in wds if d.day <= day)
+
+
+@no_type_check
+def workdays_count_of_year_in_between(work_days, month, day, first_month, last_month) -> int:
+    """Return the workday count of year to date for day (incl.) given first and last month."""
+    per = workdays_count_per_month(work_days)
+    if month not in per or first_month not in per or last_month not in per:
+        return 0
+
+    count = 0
+    for d in work_days:
+        ds = d.strftime('%Y-%m')
+        if first_month <= ds <= last_month:
+            if ds < month or ds == month and d.day <= day:
+                count += 1
+
+    return count
 
 
 @no_type_check
