@@ -33,6 +33,23 @@ datetime.date(2022, 1, 1)
 datetime.date(2022, 7, 1)
 ```
 
+## Interactive Session Cumulative Workdays In Between
+
+```python
+>>> import arbejdstimer.arbejdstimer as api
+>>> import datetime as dti
+>>> CONFIG_PATH = '.arbejdstimer.json'
+>>> workdays = api.workdays_from_config(api.load_config(CONFIG_PATH))
+>>> api.workdays_count_of_month_in_between(workdays, '2022-10', 13, '2022-01', '2022-10')
+9
+>>> api.workdays_count_of_year_in_between(workdays, '2022-10', 13, '2022-01', '2022-10')
+197
+>>> api.workdays_count_of_year_in_between(workdays, '2022-10', 13, '2022-01', '2022-01')
+21
+>>> api.workdays_count_of_year_in_between(workdays, '2022-10', 13, '2022-02', '2022-02')
+20
+```
+
 ## Configuration Data API
 
 Default configuration at `$HOME/.arbejdstimer.json` content from example at
