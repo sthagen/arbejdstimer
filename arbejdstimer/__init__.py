@@ -2,8 +2,8 @@ import calendar
 import datetime as dti
 
 # [[[fill git_describe()]]]
-__version__ = '2022.10.13+parent.b910ed2d'
-# [[[end]]] (checksum: 07a80c9698071b6c1ddafb806396926b)
+__version__ = '2022.10.14+parent.4fe419fb'
+# [[[end]]] (checksum: 6ab30faec1d38982c408b8f1755c8105)
 __version_info__ = tuple(
     e if '-' not in e else e.split('-')[0] for part in __version__.split('+') for e in part.split('.') if e != 'parent'
 )
