@@ -275,3 +275,13 @@ def test_date_from_fractional_year():
 
 def test_date_from_fractional_year_halfway():
     assert date_from_fractional_year(2022.5) == dti.date(2022, 7, 1)
+
+
+def test_remaining_workdays_count_of_year_in_between():
+    work_days = [dti.date(2022, 1, 3), dti.date(2022, 7, 1), dti.date(2022, 8, 1), dti.date(2022, 12, 30)]
+    remaining = at.remaining_workdays_count_of_year_in_between
+    assert remaining(work_days, '2022-01', 2) == 4
+    assert remaining(work_days, '2022-03', 31) == 0
+    assert remaining(work_days, '2022-01', 4, '2022-01', '2022-01') == 0
+    assert remaining(work_days, '2022-01', 2, '2022-01', '2022-01') == 1
+    assert remaining(work_days, '2022-01', 4, '2022-07', '2022-08') == 2
