@@ -23,8 +23,15 @@ DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
 CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
 WORKING_HOURS_TYPE = Union[tuple[int, int], tuple[None, None]]
 DATE_FMT = '%Y-%m-%d'
+YEAR_MONTH_FORMAT = '%Y-%m'
 DEFAULT_WORK_HOURS_MARKER = (None, None)
 DEFAULT_WORK_HOURS_CLOSED_INTERVAL = (7, 16)
+
+
+@no_type_check
+def year_month_me(date) -> str:
+    """DRY."""
+    return date.strftime(YEAR_MONTH_FORMAT)
 
 
 @no_type_check
@@ -67,7 +74,7 @@ def workdays(off_days: list[dti.date], days=days_of_year(None)) -> list[dti.date
 @no_type_check
 def workdays_of_month(work_days, month) -> list[dti.date]:
     """Return all workdays of the month."""
-    return [work_day for work_day in work_days if work_day.strftime('%Y-%m') == month]
+    return [work_day for work_day in work_days if year_month_me(work_day) == month]
 
 
 @no_type_check
@@ -75,7 +82,7 @@ def workdays_count_per_month(work_days) -> dict[str, int]:
     """Return the workday count per month of the year that contains the day."""
     per = {}
     for work_day in work_days:
-        month = work_day.strftime('%Y-%m')
+        month = year_month_me(work_day)
         if month not in per:
             per[month] = 0
         per[month] += 1
@@ -105,17 +112,64 @@ def workdays_count_of_month_in_between(work_days, month, day, first_month, last_
 
 
 @no_type_check
-def workdays_count_of_year_in_between(work_days, month, day, first_month, last_month) -> int:
+def closed_interval_months(work_days) -> tuple[str, str]:
+    """DRY."""
+    return year_month_me(work_days[0]), year_month_me(work_days[-1])
+
+
+@no_type_check
+def workdays_count_of_year_in_between(work_days, month, day, first_month=None, last_month=None) -> int:
     """Return the workday count of year to date for day (incl.) given first and last month."""
     per = workdays_count_per_month(work_days)
-    if month not in per or first_month not in per or last_month not in per:
+    if any(
+        (
+            month not in per,
+            first_month and first_month not in per,
+            last_month and last_month not in per,
+        )
+    ):
         return 0
+
+    initial, final = closed_interval_months(work_days)
+    if first_month is None:
+        first_month = initial
+    if last_month is None:
+        last_month = final
 
     count = 0
     for d in work_days:
-        ds = d.strftime('%Y-%m')
+        ds = year_month_me(d)
         if first_month <= ds <= last_month:
             if ds < month or ds == month and d.day <= day:
+                count += 1
+
+    return count
+
+
+@no_type_check
+def remaining_workdays_count_of_year_in_between(work_days, month, day, first_month=None, last_month=None) -> int:
+    """Return the workday count of year from date for day (incl.) given first and last month."""
+    per = workdays_count_per_month(work_days)
+    if any(
+        (
+            month not in per,
+            first_month and first_month not in per,
+            last_month and last_month not in per,
+        )
+    ):
+        return 0
+
+    initial, final = closed_interval_months(work_days)
+    if first_month is None:
+        first_month = initial
+    if last_month is None:
+        last_month = final
+
+    count = 0
+    for d in work_days:
+        ds = year_month_me(d)
+        if first_month <= ds <= last_month:
+            if ds == month and d.day >= day or ds > month:
                 count += 1
 
     return count
