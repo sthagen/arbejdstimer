@@ -1,5 +1,10 @@
 # Change History
 
+## 2022.10.14
+
+* Added function to calaculate the remaining workdays of a year given a day and constraining months
+* Extended constraint month parameters with default values to allow for less noisy call sites
+
 ## 2022.10.13
 
 * Added service functions for monthly and yearly workday counts in between constraints
