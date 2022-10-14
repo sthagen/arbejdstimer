@@ -277,6 +277,15 @@ def test_date_from_fractional_year_halfway():
     assert date_from_fractional_year(2022.5) == dti.date(2022, 7, 1)
 
 
+def test_workdays_of_month():
+    work_days = [dti.date(2022, 1, 3), dti.date(2022, 7, 1), dti.date(2022, 8, 1), dti.date(2022, 12, 30)]
+    count = at.workdays_of_month
+    assert count(work_days, '2022-01') == [dti.date(2022, 1, 3)]
+    assert count(work_days, '2022-03') == []
+    assert count(work_days, '2022-08') == [dti.date(2022, 8, 1)]
+    assert count(work_days, '2022-12') == [dti.date(2022, 12, 30)]
+
+
 def test_cumulative_workdays_count_per_month():
     work_days = [dti.date(2022, 1, 3), dti.date(2022, 7, 1), dti.date(2022, 8, 1), dti.date(2022, 12, 30)]
     cum = at.cumulative_workdays_count_per_month
