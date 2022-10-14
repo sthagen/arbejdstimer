@@ -169,7 +169,7 @@ def remaining_workdays_count_of_year_in_between(work_days, month, day, first_mon
     for d in work_days:
         ds = year_month_me(d)
         if first_month <= ds <= last_month:
-            if ds == month and d.day >= day or ds > month:
+            if ds == month and d.day > day or ds > month:
                 count += 1
 
     return count
