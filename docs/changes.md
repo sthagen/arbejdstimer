@@ -2,8 +2,9 @@
 
 ## 2022.10.22
 
-* Added constraint for date to be within the configuration date range
+* Added constraint for date to be within the configuration date range (breaking change)
 * Added option to explain that accepts a date other than current date
+* Upon request, the capability to work without any specific holidays set in configuration may be added back in
 
 ## 2022.10.14
 
