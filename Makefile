@@ -34,7 +34,7 @@ lint:
 
 .PHONY: types
 types:
-	$(mypy)
+	$(types)
 
 .PHONY: test
 test: clean
