@@ -2,7 +2,8 @@
 
 ## 2022.10.22
 
-* Added command to query date other than current date
+* Added constraint for date to be within the configuration date range
+* Added option to explain that accepts a date other than current date
 
 ## 2022.10.14
 
