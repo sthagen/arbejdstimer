@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.10.22
+
+* Added command to query date other than current date
+
 ## 2022.10.14
 
 * Added function to calculate the remaining workdays of a year given a day and constraining months
