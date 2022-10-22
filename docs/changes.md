@@ -2,7 +2,7 @@
 
 ## 2022.10.14
 
-* Added function to calaculate the remaining workdays of a year given a day and constraining months
+* Added function to calculate the remaining workdays of a year given a day and constraining months
 * Extended constraint month parameters with default values to allow for less noisy call sites
 
 ## 2022.10.13
