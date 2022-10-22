@@ -176,10 +176,17 @@ def remaining_workdays_count_of_year_in_between(work_days, month, day, first_mon
 
 
 @no_type_check
-def workday(off_days: list[dti.date], cmd: str, day=None) -> Tuple[int, str]:
+def workday(off_days: list[dti.date], cmd: str, date='') -> Tuple[int, str]:
     """Apply the effective rules to the given date (default today)."""
-    if day is None:
-        day = dti.date.today()
+    day = dti.datetime.strptime(date, DATE_FMT).date() if date else dti.date.today()
+    if not off_days:
+        return 2, '- empty date range of configuration'
+    if not (off_days[0].year <= day.year < off_days[-1].year):
+        return 2, '- Day is not within year range of configuration'
+    else:
+        if cmd.startswith('explain'):
+            print(f'- Day ({day}) is within date range of configuration')
+
     if day not in off_days:
         if cmd.startswith('explain'):
             print(f'- Day ({day}) is not a holiday')
@@ -197,14 +204,14 @@ def workday(off_days: list[dti.date], cmd: str, day=None) -> Tuple[int, str]:
 
 
 @no_type_check
-def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str) -> Tuple[int, str]:
+def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str, day: str) -> Tuple[int, str]:
     """Apply the effective rules to the current date and time."""
     working_hours = working_hours if working_hours != (None, None) else DEFAULT_WORK_HOURS_CLOSED_INTERVAL
-    code, message = workday(off_days, cmd, day=None)
+    code, message = workday(off_days, cmd, date=str(day))
     if code:
         return code, message
     hour = the_hour()
-    if working_hours[0] <= hour <= working_hours[1]:  # type: ignore
+    if working_hours[0] <= hour <= working_hours[1]:
         if cmd.startswith('explain'):
             print(f'- At this hour ({hour}) is work time')
     else:
@@ -223,7 +230,7 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
         return 0, 'empty configuration, using default', [], DEFAULT_WORK_HOURS_MARKER
 
     try:
-        model = api.Arbejdstimer(**cfg)  # type: ignore
+        model = api.Arbejdstimer(**cfg)
     except ValidationError as err:
         return 2, str(err), [], (None, None)
 
@@ -248,7 +255,7 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
 
     working_hours = DEFAULT_WORK_HOURS_MARKER
     if model.working_hours:
-        working_hours = tuple(sorted(model.working_hours.dict().get('__root__', [None, None])))  # type: ignore
+        working_hours = tuple(sorted(model.working_hours.dict().get('__root__', [None, None])))
     return 0, '', sorted(holidays_date_list), working_hours
 
 
@@ -261,10 +268,10 @@ def workdays_from_config(cfg: CFG_TYPE, day=None) -> list[dti.date]:
 
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
     """Fail with grace."""
-    if not argv or len(argv) != 2:
+    if not argv or len(argv) != 3:
         return 2, 'received wrong number of arguments', ['']
 
-    command, config = argv
+    command, date, config = argv
 
     if command not in ('explain', 'explain_verbatim', 'now'):
         return 2, 'received unknown command', ['']
@@ -288,7 +295,7 @@ def main(argv: Union[List[str], None] = None) -> int:
         print(message, file=sys.stderr)
         return error
 
-    command, config = strings
+    command, date, config = strings
 
     configuration = load_config(config)
     error, message, holidays, working_hours = load(configuration)
@@ -326,7 +333,7 @@ def main(argv: Union[List[str], None] = None) -> int:
             print(f'  + [{effective_range[0]}, {effective_range[1]}] (application default)')
         print('evaluation:')
 
-    error, message = apply(holidays, working_hours, command)
+    error, message = apply(holidays, working_hours, command, date)
     if error:
         if command.startswith('explain'):
             print(message, file=sys.stdout)

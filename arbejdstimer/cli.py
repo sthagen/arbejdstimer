@@ -1,6 +1,3 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-# pylint: disable=line-too-long
 """Commandline API gateway for arbejdstimer."""
 import pathlib
 import sys
@@ -93,17 +90,17 @@ def now(
     """
     command = 'now'
     config = conf if conf else pathlib.Path.home() / at.DEFAULT_CONFIG_NAME
-    action = [command, str(config)]
+    action = [command, '', str(config)]
     return sys.exit(at.main(action))
 
 
-def explain_enforce_defaults(conf: str = '', verbose: bool = False) -> int:
+def explain_enforce_defaults(conf: str = '', day: str = '', verbose: bool = False) -> int:
     """Until the root cause of https://github.com/tiangolo/typer/issues/106 remains unfixed."""
     command = 'explain'
     if verbose:
         command += '_verbatim'
     config = conf if conf else pathlib.Path.home() / at.DEFAULT_CONFIG_NAME
-    action = [command, str(config)]
+    action = [command, day, str(config)]
     return sys.exit(at.main(action))
 
 
@@ -115,6 +112,13 @@ def explain(
         '--config',
         help='Path to config file (default is $HOME/.arbejdstimer.json)',
         metavar='<configpath>',
+    ),
+    day: str = typer.Option(
+        '',
+        '-d',
+        '--day',
+        help='Day sought (default is today)',
+        metavar='<date>',
     ),
     verbose: bool = typer.Option(
         False,
@@ -128,7 +132,7 @@ def explain(
     Explain the answer to the question if now is a working hour
     (in addition to the return code 0 for yes, and 1 for no).
     """
-    return explain_enforce_defaults(conf, verbose)
+    return explain_enforce_defaults(conf, day, verbose)
 
 
 @app.command('version')
