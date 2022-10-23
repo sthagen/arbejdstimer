@@ -230,8 +230,10 @@ $ arbejdstimer explain [OPTIONS]
 
 **Options**:
 
-* `-c, --config <configpath>`: Path to config file [default: $HOME/.arbejdstimer.json]
-* `-v, --verbose`: Be more verbatim providing the effective config values [default: False]
+* `-c, --config <configpath>`: Path to config file (default: $HOME/.arbejdstimer.json)
+* `-d, --day <date>`: Day sought (default: Today)
+* `-s, --strict <bool>`: Enforce presence of farming dates in configuration (default False)
+* `-v, --verbose`: Be more verbatim providing the effective config values (default: False)
 * `-h, --help`: Show this message and exit.
 
 #### `now`
@@ -246,7 +248,8 @@ $ arbejdstimer now [OPTIONS]
 
 **Options**:
 
-* `-c, --config <configpath>`: Path to config file [default: $HOME/.arbejdstimer.json]
+* `-c, --config <configpath>`: Path to config file (default: $HOME/.arbejdstimer.json)
+* `-s, --strict <bool>`: Enforce presence of farming dates in configuration (default False)
 * `-h, --help`: Show this message and exit.
 
 #### `template`

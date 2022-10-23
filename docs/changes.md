@@ -2,7 +2,8 @@
 
 ## 2022.10.23
 
-* confined the need for presence of date entries in configuration framing the date sought to a (new) strict mode 
+* Confined the need for presence of date entries in configuration framing the date sought to a (new) strict mode
+* Corrected, updated, and extended usage as well as API documentation 
 
 ## 2022.10.22
 
