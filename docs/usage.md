@@ -265,7 +265,7 @@ Retrieving a starter template for the configuration (default place is `$HOME/.ar
 
 ```console
 ❯ arbejdstimer version
-Working hours (Danish arbejdstimer) or not? version 2022.10.22+parent.ae9945dd
+Working hours (Danish arbejdstimer) or not? version 2022.10.23+parent.712c72f1
 ```
 
 ## General help
