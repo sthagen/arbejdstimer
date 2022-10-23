@@ -1,7 +1,6 @@
 """Commandline API gateway for arbejdstimer."""
 import pathlib
 import sys
-from typing import List, Union
 
 import typer
 
@@ -25,14 +24,14 @@ TEMPLATE_EXAMPLE = """\
     {
       "label": "public holiday",
       "at": [
-        "2021-12-08"
+        "2022-12-08"
       ]
     },
     {
-      "label": "company holidays 2021/2022",
+      "label": "some holidays 2022/2023",
       "at": [
-        "2021-12-24",
-        "2022-01-02"
+        "2022-12-23",
+        "2023-01-02"
       ]
     }
   ],
@@ -84,23 +83,30 @@ def now(
         help='Path to config file (default is $HOME/.arbejdstimer.json)',
         metavar='<configpath>',
     ),
+    strict: bool = typer.Option(
+        False,
+        '-s',
+        '--strict',
+        help='Enforce presence of farming dates in configuration (default is false if not provided)',
+        metavar='<bool>',
+    ),
 ) -> int:
     """
     Silently answer the question if now is a working hour (per return code 0 for yes, and 1 for no).
     """
     command = 'now'
     config = conf if conf else pathlib.Path.home() / at.DEFAULT_CONFIG_NAME
-    action = [command, '', str(config)]
+    action = (command, '', str(config), bool(strict))
     return sys.exit(at.main(action))
 
 
-def explain_enforce_defaults(conf: str = '', day: str = '', verbose: bool = False) -> int:
+def explain_enforce_defaults(conf: str = '', day: str = '', verbose: bool = False, strict: bool = False) -> int:
     """Until the root cause of https://github.com/tiangolo/typer/issues/106 remains unfixed."""
     command = 'explain'
     if verbose:
         command += '_verbatim'
     config = conf if conf else pathlib.Path.home() / at.DEFAULT_CONFIG_NAME
-    action = [command, day, str(config)]
+    action = (command, day, str(config), strict)
     return sys.exit(at.main(action))
 
 
@@ -120,6 +126,13 @@ def explain(
         help='Day sought (default is today)',
         metavar='<date>',
     ),
+    strict: bool = typer.Option(
+        False,
+        '-s',
+        '--strict',
+        help='Enforce presence of farming dates in configuration (default is false if not provided)',
+        metavar='<bool>',
+    ),
     verbose: bool = typer.Option(
         False,
         '-v',
@@ -132,7 +145,7 @@ def explain(
     Explain the answer to the question if now is a working hour
     (in addition to the return code 0 for yes, and 1 for no).
     """
-    return explain_enforce_defaults(conf, day, verbose)
+    return explain_enforce_defaults(conf, day, verbose, strict)
 
 
 @app.command('version')
@@ -141,11 +154,3 @@ def app_version() -> None:
     Display the arbejdstimer version and exit
     """
     callback(True)
-
-
-# pylint: disable=expression-not-assigned
-# @app.command()
-def main(argv: Union[List[str], None] = None) -> int:
-    """Delegate processing to functional module."""
-    argv = sys.argv[1:] if argv is None else argv
-    return at.main(argv)

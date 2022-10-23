@@ -7,7 +7,7 @@ import json
 import os
 import pathlib
 import sys
-from typing import List, Optional, Tuple, Union, no_type_check
+from typing import Tuple, Union, no_type_check
 
 from pydantic.error_wrappers import ValidationError
 
@@ -20,8 +20,9 @@ ENCODING = 'utf-8'
 ENCODING_ERRORS_POLICY = 'ignore'
 
 DEFAULT_CONFIG_NAME = '.arbejdstimer.json'
-CFG_TYPE = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
-WORKING_HOURS_TYPE = Union[tuple[int, int], tuple[None, None]]
+CfgType = dict[str, Union[dict[str, str], list[dict[str, Union[str, list[str]]]]]]
+WorkingHoursType = Union[tuple[int, int], tuple[None, None]]
+CmdType = Tuple[str, str, str, bool]
 DATE_FMT = '%Y-%m-%d'
 YEAR_MONTH_FORMAT = '%Y-%m'
 DEFAULT_WORK_HOURS_MARKER = (None, None)
@@ -66,8 +67,10 @@ def days_of_year(day=None) -> list[dti.date]:
 
 
 @no_type_check
-def workdays(off_days: list[dti.date], days=days_of_year(None)) -> list[dti.date]:
+def workdays(off_days: list[dti.date], days=None) -> list[dti.date]:
     """Return all workdays of the year that contains the day."""
+    if days is None:
+        days = days_of_year(None)
     return [cand for cand in days if cand not in off_days and no_weekend(weekday(cand))]
 
 
@@ -176,16 +179,17 @@ def remaining_workdays_count_of_year_in_between(work_days, month, day, first_mon
 
 
 @no_type_check
-def workday(off_days: list[dti.date], cmd: str, date='') -> Tuple[int, str]:
+def workday(off_days: list[dti.date], cmd: str, date: str = '', strict: bool = False) -> Tuple[int, str]:
     """Apply the effective rules to the given date (default today)."""
     day = dti.datetime.strptime(date, DATE_FMT).date() if date else dti.date.today()
-    if not off_days:
-        return 2, '- empty date range of configuration'
-    if not (off_days[0].year <= day.year < off_days[-1].year):
-        return 2, '- Day is not within year range of configuration'
-    else:
-        if cmd.startswith('explain'):
-            print(f'- Day ({day}) is within date range of configuration')
+    if strict:
+        if not off_days:
+            return 2, '- empty date range of configuration'
+        if not (off_days[0].year <= day.year < off_days[-1].year):
+            return 2, '- Day is not within year range of configuration'
+        else:
+            if cmd.startswith('explain'):
+                print(f'- Day ({day}) is within date range of configuration')
 
     if day not in off_days:
         if cmd.startswith('explain'):
@@ -204,10 +208,12 @@ def workday(off_days: list[dti.date], cmd: str, date='') -> Tuple[int, str]:
 
 
 @no_type_check
-def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str, day: str) -> Tuple[int, str]:
+def apply(
+    off_days: list[dti.date], working_hours: WorkingHoursType, cmd: str, day: str, strict: bool
+) -> Tuple[int, str]:
     """Apply the effective rules to the current date and time."""
     working_hours = working_hours if working_hours != (None, None) else DEFAULT_WORK_HOURS_CLOSED_INTERVAL
-    code, message = workday(off_days, cmd, date=str(day))
+    code, message = workday(off_days, cmd, date=str(day), strict=strict)
     if code:
         return code, message
     hour = the_hour()
@@ -221,7 +227,7 @@ def apply(off_days: list[dti.date], working_hours: WORKING_HOURS_TYPE, cmd: str,
 
 
 @no_type_check
-def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
+def load(cfg: CfgType) -> Tuple[int, str, list[dti.date], WorkingHoursType]:
     """Load the configuration and return error, message and holidays as well as working hours list.
 
     The holidays as well as non-default working hours will be ordered.
@@ -260,42 +266,43 @@ def load(cfg: CFG_TYPE) -> Tuple[int, str, list[dti.date], WORKING_HOURS_TYPE]:
 
 
 @no_type_check
-def workdays_from_config(cfg: CFG_TYPE, day=None) -> list[dti.date]:
+def workdays_from_config(cfg: CfgType, day=None) -> list[dti.date]:
     """Ja, ja, ja."""
     error, _, holidays, _ = load(cfg)
     return [] if error else workdays(holidays, days=days_of_year(day))
 
 
-def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
+def verify_request(argv: Union[CmdType, None]) -> Tuple[int, str, CmdType]:
     """Fail with grace."""
-    if not argv or len(argv) != 3:
-        return 2, 'received wrong number of arguments', ['']
+    err = ('', '', '', False)
+    if not argv or len(argv) != 4:
+        return 2, 'received wrong number of arguments', err
 
-    command, date, config = argv
+    command, date, config, strict = argv
 
     if command not in ('explain', 'explain_verbatim', 'now'):
-        return 2, 'received unknown command', ['']
+        return 2, 'received unknown command', err
 
     if not config:
-        return 2, 'configuration missing', ['']
+        return 2, 'configuration missing', err
 
     config_path = pathlib.Path(str(config))
     if not config_path.is_file():
-        return 1, f'config ({config_path}) is no file', ['']
+        return 1, f'config ({config_path}) is no file', err
     if not ''.join(config_path.suffixes).lower().endswith('.json'):
-        return 1, 'config has not .json extension', ['']
+        return 1, 'config has not .json extension', err
 
     return 0, '', argv
 
 
-def main(argv: Union[List[str], None] = None) -> int:
+def main(argv: Union[CmdType, None] = None) -> int:
     """Drive the lookup."""
     error, message, strings = verify_request(argv)
     if error:
         print(message, file=sys.stderr)
         return error
 
-    command, date, config = strings
+    command, date, config, strict = strings
 
     configuration = load_config(config)
     error, message, holidays, working_hours = load(configuration)
@@ -314,6 +321,11 @@ def main(argv: Union[List[str], None] = None) -> int:
             print(f'configuration has {line_count} line{"" if line_count == 1 else "s"} of (indented) JSON content:')
             for line, content in enumerate(lines, start=1):
                 print(f'  {line:>{counter_width + 1}} | {content}')
+        if command == 'explain_verbatim':
+            if strict:
+                print('detected strict mode (queries outside of year frame from config will fail)')
+            else:
+                print('detected non-strict mode (no constraints on year frame from config)')
 
     if command == 'explain':
         print(f'consider {len(holidays)} holidays:')
@@ -333,7 +345,10 @@ def main(argv: Union[List[str], None] = None) -> int:
             print(f'  + [{effective_range[0]}, {effective_range[1]}] (application default)')
         print('evaluation:')
 
-    error, message = apply(holidays, working_hours, command, date)
+    if strict:
+        print('detected strict mode (queries outside of year frame from config will fail)')
+
+    error, message = apply(holidays, working_hours, command, date, strict)
     if error:
         if command.startswith('explain'):
             print(message, file=sys.stdout)
