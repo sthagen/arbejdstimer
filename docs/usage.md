@@ -5,15 +5,15 @@
 Silent answer:
 
 ```console
-$ arbejdstimer now --config tests/fixtures/basic/holidays-config.json || echo "OFF"
+$ arbejdstimer now --config test/fixtures/basic/holidays-config.json || echo "OFF"
 OFF
 ```
 
 Explaining the reasons and answering:
 
 ```console
-$ arbejdstimer explain --config tests/fixtures/basic/holidays-config.json || echo "OFF"
-read valid configuration from (tests/fixtures/basic/holidays-config.json)
+$ arbejdstimer explain --config test/fixtures/basic/holidays-config.json || echo "OFF"
+read valid configuration from (test/fixtures/basic/holidays-config.json)
 consider 11 holidays:
 - Today is a holiday.
 OFF
@@ -22,8 +22,8 @@ OFF
 Another example from test fixtures:
 
 ```console
-$ arbejdstimer explain --config tests/fixtures/basic/triplet-holidays-config.json
-read valid configuration from (tests/fixtures/basic/triplet-holidays-config.json)
+$ arbejdstimer explain --config test/fixtures/basic/triplet-holidays-config.json
+read valid configuration from (test/fixtures/basic/triplet-holidays-config.json)
 consider 3 holidays:
 - Today (2021-12-28) is not a holiday
 - Today (2021-12-28) is not a weekend
@@ -33,8 +33,8 @@ consider 3 holidays:
 The same example from test fixtures with verbatim explanation mode on:
 
 ```console
-$ arbejdstimer explain -v -c tests/fixtures/basic/triplet-holidays-config.json
-read valid configuration from (tests/fixtures/basic/triplet-holidays-config.json)
+$ arbejdstimer explain -v -c test/fixtures/basic/triplet-holidays-config.json
+read valid configuration from (test/fixtures/basic/triplet-holidays-config.json)
 configuration has 19 lines of (indented) JSON content:
     1 | {
     2 |   "api": 1,
