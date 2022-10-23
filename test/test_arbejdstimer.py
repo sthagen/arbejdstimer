@@ -7,6 +7,7 @@ import arbejdstimer.arbejdstimer as at
 from arbejdstimer import date_from_fractional_year, day_count, day_count_from_date, fractional_year_from_date
 
 TODAY = dti.date.today().strftime('%Y-%m-%d')
+ERR_CMD_TUPLE = ('', '', '', False)
 
 
 def _subs(count: int, what: str) -> str:
@@ -15,26 +16,26 @@ def _subs(count: int, what: str) -> str:
 
 
 def test_at_main_now():
-    assert at.main(['now', '', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
+    assert at.main(('now', '', str(fix.CFG_FS_HOLIDAYS), False)) in (0, 1)
 
 
 def test_at_main_now_meta_only():
-    assert at.main(['now', '', str(fix.CFG_FS_META_ONLY)]) == 2
+    assert at.main(('now', '', str(fix.CFG_FS_META_ONLY), True)) == 2
 
 
 def test_at_main_now_load_error_processing(capsys):
-    assert at.main(['now', '', str(fix.CFG_FS_INVALID_MINIMAL)]) == 2
+    assert at.main(('now', '', str(fix.CFG_FS_INVALID_MINIMAL), True)) == 2
     out, err = capsys.readouterr()
     assert not out
     assert not err
 
 
 def test_at_main_explain():
-    assert at.main(['explain', '', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
+    assert at.main(('explain', '', str(fix.CFG_FS_HOLIDAYS), True)) in (0, 1)
 
 
 def test_at_main_explain_load_error_processing(capsys):
-    assert at.main(['explain', '', str(fix.CFG_FS_INVALID_MINIMAL)]) == 2
+    assert at.main(('explain', '', str(fix.CFG_FS_INVALID_MINIMAL), True)) == 2
     out, err = capsys.readouterr()
     assert 'Configuration file failed to parse (INVALID)' in out
     message_part = (
@@ -45,19 +46,19 @@ def test_at_main_explain_load_error_processing(capsys):
 
 
 def test_at_verify_request_too_few():
-    assert at.verify_request([1]) == (2, 'received wrong number of arguments', [''])  # type: ignore
+    assert at.verify_request([1]) == (2, 'received wrong number of arguments', ERR_CMD_TUPLE)  # type: ignore
 
 
 def test_at_verify_request_unknown_command():
-    assert at.verify_request(['unknown', '', 'does not matter']) == (2, 'received unknown command', [''])
+    assert at.verify_request(('unknown', '', 'does not matter', True)) == (2, 'received unknown command', ERR_CMD_TUPLE)
 
 
 def test_at_verify_request_falsy_input():
-    assert at.verify_request(['now', '', '']) == (2, 'configuration missing', [''])
+    assert at.verify_request(('now', '', '', True)) == (2, 'configuration missing', ERR_CMD_TUPLE)
 
 
 def test_at_main_holidays(capsys):
-    assert at.main(['explain', '2022-10-22', str(fix.CFG_FS_HOLIDAYS)]) in (0, 1)
+    assert at.main(('explain', '2022-10-22', str(fix.CFG_FS_HOLIDAYS), True)) in (0, 1)
     out, err = capsys.readouterr()
     assert 'consider 12 holidays' in out.lower()
     assert 'is within date range of configuration' in out.lower()
@@ -198,7 +199,7 @@ def test_at_load_and_apply_today_holiday(capsys):
     assert not error
     assert not message
     expected = (2, '- Day is not within year range of configuration')
-    assert at.apply(holidays, (None, None), 'explain', TODAY) == expected
+    assert at.apply(holidays, (None, None), 'explain', TODAY, True) == expected
     out, err = capsys.readouterr()
     assert not out
     assert not err
@@ -215,13 +216,14 @@ def test_at_load_triplet_holidays():
 def test_at_apply_now_monday_noon():
     at.weekday = fix.always_monday
     at.the_hour = fix.the_noon_hour
-    assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY) == (2, '- empty date range of configuration')
+    expected = (2, '- empty date range of configuration')
+    assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY, True) == expected
 
 
 def test_at_apply_now_sunday_noon():
     at.weekday = fix.always_sunday
     at.the_hour = fix.the_noon_hour
-    error, message = at.apply([dti.date.today()], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY)
+    error, message = at.apply([dti.date.today()], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY, True)
     assert error == 2
     assert message == '- Day is not within year range of configuration'
 
@@ -229,13 +231,14 @@ def test_at_apply_now_sunday_noon():
 def test_at_apply_now_monday_midnight():
     at.weekday = fix.always_monday
     at.the_hour = fix.the_zero_hour
-    assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY) == (2, '- empty date range of configuration')
+    expected = (2, '- empty date range of configuration')
+    assert at.apply([], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY, True) == expected
 
 
 def test_at_apply_now_sunday_midnight():
     at.weekday = fix.always_sunday
     at.the_hour = fix.the_zero_hour
-    error, message = at.apply([dti.date.today()], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY)
+    error, message = at.apply([dti.date.today()], at.DEFAULT_WORK_HOURS_MARKER, 'now', TODAY, True)
     assert error == 2
     assert message == '- Day is not within year range of configuration'
 
@@ -244,7 +247,7 @@ def test_at_apply_explain_monday_noon(capsys):
     at.weekday = fix.always_monday
     at.the_hour = fix.the_noon_hour
     expected = (2, '- Day is not within year range of configuration')
-    assert at.apply([dti.date.today()], at.DEFAULT_WORK_HOURS_MARKER, 'explain', TODAY) == expected
+    assert at.apply([dti.date.today()], at.DEFAULT_WORK_HOURS_MARKER, 'explain', TODAY, True) == expected
     out, err = capsys.readouterr()
     assert not err
 
