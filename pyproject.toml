@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arbejdstimer"
-version = "2022.10.22"
+version = "2022.10.23"
 description = "Working hours (Danish arbejdstimer) or not?"
 readme = "README.md"
 authors = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
