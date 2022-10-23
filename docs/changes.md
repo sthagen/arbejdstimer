@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.10.23
+
+* confined the need for presence of date entries in configuration framing the date sought to a (new) strict mode 
+
 ## 2022.10.22
 
 * Added constraint for date to be within the configuration date range (breaking change)
