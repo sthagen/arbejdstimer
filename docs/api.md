@@ -37,7 +37,6 @@ datetime.date(2022, 7, 1)
 
 ```python
 >>> import arbejdstimer.arbejdstimer as api
->>> import datetime as dti
 >>> CONFIG_PATH = '.arbejdstimer.json'
 >>> workdays = api.workdays_from_config(api.load_config(CONFIG_PATH))
 >>> api.workdays_count_of_month_in_between(workdays, '2022-10', 13, '2022-01', '2022-10')
