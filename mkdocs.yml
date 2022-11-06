@@ -3,6 +3,9 @@ site_description: Working hours (Danish arbejdstimer) or not?
 
 theme:
   name: 'material'
+  features:
+    - navigation.expand
+    - toc.integrate
   palette:
     # Light mode
     - media: "(prefers-color-scheme: light)"
