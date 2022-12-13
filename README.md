@@ -1,8 +1,10 @@
-# arbejdstimer
+# Arbejdstimer
 
 Working hours (Danish arbejdstimer) or not?
 
 [License: MIT](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/LICENSE)
+
+Third party dependencies are documented in the folder [third-party](third-party/README.md).
 
 [![version](https://img.shields.io/pypi/v/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
 [![downloads](https://pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)
