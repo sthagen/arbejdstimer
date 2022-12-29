@@ -19,7 +19,7 @@ classifiers = [
 ]
 keywords = ["developer-tools", "documentation-tools", "html", "markdown"]
 dependencies = [
-    "pydantic >= 1.10.2",
+    "pydantic >= 1.10.3",
     "typer >= 0.7.0",
 ]
 requires-python = ">=3.8"
