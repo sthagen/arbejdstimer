@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom.json) with SHA256 checksum ([2536fb44 ...](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom.json.sha256 "sha256:2536fb44ebd380f58cb70b39fcb458130cdeb4e3a02ca2cefeed062f125e988d")).
-<!--[[[end]]] (checksum: e23b345a29104812c564f10f6108ae12)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom.json) with SHA256 checksum ([bcc5548d ...](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom.json.sha256 "sha256:bcc5548dc1f7b8796d51a3cf7e5000af293853970b69736b65de006dff3dfc22")).
+<!--[[[end]]] (checksum: ec141f3e04097be9fa4e4019027887ae)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -12,9 +12,9 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 <!--[[[fill direct_dependencies_table()]]]-->
 | Name                                             | Version                                             | License     | Author            | Description (from packaging data)                                  |
 |:-------------------------------------------------|:----------------------------------------------------|:------------|:------------------|:-------------------------------------------------------------------|
-| [pydantic](https://github.com/pydantic/pydantic) | [1.10.3](https://pypi.org/project/pydantic/1.10.3/) | MIT License | Samuel Colvin     | Data validation and settings management using python type hints    |
+| [pydantic](https://github.com/pydantic/pydantic) | [1.10.4](https://pypi.org/project/pydantic/1.10.4/) | MIT License | Samuel Colvin     | Data validation and settings management using python type hints    |
 | [typer](https://github.com/tiangolo/typer)       | [0.7.0](https://pypi.org/project/typer/0.7.0/)      | MIT License | Sebastián Ramírez | Typer, build great CLIs. Easy to code. Based on Python type hints. |
-<!--[[[end]]] (checksum: 972b361286fd50133bbb76a606df1d75)-->
+<!--[[[end]]] (checksum: 8f3c3a35e13b46fc7130c695b478d1e9)-->
 
 ### Indirect Dependencies
 
@@ -38,9 +38,9 @@ Base graphviz file in dot format: [Trees of the direct dependencies](package-dep
 
 <!--[[[fill dependency_tree_console_text()]]]-->
 ````console
-pydantic==1.10.3
-  - typing-extensions [required: >=4.1.0, installed: 4.4.0]
+pydantic==1.10.4
+  - typing-extensions [required: >=4.2.0, installed: 4.4.0]
 typer==0.7.0
   - click [required: >=7.1.1,<9.0.0, installed: 8.1.3]
 ````
-<!--[[[end]]] (checksum: 08d53d195ca0946227b1329d968ba0dd)-->
+<!--[[[end]]] (checksum: 2540c630a2fe8086b1f338c32c77541c)-->
