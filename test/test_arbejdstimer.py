@@ -60,7 +60,7 @@ def test_at_verify_request_falsy_input():
 def test_at_main_holidays(capsys):
     assert at.main(('explain', '2022-10-22', str(fix.CFG_FS_HOLIDAYS), True)) in (0, 1)
     out, err = capsys.readouterr()
-    assert 'consider 12 holidays' in out.lower()
+    assert 'consider 22 holidays' in out.lower()
     assert 'is within date range of configuration' in out.lower()
     assert 'is not a holiday' in out.lower()
     assert 'is weekend.' in out.lower()
