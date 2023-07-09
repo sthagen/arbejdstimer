@@ -7,7 +7,7 @@ from datetime import date
 from enum import Enum
 from typing import Annotated, List, Optional, no_type_check
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, RootModel, model_validator
 
 
 class Application(Enum):
@@ -20,35 +20,40 @@ class Operator(Enum):
     xor = 'xor'
 
 
-class Hour(BaseModel):
-    __root__: Annotated[int, Field(ge=0.0, le=23.0)]
+class Hour(RootModel[Annotated[int, Field(ge=0.0, le=23.0)]]):
+    pass
 
 
-class WorkingHours(BaseModel):
-    __root__: Annotated[
-        List[Hour],
-        Field(
-            description='Inclusive range of 24 hour start and end integer values.',
-            max_items=2,
-            min_items=2,
-            title='Working Hours',
-        ),
+class WorkingHours(
+    RootModel[
+        Annotated[
+            List[Hour],
+            Field(
+                description='Inclusive range of 24 hour start and end integer values.',
+                max_length=2,
+                min_length=2,
+                title='Working Hours',
+            ),
+        ]
     ]
+):
+    pass
 
 
-class Dates(BaseModel):
-    __root__: Annotated[
-        List[date],
-        Field(
-            description='Two dates are an inclusive range and 1, 3, or more dates represent a set of dates.',
-            min_items=1,
-            title='Dates - Range or Set',
-        ),
+class Dates(
+    RootModel[
+        Annotated[
+            List[date],
+            Field(
+                description='Two dates are an inclusive range and 1, 3, or more dates represent a set of dates.',
+                min_length=1,
+                title='Dates - Range or Set',
+            ),
+        ]
     ]
-
+):
     @no_type_check
-    @validator('__root__')
-    @classmethod
+    @model_validator(mode='before')
     def is_unique(cls, v):
         if v and 1 < len(v) != len(set(v)):
             raise ValueError('dates must be unique')
@@ -60,15 +65,19 @@ class Holiday(BaseModel):
     at: Dates
 
 
-class Holidays(BaseModel):
-    __root__: Annotated[
-        List[Holiday],
-        Field(
-            description='Optionally labeled dates of non-working days.',
-            min_items=0,
-            title='Holidays',
-        ),
+class Holidays(
+    RootModel[
+        Annotated[
+            List[Holiday],
+            Field(
+                description='Optionally labeled dates of non-working days.',
+                min_length=0,
+                title='Holidays',
+            ),
+        ]
     ]
+):
+    pass
 
 
 class Arbejdstimer(BaseModel):

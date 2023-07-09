@@ -4,7 +4,7 @@ import datetime as dti
 import test.conftest as fix
 
 import pytest
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 
 import arbejdstimer.api as api
 import arbejdstimer.arbejdstimer as at
@@ -16,81 +16,87 @@ def _subs(count: int, what: str) -> str:
 
 
 def test_api_hour_noon():
-    twelve = api.Hour(__root__='12')  # type: ignore
-    assert twelve.__root__ == 12
+    twelve = api.Hour('12')  # type: ignore
+    assert twelve.root == 12
 
 
 def test_api_hour_42():
     with pytest.raises(ValidationError, match=_subs(1, 'Hour')) as err:
-        _ = api.Hour(__root__='42')  # type: ignore
-    assert '\n__root__\n  ensure this value is less than or equal to 23' in str(err.value)
+        _ = api.Hour('42')  # type: ignore
+    assert '1 validation error for Hour\n  Input should be less than or equal to 23 ' in str(err.value)
 
 
 def test_api_hour_negative():
     with pytest.raises(ValidationError, match=_subs(1, 'Hour')) as err:
-        _ = api.Hour(__root__='-1')  # type: ignore
-    assert '\n__root__\n  ensure this value is greater than or equal to 0' in str(err.value)
+        _ = api.Hour('-1')  # type: ignore
+    assert '1 validation error for Hour\n  Input should be greater than or equal to 0 ' in str(err.value)
 
 
 def test_api_hour_no_digit():
+    message_part = (
+        '1 validation error for Hour\n  Input should be a valid integer, unable to parse string as an integer '
+    )
     with pytest.raises(ValidationError, match=_subs(1, 'Hour')) as err:
-        _ = api.Hour(__root__='_')  # type: ignore
-    assert '\n__root__\n  value is not a valid integer' in str(err.value)
+        _ = api.Hour('_')  # type: ignore
+    assert message_part in str(err.value)
 
 
 def test_api_date_range_wun():
-    wun = api.Dates(__root__=['2021-12-31'])  # type: ignore
-    assert wun.__root__ == [dti.date(2021, 12, 31)]
+    wun = api.Dates(['2021-12-31'])  # type: ignore
+    assert wun.root == [dti.date(2021, 12, 31)]
 
 
 def test_api_date_range_two():
-    two = api.Dates(__root__=['2021-12-31', '2022-01-01'])  # type: ignore
-    assert two.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1)]
+    two = api.Dates(['2021-12-31', '2022-01-01'])  # type: ignore
+    assert two.root == [dti.date(2021, 12, 31), dti.date(2022, 1, 1)]
 
 
 def test_api_date_range_three():
-    three = api.Dates(__root__=['2021-12-31', '2022-01-01', '2022-01-02'])  # type: ignore
-    assert three.__root__ == [dti.date(2021, 12, 31), dti.date(2022, 1, 1), dti.date(2022, 1, 2)]
+    three = api.Dates(['2021-12-31', '2022-01-01', '2022-01-02'])  # type: ignore
+    assert three.root == [dti.date(2021, 12, 31), dti.date(2022, 1, 1), dti.date(2022, 1, 2)]
 
 
 def test_api_date_range_duplicate():
     with pytest.raises(ValidationError, match=_subs(1, 'Dates')) as err:
-        _ = api.Dates(__root__=['2021-12-31', '2021-12-31'])  # type: ignore
-    assert '\n__root__\n  dates must be unique' in str(err.value)
+        _ = api.Dates(['2021-12-31', '2021-12-31'])  # type: ignore
+    assert '1 validation error for Dates\n  Value error, dates must be unique ' in str(err.value)
 
 
 def test_api_working_hours_nine_to_five():
-    nine = api.Hour(__root__='9')  # type: ignore
-    five = api.Hour(__root__='17')  # type: ignore
-    assert api.WorkingHours(__root__=[nine, five]).__root__ == [nine, five]
+    nine = api.Hour('9')  # type: ignore
+    five = api.Hour('17')  # type: ignore
+    assert api.WorkingHours([nine, five]).root == [nine, five]
 
 
 def test_api_working_hours_empty_list():
+    message_part = '1 validation error for WorkingHours\n  List should have at least 2 items after validation, not 0 '
     with pytest.raises(ValidationError, match=_subs(1, 'WorkingHours')) as err:
-        _ = api.WorkingHours(__root__=[])  # type: ignore
-    assert '\n__root__\n  ensure this value has at least 2 items' in str(err.value)
+        _ = api.WorkingHours([])  # type: ignore
+    assert message_part in str(err.value)
 
 
 def test_api_working_hours_nine_single_value():
-    nine = api.Hour(__root__='9')  # type: ignore
+    nine = api.Hour('9')  # type: ignore
+    message_part = '1 validation error for WorkingHours\n  List should have at least 2 items after validation, not 1 '
     with pytest.raises(ValidationError, match=_subs(1, 'WorkingHours')) as err:
-        _ = api.WorkingHours(__root__=[nine])  # type: ignore
-    assert '\n__root__\n  ensure this value has at least 2 items' in str(err.value)
+        _ = api.WorkingHours([nine])  # type: ignore
+    assert message_part in str(err.value)
 
 
 def test_api_working_hours_nine_nine_five_triplet():
-    nine = api.Hour(__root__='9')  # type: ignore
-    five = api.Hour(__root__='17')  # type: ignore
+    nine = api.Hour('9')  # type: ignore
+    five = api.Hour('17')  # type: ignore
+    message_part = '1 validation error for WorkingHours\n  List should have at most 2 items after validation, not 3 '
     with pytest.raises(ValidationError, match=_subs(1, 'WorkingHours')) as err:
-        _ = api.WorkingHours(__root__=[nine, nine, five])  # type: ignore
-    assert '\n__root__\n  ensure this value has at most 2 items' in str(err.value)
+        _ = api.WorkingHours([nine, nine, five])  # type: ignore
+    assert message_part in str(err.value)
 
 
 def test_api_holiday_wun():
-    wun = api.Dates(__root__=['2021-12-31'])  # type: ignore
+    wun = api.Dates(['2021-12-31'])  # type: ignore
     holiday = api.Holiday(at=wun)
-    assert holiday.at.__root__ == [dti.date(2021, 12, 31)]
-    assert holiday.json() == '{"label": "", "at": ["2021-12-31"]}'
+    assert holiday.at.root == [dti.date(2021, 12, 31)]
+    assert holiday.model_dump_json() == '{"label":"","at":["2021-12-31"]}'
     data = {'label': '', 'at': ['2021-12-31']}
     # noinspection Pydantic
     another_holiday = api.Holiday(**data)  # type: ignore
@@ -102,7 +108,7 @@ def test_api_today():
     cfg = api.Arbejdstimer(**fix.CFG_PY_TODAY_HOLIDAY)
     today_rep = fix.TODAY.strftime(at.DATE_FMT)
     expected = (
-        '{"api": 1, "application": "arbejdstimer", "operator": "or",'
-        f' "holidays": [{{"label": "", "at": ["{today_rep}"]}}], "working_hours": [8, 17]}}'
+        '{"api":1,"application":"arbejdstimer","operator":"or",'
+        f'"holidays":[{{"label":"","at":["{today_rep}"]}}],"working_hours":[8,17]}}'
     )
-    assert cfg.json() == expected
+    assert cfg.model_dump_json() == expected

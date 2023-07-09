@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 # pylint: disable=expression-not-assigned,line-too-long
 """Working hours (Danish arbejdstimer) or not? API."""
 import copy
@@ -9,7 +9,7 @@ import pathlib
 import sys
 from typing import Tuple, Union, no_type_check
 
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 
 import arbejdstimer.api as api
 
@@ -242,7 +242,7 @@ def load(cfg: CfgType) -> Tuple[int, str, list[dti.date], WorkingHoursType]:
 
     holidays_date_list = []
     if model.holidays:
-        holidays = model.dict()['holidays']
+        holidays = model.model_dump()['holidays']
         for nth, holiday in enumerate(holidays, start=1):
             dates = holiday['at']
             if len(dates) == 1:
@@ -261,7 +261,7 @@ def load(cfg: CfgType) -> Tuple[int, str, list[dti.date], WorkingHoursType]:
 
     working_hours = DEFAULT_WORK_HOURS_MARKER
     if model.working_hours:
-        working_hours = tuple(sorted(model.working_hours.dict().get('__root__', [None, None])))
+        working_hours = tuple(sorted(model.working_hours.model_dump()))
     return 0, '', sorted(holidays_date_list), working_hours
 
 

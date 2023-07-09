@@ -38,10 +38,7 @@ def test_at_main_explain_load_error_processing(capsys):
     assert at.main(('explain', '', str(fix.CFG_FS_INVALID_MINIMAL), True)) == 2
     out, err = capsys.readouterr()
     assert 'Configuration file failed to parse (INVALID)' in out
-    message_part = (
-        '1 validation error for arbejdstimer\noperator\n  value is not a valid enumeration member;'
-        " permitted: 'and', 'or', 'xor'"
-    )
+    message_part = '1 validation error for arbejdstimer\noperator\n' "  input should be 'and','or' or 'xor'"
     assert message_part in err.lower()
 
 
@@ -76,8 +73,12 @@ def test_at_load_falsy():
 
 
 def test_at_load_no_meta():
-    message = '1 validation error for Arbejdstimer\noperator\n  field required (type=value_error.missing)'
-    assert at.load({'a': 'b'}) == (2, message, [], at.DEFAULT_WORK_HOURS_MARKER)  # type: ignore
+    message_start = '1 validation error for Arbejdstimer\noperator\n  Field required '
+    code, message, data, marker = at.load({'a': 'b'})
+    assert code == 2
+    assert message.startswith(message_start)
+    assert data == []
+    assert marker == at.DEFAULT_WORK_HOURS_MARKER
 
 
 def test_at_load_alien_meta():
@@ -91,10 +92,7 @@ def test_at_load_alien_meta():
 def test_at_load_alien_application():
     code, message, holidays, hours = at.load({'operator': 'or', 'application': 'b'})  # type: ignore
     assert code == 2
-    expected_part = (
-        '1 validation error for Arbejdstimer\napplication\n  value is not a valid enumeration member;'
-        " permitted: 'arbejdstimer'"
-    )
+    expected_part = "1 validation error for Arbejdstimer\napplication\n  Input should be 'arbejdstimer'"
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
@@ -104,10 +102,7 @@ def test_at_load_alien_api_version():
     cfg = {'operator': 'or', 'application': 'b', 'api': None}
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
-    expected_part = (
-        '1 validation error for Arbejdstimer\napplication\n  value is not a valid enumeration member;'
-        " permitted: 'arbejdstimer'"
-    )
+    expected_part = "1 validation error for Arbejdstimer\napplication\n  Input should be 'arbejdstimer'"
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
@@ -115,10 +110,7 @@ def test_at_load_alien_api_version():
     cfg = {'operator': 'dirac', 'application': 'arbejdstimer', 'api': 1}
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
-    expected_part = (
-        '1 validation error for Arbejdstimer\noperator\n  value is not a valid enumeration member;'
-        " permitted: 'and', 'or', 'xor'"
-    )
+    expected_part = "1 validation error for Arbejdstimer\noperator\n  Input should be 'and','or' or 'xor'"
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
@@ -126,10 +118,7 @@ def test_at_load_alien_api_version():
     cfg = {'operator': 42, 'application': 'arbejdstimer', 'api': 1}
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
-    expected_part = (
-        '1 validation error for Arbejdstimer\noperator\n  value is not a valid enumeration member;'
-        " permitted: 'and', 'or', 'xor'"
-    )
+    expected_part = "1 validation error for Arbejdstimer\noperator\n  Input should be 'and','or' or 'xor'"
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
@@ -163,7 +152,7 @@ def test_at_load_holidays_alien():
     cfg = {**cfg, 'holidays': {'holi': 'days'}}
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
-    expected_part = '1 validation error for Arbejdstimer\nholidays -> __root__\n  value is not a valid list'
+    expected_part = '1 validation error for Arbejdstimer\nholidays\n  Input should be a valid list'
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
@@ -182,11 +171,8 @@ def test_at_load_holidays_missing_date_range():
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
     expected_parts = (
-        '2 validation errors for Arbejdstimer',
-        'holidays -> __root__ -> 0 -> at -> __root__ -> 0',
-        'invalid date format',
-        'holidays -> __root__ -> 1 -> at',
-        'field required',
+        '2 validation errors for Arbejdstimer\nholidays.0.at.0\n'
+        '  Input should be a valid date or datetime, input is too short',
     )
     for part in expected_parts:
         assert part in message
