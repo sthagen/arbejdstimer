@@ -2,14 +2,36 @@
     {
         "key": "pydantic",
         "package_name": "pydantic",
-        "installed_version": "1.10.9",
-        "required_version": "1.10.9",
+        "installed_version": "2.0.3",
+        "required_version": "2.0.3",
         "dependencies": [
+            {
+                "key": "annotated-types",
+                "package_name": "annotated-types",
+                "installed_version": "0.5.0",
+                "required_version": ">=0.4.0",
+                "dependencies": []
+            },
+            {
+                "key": "pydantic-core",
+                "package_name": "pydantic-core",
+                "installed_version": "2.3.0",
+                "required_version": "==2.3.0",
+                "dependencies": [
+                    {
+                        "key": "typing-extensions",
+                        "package_name": "typing-extensions",
+                        "installed_version": "4.7.1",
+                        "required_version": ">=4.6.0,!=4.7.0",
+                        "dependencies": []
+                    }
+                ]
+            },
             {
                 "key": "typing-extensions",
                 "package_name": "typing-extensions",
-                "installed_version": "4.4.0",
-                "required_version": ">=4.2.0",
+                "installed_version": "4.7.1",
+                "required_version": ">=4.6.1",
                 "dependencies": []
             }
         ]
@@ -30,7 +52,7 @@
             {
                 "key": "typing-extensions",
                 "package_name": "typing-extensions",
-                "installed_version": "4.4.0",
+                "installed_version": "4.7.1",
                 "required_version": ">=3.7.4.3",
                 "dependencies": []
             }
