@@ -1,5 +1,3 @@
- # -*- coding: utf-8 -*-
-# pylint: disable=expression-not-assigned,line-too-long
 """Working hours (Danish arbejdstimer) or not? API."""
 import copy
 import datetime as dti
