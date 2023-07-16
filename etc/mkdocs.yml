@@ -1,5 +1,7 @@
 site_name: Arbejdstimer
 site_description: Working hours (Danish arbejdstimer) or not?
+docs_dir: ../docs
+site_dir: ../site
 
 theme:
   name: 'material'
