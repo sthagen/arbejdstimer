@@ -1,0 +1,14 @@
+name: arbejdstimer
+description: Working hours (Danish arbejdstimer) or not?
+license_spdx: MIT
+version: 2022.10.23
+spec_version: 1.0
+home_url: https://git.sr.ht/~sthagen/arbejdstimer
+news_url: https://libraries.io/pypi/arbejdstimer/versions.atom
+date: 2022-10-23
+about_resource: ./
+libraries_io_url: https://libraries.io/pypi/arbejdstimer?number=2022.10.23
+vcs_tool: git
+vcs_repository: https://git.sr.ht/~sthagen/arbejdstimer
+vcs_branch: default
+
