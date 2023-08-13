@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom/cdx.json) with SHA256 checksum ([affef4e8 ...](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom/cdx.json.sha256 "sha256:affef4e80677dcfdece4a043bdf79dcf386715c243705ab6015ad9a7a3b2a050")).
-<!--[[[end]]] (checksum: d08d6a1fc1320dc3921419622c231e6c)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom/cdx.json) with SHA256 checksum ([a7ba6e10 ...](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/sbom/cdx.json.sha256 "sha256:a7ba6e102e1b5358d4afe9bcf5151be39afd254d413373b1a9229be49ee6dc49")).
+<!--[[[end]]] (checksum: ef6b051934535ecdfef4b665f0653b18)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -12,9 +12,9 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 <!--[[[fill direct_dependencies_table()]]]-->
 | Name                                             | Version                                           | License     | Author                                                                                                                                                                                                                                                        | Description (from packaging data)                                  |
 |:-------------------------------------------------|:--------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------|
-| [pydantic](https://github.com/pydantic/pydantic) | [2.0.3](https://pypi.org/project/pydantic/2.0.3/) | MIT License | Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Terrence Dorsey <terry@pydantic.dev>, David Montague <david@pydantic.dev> | Data validation using Python type hints                            |
+| [pydantic](https://github.com/pydantic/pydantic) | [2.1.1](https://pypi.org/project/pydantic/2.1.1/) | MIT License | Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Terrence Dorsey <terry@pydantic.dev>, David Montague <david@pydantic.dev> | Data validation using Python type hints                            |
 | [typer](https://github.com/tiangolo/typer)       | [0.9.0](https://pypi.org/project/typer/0.9.0/)    | MIT License | Sebastián Ramírez                                                                                                                                                                                                                                             | Typer, build great CLIs. Easy to code. Based on Python type hints. |
-<!--[[[end]]] (checksum: 563dd3b3f02f5288fb457f1dda33fcd2)-->
+<!--[[[end]]] (checksum: b2209f05008b3d6078b9eb99bff511cf)-->
 
 ### Indirect Dependencies
 
@@ -39,13 +39,13 @@ Base graphviz file in dot format: [Trees of the direct dependencies](package-dep
 
 <!--[[[fill dependency_tree_console_text()]]]-->
 ````console
-pydantic==2.0.3
+pydantic==2.1.1
 ├── annotated-types [required: >=0.4.0, installed: 0.5.0]
-├── pydantic-core [required: ==2.3.0, installed: 2.3.0]
+├── pydantic-core [required: ==2.4.0, installed: 2.4.0]
 │   └── typing-extensions [required: >=4.6.0,!=4.7.0, installed: 4.7.1]
 └── typing-extensions [required: >=4.6.1, installed: 4.7.1]
 typer==0.9.0
 ├── click [required: >=7.1.1,<9.0.0, installed: 8.1.5]
 └── typing-extensions [required: >=3.7.4.3, installed: 4.7.1]
 ````
-<!--[[[end]]] (checksum: 42f06632f2031ebf539b40eb2c7d7f6b)-->
+<!--[[[end]]] (checksum: d45b092f19a73360a52ea0f963da8bb7)-->
