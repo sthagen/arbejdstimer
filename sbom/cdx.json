@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:00341d12-2b1d-4d5c-bdee-b5adecd8eec4",
+  "serialNumber": "urn:uuid:17394049-1837-4654-997b-828033657e0b",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-08-15T05:49:37.408783+00:00",
+    "timestamp": "2023-08-16T06:07:23.833776+00:00",
     "tools": [
       {
         "vendor": "CycloneDX",
@@ -56,14 +56,14 @@
   "components": [
     {
       "type": "library",
-      "bom-ref": "029b6dfc-a5ae-4283-8148-08ec637858b8",
+      "bom-ref": "fd949210-2046-4a75-a31f-e981ecae9dc1",
       "name": "pydantic",
       "version": "2.1.1",
       "purl": "pkg:pypi/pydantic@2.1.1"
     },
     {
       "type": "library",
-      "bom-ref": "78b1b4b6-b455-4e46-9cb4-79b12a739374",
+      "bom-ref": "d7ad5bd9-af1d-47dc-98f9-cc0829b4c4a8",
       "name": "typer",
       "version": "0.9.0",
       "purl": "pkg:pypi/typer@0.9.0"
@@ -71,11 +71,11 @@
   ],
   "dependencies": [
     {
-      "ref": "029b6dfc-a5ae-4283-8148-08ec637858b8",
+      "ref": "fd949210-2046-4a75-a31f-e981ecae9dc1",
       "dependsOn": []
     },
     {
-      "ref": "78b1b4b6-b455-4e46-9cb4-79b12a739374",
+      "ref": "d7ad5bd9-af1d-47dc-98f9-cc0829b4c4a8",
       "dependsOn": []
     }
   ]
