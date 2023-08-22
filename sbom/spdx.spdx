@@ -1,0 +1,60 @@
+SPDXVersion: SPDX-2.3
+DataLicense: CC0-1.0
+DocumentNamespace: https://cyclonedx/7ca4344f-9e61-47e7-9bc4-8219900ad0d2_1
+DocumentName: From-Cyclone-DX
+SPDXID: SPDXRef-DOCUMENT
+
+## Creation Information
+Creator: Tool: CycloneDX:cyclonedx-bom-3.11.2
+Creator: Tool: CycloneDX:cyclonedx-python-lib-3.1.5
+Creator: Tool: CycloneToSpdx-0.1.4
+Created: 2023-08-22T18:35:44Z
+CreatorComment: <text>Converted from CycloneDX spec version 1.4</text>
+LicenseListVersion: 3.21
+## Annotations
+Annotator: Tool: CycloneToSpdx
+AnnotationDate: 2023-08-22T18:35:48Z
+AnnotationComment: <text>MISSING_CDX_PROPERTY:extensions={}</text>
+AnnotationType: OTHER
+SPDXREF: SPDXRef-DOCUMENT
+## Relationships
+Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-5c968f2f-8286-4411-8837-72e2dc64b2b1
+Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-b76b85b0-1bc3-4103-8b63-d12900b7c8a1
+
+## Package Information
+PackageName: pydantic
+SPDXID: SPDXRef-5c968f2f-8286-4411-8837-72e2dc64b2b1
+PackageVersion: 2.2.1
+PackageDownloadLocation: NOASSERTION
+PrimaryPackagePurpose: LIBRARY
+PackageLicenseConcluded: NOASSERTION
+PackageLicenseDeclared: NOASSERTION
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:pypi/pydantic@2.2.1
+## Annotations
+Annotator: Tool: CycloneToSpdx
+AnnotationDate: 2023-08-22T18:35:48Z
+AnnotationComment: <text>MISSING_CDX_PROPERTY:componentType="LIBRARY"</text>
+AnnotationType: OTHER
+SPDXREF: SPDXRef-5c968f2f-8286-4411-8837-72e2dc64b2b1
+FilesAnalyzed: false
+
+## Package Information
+PackageName: typer
+SPDXID: SPDXRef-b76b85b0-1bc3-4103-8b63-d12900b7c8a1
+PackageVersion: 0.9.0
+PackageDownloadLocation: NOASSERTION
+PrimaryPackagePurpose: LIBRARY
+PackageLicenseConcluded: NOASSERTION
+PackageLicenseDeclared: NOASSERTION
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:pypi/typer@0.9.0
+## Annotations
+Annotator: Tool: CycloneToSpdx
+AnnotationDate: 2023-08-22T18:35:48Z
+AnnotationComment: <text>MISSING_CDX_PROPERTY:componentType="LIBRARY"</text>
+AnnotationType: OTHER
+SPDXREF: SPDXRef-b76b85b0-1bc3-4103-8b63-d12900b7c8a1
+FilesAnalyzed: false
+
+
