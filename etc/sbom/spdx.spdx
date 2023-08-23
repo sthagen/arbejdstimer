@@ -1,6 +1,6 @@
 SPDXVersion: SPDX-2.3
 DataLicense: CC0-1.0
-DocumentNamespace: https://cyclonedx/bbb05f86-4ef3-4eb4-90f6-dab5177c954a_1
+DocumentNamespace: https://cyclonedx/76152836-e31c-4505-b93e-165ebf0e4b96_1
 DocumentName: From-Cyclone-DX
 SPDXID: SPDXRef-DOCUMENT
 
@@ -8,40 +8,40 @@ SPDXID: SPDXRef-DOCUMENT
 Creator: Tool: CycloneDX:cyclonedx-bom-3.11.2
 Creator: Tool: CycloneDX:cyclonedx-python-lib-3.1.5
 Creator: Tool: CycloneToSpdx-0.1.4
-Created: 2023-08-22T19:16:42Z
+Created: 2023-08-23T19:42:49Z
 CreatorComment: <text>Converted from CycloneDX spec version 1.4</text>
 LicenseListVersion: 3.21
 ## Annotations
 Annotator: Tool: CycloneToSpdx
-AnnotationDate: 2023-08-22T19:16:46Z
+AnnotationDate: 2023-08-23T19:42:52Z
 AnnotationComment: <text>MISSING_CDX_PROPERTY:extensions={}</text>
 AnnotationType: OTHER
 SPDXREF: SPDXRef-DOCUMENT
 ## Relationships
-Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-9a2c0c93-88a6-40aa-b888-02cc76511fb2
-Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-ff10af5b-d7ad-470b-9246-e4b07c38ee25
+Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-adcd52a0-3a7f-45d9-9295-3da9233aa180
+Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-c3439a62-504f-4aff-881b-ba057964f688
 
 ## Package Information
 PackageName: pydantic
-SPDXID: SPDXRef-9a2c0c93-88a6-40aa-b888-02cc76511fb2
-PackageVersion: 2.2.1
+SPDXID: SPDXRef-c3439a62-504f-4aff-881b-ba057964f688
+PackageVersion: 2.3.0
 PackageDownloadLocation: NOASSERTION
 PrimaryPackagePurpose: LIBRARY
 PackageLicenseConcluded: NOASSERTION
 PackageLicenseDeclared: NOASSERTION
 PackageCopyrightText: NOASSERTION
-ExternalRef: PACKAGE-MANAGER purl pkg:pypi/pydantic@2.2.1
+ExternalRef: PACKAGE-MANAGER purl pkg:pypi/pydantic@2.3.0
 ## Annotations
 Annotator: Tool: CycloneToSpdx
-AnnotationDate: 2023-08-22T19:16:46Z
+AnnotationDate: 2023-08-23T19:42:52Z
 AnnotationComment: <text>MISSING_CDX_PROPERTY:componentType="LIBRARY"</text>
 AnnotationType: OTHER
-SPDXREF: SPDXRef-9a2c0c93-88a6-40aa-b888-02cc76511fb2
+SPDXREF: SPDXRef-c3439a62-504f-4aff-881b-ba057964f688
 FilesAnalyzed: false
 
 ## Package Information
 PackageName: typer
-SPDXID: SPDXRef-ff10af5b-d7ad-470b-9246-e4b07c38ee25
+SPDXID: SPDXRef-adcd52a0-3a7f-45d9-9295-3da9233aa180
 PackageVersion: 0.9.0
 PackageDownloadLocation: NOASSERTION
 PrimaryPackagePurpose: LIBRARY
@@ -51,10 +51,10 @@ PackageCopyrightText: NOASSERTION
 ExternalRef: PACKAGE-MANAGER purl pkg:pypi/typer@0.9.0
 ## Annotations
 Annotator: Tool: CycloneToSpdx
-AnnotationDate: 2023-08-22T19:16:46Z
+AnnotationDate: 2023-08-23T19:42:52Z
 AnnotationComment: <text>MISSING_CDX_PROPERTY:componentType="LIBRARY"</text>
 AnnotationType: OTHER
-SPDXREF: SPDXRef-ff10af5b-d7ad-470b-9246-e4b07c38ee25
+SPDXREF: SPDXRef-adcd52a0-3a7f-45d9-9295-3da9233aa180
 FilesAnalyzed: false
 
 
