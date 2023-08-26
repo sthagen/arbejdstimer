@@ -7,7 +7,7 @@ Working hours (Danish arbejdstimer) or not?
 Third party dependencies are documented in the folder [third-party](docs/third-party/README.md).
 
 [![version](https://img.shields.io/pypi/v/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
-[![downloads](https://pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)
+[![downloads](https://static.pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)
 [![wheel](https://img.shields.io/pypi/wheel/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
 [![supported-versions](https://img.shields.io/pypi/pyversions/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
 [![supported-implementations](https://img.shields.io/pypi/implementation/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
