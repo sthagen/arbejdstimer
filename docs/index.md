@@ -2,15 +2,15 @@
 
 Working hours (Danish arbejdstimer) or not?
 
-[![license](badges/license-spdx-mit.svg)](https://git.sr.ht/~sthagen/arbejdstimerNAME/tree/default/item/LICENSE)
-[![Country of Origin](badges/country-of-origin-name-switzerland-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimerNAME/tree/default/item/COUNTRY-OF-ORIGIN)
-[![Export Classification Control Number (ECCN)](badges/export-control-classification-number_eccn-ear99-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimerNAME/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)
+[![license](badges/license-spdx-mit.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/LICENSE)
+[![Country of Origin](badges/country-of-origin-name-switzerland-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/COUNTRY-OF-ORIGIN)
+[![Export Classification Control Number (ECCN)](badges/export-control-classification-number_eccn-ear99-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)
 [![Configuration](badges/configuration-sbom.svg)](third-party/index.html)
 
-[![Version](https://img.shields.io/pypi/v/arbejdstimerNAME.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimerNAME/)
-[![Downloads](https://static.pepy.tech/badge/arbejdstimerNAME/month)](https://pepy.tech/project/arbejdstimerNAME)
-[![Supported Versions](https://img.shields.io/pypi/pyversions/arbejdstimerNAME.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimerNAME/)
-[![Maintenance Status](https://img.shields.io/github/commit-activity/y/sthagen/arbejdstimerNAME.svg?style=flat)](https://git.sr.ht/~sthagen/arbejdstimerNAME/log)
+[![Version](https://img.shields.io/pypi/v/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
+[![Downloads](https://static.pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)
+[![Supported Versions](https://img.shields.io/pypi/pyversions/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
+[![Maintenance Status](https://img.shields.io/github/commit-activity/y/sthagen/arbejdstimer.svg?style=flat)](https://git.sr.ht/~sthagen/arbejdstimer/log)
 
 ## Bug Tracker
 
