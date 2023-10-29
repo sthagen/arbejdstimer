@@ -2,18 +2,15 @@
 
 Working hours (Danish arbejdstimer) or not?
 
-[License: MIT](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/LICENSE) | 
-[Country of origin: Switzerland](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/COUNTRY-OF-ORIGIN) | 
-[Export control classification number(ECCN): EAR99](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)
+[![License](docs/badges/license-spdx-mit.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/LICENSE)
+[![Country of Origin](docs/badges/country-of-origin-name-switzerland-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/COUNTRY-OF-ORIGIN)
+[![Export Classification Control Number (ECCN)](docs/badges/export-control-classification-number_eccn-ear99-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)
+[![Configuration](docs/badges/configuration-sbom.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/docs/third-party/README.md)
 
-Third party dependencies are documented in the folder [third-party](docs/third-party/README.md).
-
-[![version](https://img.shields.io/pypi/v/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
-[![downloads](https://static.pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)
-[![wheel](https://img.shields.io/pypi/wheel/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
-[![supported-versions](https://img.shields.io/pypi/pyversions/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
-[![supported-implementations](https://img.shields.io/pypi/implementation/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
-[![maintenance-status](https://img.shields.io/github/commit-activity/y/sthagen/arbejdstimer.svg?style=flat)](https://git.sr.ht/~sthagen/arbejdstimer/log)
+[![Version](https://img.shields.io/pypi/v/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
+[![Downloads](https://static.pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)
+[![Supported Versions](https://img.shields.io/pypi/pyversions/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
+[![Maintenance Status](https://img.shields.io/github/commit-activity/y/sthagen/arbejdstimer.svg?style=flat)](https://git.sr.ht/~sthagen/arbejdstimer/log)
 
 ## Documentation
 
