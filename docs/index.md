@@ -9,7 +9,7 @@ Working hours (Danish arbejdstimer) or not?
 
 [![Version](badges/latest-release.svg)](https://pypi.python.org/pypi/arbejdstimer/)
 [![Downloads](badges/downloads-per-month.svg)](https://pepy.tech/project/arbejdstimer)
-[![Supported Versions](https://img.shields.io/pypi/pyversions/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)
+[![Python](badges/python-versions.svg)](https://pypi.python.org/pypi/arbejdstimer/)
 [![Maintenance Status](badges/commits-per-year.svg)](https://git.sr.ht/~sthagen/arbejdstimer/log)
 
 ## Bug Tracker
