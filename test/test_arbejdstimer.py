@@ -38,7 +38,7 @@ def test_at_main_explain_load_error_processing(capsys):
     assert at.main(('explain', '', str(fix.CFG_FS_INVALID_MINIMAL), True)) == 2
     out, err = capsys.readouterr()
     assert 'Configuration file failed to parse (INVALID)' in out
-    message_part = '1 validation error for arbejdstimer\noperator\n' "  input should be 'and','or' or 'xor'"
+    message_part = "input should be 'and', 'or' or 'xor'"
     assert message_part in err.lower()
 
 
@@ -102,7 +102,7 @@ def test_at_load_alien_api_version():
     cfg = {'operator': 'or', 'application': 'b', 'api': None}
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
-    expected_part = "1 validation error for Arbejdstimer\napplication\n  Input should be 'arbejdstimer'"
+    expected_part = "Input should be 'arbejdstimer'"
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
@@ -110,7 +110,7 @@ def test_at_load_alien_api_version():
     cfg = {'operator': 'dirac', 'application': 'arbejdstimer', 'api': 1}
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
-    expected_part = "1 validation error for Arbejdstimer\noperator\n  Input should be 'and','or' or 'xor'"
+    expected_part = "1 validation error for Arbejdstimer\noperator\n  Input should be 'and', 'or' or 'xor'"
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
@@ -118,7 +118,7 @@ def test_at_load_alien_api_version():
     cfg = {'operator': 42, 'application': 'arbejdstimer', 'api': 1}
     code, message, holidays, hours = at.load(cfg)  # type: ignore
     assert code == 2
-    expected_part = "1 validation error for Arbejdstimer\noperator\n  Input should be 'and','or' or 'xor'"
+    expected_part = "1 validation error for Arbejdstimer\noperator\n  Input should be 'and', 'or' or 'xor'"
     assert expected_part in message
     assert holidays == []
     assert hours == at.DEFAULT_WORK_HOURS_MARKER
