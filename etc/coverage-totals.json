@@ -1,0 +1,35 @@
+{
+  "arbejdstimer": {
+    "coverage_tool_version": "7.3.2",
+    "timestamp": "2023-12-02 15:49:58 +00:00",
+    "branch_coverage": true,
+    "show_contexts": true,
+    "covered_lines": 326,
+    "num_statements": 338,
+    "percent_covered": 95.45454545454545,
+    "percent_covered_display": "95.45",
+    "missing_lines": 12,
+    "excluded_lines": 0,
+    "num_branches": 146,
+    "num_partial_branches": 4,
+    "covered_branches": 136,
+    "missing_branches": 10,
+    "node_id": "c79891e5-aabf-3a83-95b9-588edcd8327f",
+    "nfiles": 4,
+    "files": [
+      "arbejdstimer/__init__.py",
+      "arbejdstimer/api.py",
+      "arbejdstimer/arbejdstimer.py",
+      "arbejdstimer/cli.py"
+    ],
+    "blake3": "7a4c2a5d97e793eca8d2951ee41d7033fb59e71f0505f2ea8ba4d60f53185928",
+    "blake2": "4d1c0f740de405ca3e1705a7431d085a3be81040fbe64606231b01cd9c63f12a101f7bf5af791979cddc373cd65196ddc8e5143526013c1e78c25117a4f8cced",
+    "sha512": "2d4ad675d61bd54f3d38e32c1fbd0d89e6469f245ad94a7968605aa88d3ef28d33ed6249c443d05c5693cfc2b5f9351014bd74b226ebc2e2569ad50a8009e44d",
+    "sha384": "84d16e6e7582640a09d8b42aaa0113df6e953f1e5b4f1b6f4fc5a2682fae7ae6adad2aefbf3c957eb7f342b68d46dfb8",
+    "sha256": "2df11b028306a0afd9e70b37b276eeb68efd0c3585e4e56ce22288763d2b96b2",
+    "sha1": "9fd286e8cb0ff9ef378e8801817c362338587874",
+    "md5": "ead76b21f254b9348fd531412944c91b",
+    "python_version": "3.10.12",
+    "entropy": 4.767518
+  }
+}
