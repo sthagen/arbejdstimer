@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/etc/sbom/cdx.json) with SHA256 checksum ([465c7d3f ...](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/etc/sbom/cdx.json.sha256 "sha256:465c7d3f6274bbedec9a3e996a1f9dea34c75062d6f514f3f0820e3e4efa7be3")).
-<!--[[[end]]] (checksum: d7acef178191c7df1d71266915c4519a)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/etc/sbom/cdx.json) with SHA256 checksum ([1d1afa90 ...](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/etc/sbom/cdx.json.sha256 "sha256:1d1afa90e017d0ff75eba21c1b2084b5851cf88be12a78d8b731a9cd75a5d2df")).
+<!--[[[end]]] (checksum: ab8f9e0dff7b8a3e73fc9167eb013df3)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -12,9 +12,9 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 <!--[[[fill direct_dependencies_table()]]]-->
 | Name                                             | Version                                           | License     | Author                                                                                                                                                                                                                                                                                                                                                                                                                           | Description (from packaging data)                                  |
 |:-------------------------------------------------|:--------------------------------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------|
-| [pydantic](https://github.com/pydantic/pydantic) | [2.5.2](https://pypi.org/project/pydantic/2.5.2/) | MIT License | Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Terrence Dorsey <terry@pydantic.dev>, David Montague <david@pydantic.dev>, Serge Matveenko <lig@countzero.co>, Marcelo Trylesinski <marcelotryle@gmail.com>, Sydney Runkle <sydneymarierunkle@gmail.com>, David Hewitt <mail@davidhewitt.io> | Data validation using Python type hints                            |
+| [pydantic](https://github.com/pydantic/pydantic) | [2.5.3](https://pypi.org/project/pydantic/2.5.3/) | MIT License | Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Terrence Dorsey <terry@pydantic.dev>, David Montague <david@pydantic.dev>, Serge Matveenko <lig@countzero.co>, Marcelo Trylesinski <marcelotryle@gmail.com>, Sydney Runkle <sydneymarierunkle@gmail.com>, David Hewitt <mail@davidhewitt.io> | Data validation using Python type hints                            |
 | [typer](https://github.com/tiangolo/typer)       | [0.9.0](https://pypi.org/project/typer/0.9.0/)    | MIT License | Sebastián Ramírez                                                                                                                                                                                                                                                                                                                                                                                                                | Typer, build great CLIs. Easy to code. Based on Python type hints. |
-<!--[[[end]]] (checksum: dc8464d40158361d942a85a3214197c3)-->
+<!--[[[end]]] (checksum: aab80a8c2c0bb8f38d0194be1ae94244)-->
 
 ### Indirect Dependencies
 
@@ -39,13 +39,13 @@ Base graphviz file in dot format: [Trees of the direct dependencies](package-dep
 
 <!--[[[fill dependency_tree_console_text()]]]-->
 ````console
-pydantic==2.5.2
+pydantic==2.5.3
 ├── annotated-types [required: >=0.4.0, installed: 0.5.0]
-├── pydantic-core [required: ==2.14.5, installed: 2.14.5]
+├── pydantic-core [required: ==2.14.6, installed: 2.14.6]
 │   └── typing-extensions [required: >=4.6.0,!=4.7.0, installed: 4.7.1]
 └── typing-extensions [required: >=4.6.1, installed: 4.7.1]
 typer==0.9.0
 ├── click [required: >=7.1.1,<9.0.0, installed: 8.1.5]
 └── typing-extensions [required: >=3.7.4.3, installed: 4.7.1]
 ````
-<!--[[[end]]] (checksum: 05e01f96f912d2b811412c1f554e5e7f)-->
+<!--[[[end]]] (checksum: 70ac8dfac5f1c0a3d3776dd5a64e43d5)-->
