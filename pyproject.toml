@@ -7,6 +7,7 @@ name = "arbejdstimer"
 version = "2022.10.23"
 description = "Working hours (Danish arbejdstimer) or not?"
 readme = "README.md"
+license = {file = "LICENSE"}
 authors = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
 maintainers = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
 classifiers = [
