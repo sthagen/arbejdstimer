@@ -1,4 +1,5 @@
 """Commandline API gateway for arbejdstimer."""
+
 import pathlib
 import sys
 

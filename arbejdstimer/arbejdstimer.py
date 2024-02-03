@@ -1,4 +1,5 @@
 """Working hours (Danish arbejdstimer) or not? API."""
+
 import copy
 import datetime as dti
 import json
