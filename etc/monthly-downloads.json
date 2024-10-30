@@ -3,7 +3,7 @@
     {
       "category": "3.10",
       "date": "2024-05",
-      "downloads": 252
+      "downloads": 244
     },
     {
       "category": "3.10",
@@ -28,12 +28,12 @@
     {
       "category": "3.10",
       "date": "2024-10",
-      "downloads": 217
+      "downloads": 225
     },
     {
       "category": "3.11",
       "date": "2024-05",
-      "downloads": 248
+      "downloads": 240
     },
     {
       "category": "3.11",
@@ -58,12 +58,12 @@
     {
       "category": "3.11",
       "date": "2024-10",
-      "downloads": 2734
+      "downloads": 2742
     },
     {
       "category": "3.12",
       "date": "2024-05",
-      "downloads": 262
+      "downloads": 254
     },
     {
       "category": "3.12",
@@ -88,12 +88,12 @@
     {
       "category": "3.12",
       "date": "2024-10",
-      "downloads": 214
+      "downloads": 222
     },
     {
       "category": "3.8",
       "date": "2024-05",
-      "downloads": 248
+      "downloads": 240
     },
     {
       "category": "3.8",
@@ -118,7 +118,7 @@
     {
       "category": "3.8",
       "date": "2024-10",
-      "downloads": 232
+      "downloads": 240
     },
     {
       "category": "3.9",
@@ -143,7 +143,7 @@
     {
       "category": "null",
       "date": "2024-05",
-      "downloads": 52
+      "downloads": 50
     },
     {
       "category": "null",
@@ -168,7 +168,7 @@
     {
       "category": "null",
       "date": "2024-10",
-      "downloads": 4589
+      "downloads": 4866
     }
   ],
   "package": "arbejdstimer",
