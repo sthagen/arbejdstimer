@@ -1,29 +1,38 @@
 # Change History
 
+2025.1.14
+:    Migrated from pydantic version 1 to 2
+
+## 2024 - 2022
+
 2022.10.23
-:    * Confined the need for presence of date entries in configuration framing the date sought to a (new) strict mode
+:    Migrated to strict calendar mode and amendned documentation
+* Confined the need for presence of date entries in configuration framing the date sought to a (new) strict mode
 * Corrected, updated, and extended usage as well as API documentation 
 
 2022.10.22
-:    * Added constraint for date to be within the configuration date range (breaking change)
+:    More sane calendar consideration and added explain option
+* Added constraint for date to be within the configuration date range (breaking change)
 * Added option to explain that accepts a date other than current date
 * Upon request, the capability to work without any specific holidays set in configuration may be added back in
 
 2022.10.14
-:    * Added function to calculate the remaining workdays of a year given a day and constraining months
+:    Reduced noise and added remaining workday count function
+* Added function to calculate the remaining workdays of a year given a day and constraining months
 * Extended constraint month parameters with default values to allow for less noisy call sites
 
 2022.10.13
-:   * Added service functions for monthly and yearly workday counts in between constraints
+:   Added service functions for monthly and yearly workday counts in between constraints
 
 2022.10.9
-:    * Added functions day_count, day_count_from_date, date_from_fractional_year, and fractional_year_from_date
+:    Added functions day_count, day_count_from_date, date_from_fractional_year, and fractional_year_from_date
  
 2022.10.5
-:    * Added API method to query the count of working days per month of a year
+:    Added API method to query the count of working days per month of a year
 
 2022.10.3
-:    * Added API methods to query all working days of a year
+:    Added API methods to query workding days of year and migrated to pyproject.toml
+* Added API methods to query all working days of a year
 * Migrated to pyproject.toml based packaging
 
 2022.7.24
