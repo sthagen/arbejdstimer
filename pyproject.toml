@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arbejdstimer"
-version = "2022.10.23"
+version = "2025.1.14"
 description = "Working hours (Danish arbejdstimer) or not?"
 readme = "README.md"
 license = {file = "LICENSE"}
