@@ -321,3 +321,19 @@ def test_remaining_workdays_count_of_year_in_between():
     assert remaining(work_days, '2022-01', 4, '2022-01', '2022-01') == 0
     assert remaining(work_days, '2022-01', 2, '2022-01', '2022-01') == 1
     assert remaining(work_days, '2022-01', 4, '2022-07', '2022-08') == 2
+
+
+def test_days_of_year():
+    year = 2025
+    doy = at.days_of_year(dti.date(year, 1, 3))
+    assert len(doy) == 365
+    assert doy[0] == dti.date(year, 1, 1)
+    assert doy[-1] == dti.date(year, 12, 31)
+
+
+def test_workdays():
+    year = 2025
+    doy = at.days_of_year(dti.date(year, 1, 3))
+    off_days = [off for off in doy if off != dti.date(year, 1, 6)]
+    workdays = at.workdays(off_days, doy)
+    assert workdays == [dti.date(year, 1, 6)]
