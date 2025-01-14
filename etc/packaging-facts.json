@@ -1,6 +1,6 @@
 {
   "info": {
-    "author": "",
+    "author": null,
     "author_email": "Stefan Hagen <stefan@hagen.link>",
     "bugtrack_url": null,
     "classifiers": [
@@ -8,25 +8,27 @@
       "Intended Audience :: Developers",
       "License :: OSI Approved :: MIT License",
       "Programming Language :: Python :: 3.10",
-      "Programming Language :: Python :: 3.8",
+      "Programming Language :: Python :: 3.11",
+      "Programming Language :: Python :: 3.12",
+      "Programming Language :: Python :: 3.13",
       "Programming Language :: Python :: 3.9"
     ],
-    "description": "# arbejdstimer\n\nWorking hours (Danish arbejdstimer) or not?\n\n[License: MIT](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/LICENSE)\n\n[![version](https://img.shields.io/pypi/v/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)\n[![downloads](https://pepy.tech/badge/arbejdstimer/month)](https://pepy.tech/project/arbejdstimer)\n[![wheel](https://img.shields.io/pypi/wheel/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)\n[![supported-versions](https://img.shields.io/pypi/pyversions/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)\n[![supported-implementations](https://img.shields.io/pypi/implementation/arbejdstimer.svg?style=flat)](https://pypi.python.org/pypi/arbejdstimer/)\n\n## Documentation\n\nUser and developer [documentation of arbejdstimer](https://codes.dilettant.life/docs/arbejdstimer).\n\n## Bug Tracker\n\nFeature requests and bug reports are best entered in the [todos of arbejdstimer](https://todo.sr.ht/~sthagen/arbejdstimer).\n\n## Primary Source repository\n\nThe primary source of `arbejdstimer` lives somewhere on a mountain in Central Switzerland.\nBut, we use decentralized version control (git), so any clone can become the source to everyone's benefit, no central only code.\nAnyway, the preferred public clones of `arbejdstimer` are:\n\n* [on codeberg](https://codeberg.org/sthagen/arbejdstimer) - a democratic community-driven, non-profit software development platform operated by Codeberg e.V.\n* [at sourcehut](https://git.sr.ht/~sthagen/arbejdstimer) - a collection of tools useful for software development.\n\n## Status\n\nExperimental.\n\n**Note**: The default branch is `default`.\n",
+    "description": "# Arbejdstimer\n\nWorking hours (Danish arbejdstimer) or not?\n\n[![License](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/license-spdx-mit.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/LICENSE)\n[![Country of Origin](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/country-of-origin-name-switzerland-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/COUNTRY-OF-ORIGIN)\n[![Export Classification Control Number (ECCN)](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/export-control-classification-number_eccn-ear99-neutral.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)\n[![Configuration](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/configuration-sbom.svg)](https://git.sr.ht/~sthagen/arbejdstimer/tree/default/item/docs/third-party/README.md)\n\n[![Version](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/latest-release.svg)](https://pypi.python.org/pypi/arbejdstimer/)\n[![Downloads](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/downloads-per-month.svg)](https://pepy.tech/project/arbejdstimer)\n[![Python](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/python-versions.svg)](https://pypi.python.org/pypi/arbejdstimer/)\n[![Maintenance Status](https://git.sr.ht/~sthagen/arbejdstimer/blob/default/docs/badges/commits-per-year.svg)](https://git.sr.ht/~sthagen/arbejdstimer/log)\n\n## Documentation\n\nUser and developer [documentation of arbejdstimer](https://codes.dilettant.life/docs/arbejdstimer).\n\n## Bug Tracker\n\nAny feature requests or bug reports shall go to the [todos of arbejdstimer](https://todo.sr.ht/~sthagen/arbejdstimer).\n\n## Primary Source repository\n\nThe main source of `arbejdstimer` is on a mountain in central Switzerland.\nWe use distributed version control (git).\nThere is no central hub.\nEvery clone can become a new source for the benefit of all.\nThe preferred public clone of `arbejdstimer` is:\n\n* [at sourcehut](https://git.sr.ht/~sthagen/arbejdstimer) - a collection of tools useful for software development.\n\n## Contributions\n\nPlease do not submit \"pull requests\" (I found no way to disable that \"feature\" on GitHub).\nIf you like to share small changes under the repositories license please kindly do so by sending a patchset.\nYou can either send such a patchset per email using [git send-email](https://git-send-email.io) or \nif you are a sourcehut user by selecting \"Prepare a patchset\" on the summary page of your fork at [sourcehut](https://git.sr.ht/).\n\n## Support\n\nPlease kindly submit issues at https://todo.sr.ht/~sthagen/arbejdstimer or write plain text email to ~sthagen/arbejdstimer@lists.sr.ht to submit patches and request support. Thanks.\n\n## Status\n\nExperimental.\n\n**Note**: The default branch is `default`.\n",
     "description_content_type": "text/markdown",
     "docs_url": null,
-    "download_url": "",
+    "download_url": null,
     "downloads": {
       "last_day": -1,
       "last_month": -1,
       "last_week": -1
     },
     "dynamic": null,
-    "home_page": "",
-    "keywords": "developer-tools,documentation-tools,html,markdown",
-    "license": "",
+    "home_page": null,
+    "keywords": "developer-tools, documentation-tools, html, markdown",
+    "license": "MIT License  Copyright (c) 2025 Stefan Hagen  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. ",
     "license_expression": null,
     "license_files": null,
-    "maintainer": "",
+    "maintainer": null,
     "maintainer_email": "Stefan Hagen <stefan@hagen.link>",
     "name": "arbejdstimer",
     "package_url": "https://pypi.org/project/arbejdstimer/",
@@ -39,27 +41,29 @@
       "Source-Code": "https://git.sr.ht/~sthagen/arbejdstimer",
       "Test-Coverage": "https://codes.dilettant.life/coverage/arbejdstimer"
     },
-    "provides_extra": null,
-    "release_url": "https://pypi.org/project/arbejdstimer/2022.10.23/",
-    "requires_dist": [
-      "pydantic (>=1.10.2)",
-      "typer (>=0.6.1)",
-      "black ; extra == 'dev'",
-      "coverage ; extra == 'dev'",
-      "flake8 ; extra == 'dev'",
-      "hypothesis ; extra == 'dev'",
-      "mypy ; extra == 'dev'",
-      "pytest ; extra == 'dev'",
-      "pytest-cov ; extra == 'dev'",
-      "pytest-flake8 ; extra == 'dev'"
+    "provides_extra": [
+      "dev"
     ],
-    "requires_python": ">=3.8",
+    "release_url": "https://pypi.org/project/arbejdstimer/2025.1.14/",
+    "requires_dist": [
+      "pydantic>=2.10.5",
+      "typer>=0.15.1",
+      "black; extra == \"dev\"",
+      "coverage; extra == \"dev\"",
+      "hypothesis; extra == \"dev\"",
+      "mypy; extra == \"dev\"",
+      "pytest; extra == \"dev\"",
+      "pytest-cov; extra == \"dev\"",
+      "pytest-flake8; extra == \"dev\"",
+      "ruff; extra == \"dev\""
+    ],
+    "requires_python": ">=3.9",
     "summary": "Working hours (Danish arbejdstimer) or not?",
-    "version": "2022.10.23",
+    "version": "2025.1.14",
     "yanked": false,
     "yanked_reason": null
   },
-  "last_serial": 15500792,
+  "last_serial": 26933485,
   "releases": {
     "2021.12.21": [
       {
@@ -720,48 +724,92 @@
         "yanked": false,
         "yanked_reason": null
       }
+    ],
+    "2025.1.14": [
+      {
+        "comment_text": "",
+        "digests": {
+          "blake2b_256": "57299cf38df6d70a8bce7c4dfe30d1d3c5fc90ba5bcccaf68573def5bacafbce",
+          "md5": "0be3653a59fdd173ac4003902aeeb538",
+          "sha256": "b37617570213a97aa4e8f7a53f4f7f8d58705883bd85ce71650101f85b787b69"
+        },
+        "downloads": -1,
+        "filename": "arbejdstimer-2025.1.14-py3-none-any.whl",
+        "has_sig": false,
+        "md5_digest": "0be3653a59fdd173ac4003902aeeb538",
+        "packagetype": "bdist_wheel",
+        "python_version": "py3",
+        "requires_python": ">=3.9",
+        "size": 11288,
+        "upload_time": "2025-01-14T04:31:31",
+        "upload_time_iso_8601": "2025-01-14T04:31:31.716743Z",
+        "url": "https://files.pythonhosted.org/packages/57/29/9cf38df6d70a8bce7c4dfe30d1d3c5fc90ba5bcccaf68573def5bacafbce/arbejdstimer-2025.1.14-py3-none-any.whl",
+        "yanked": false,
+        "yanked_reason": null
+      },
+      {
+        "comment_text": "",
+        "digests": {
+          "blake2b_256": "1c19dd3dd0cdf2ae92eddb64b9c22b5f35d78cdd95d544e2972b8f8f1bfeaa1b",
+          "md5": "0e23130b3ad28b497b62f4cb40073715",
+          "sha256": "c7b8090125bc960f0372ad0ea6c9ac3dec01f9319af661f893acee403848a09f"
+        },
+        "downloads": -1,
+        "filename": "arbejdstimer-2025.1.14.tar.gz",
+        "has_sig": false,
+        "md5_digest": "0e23130b3ad28b497b62f4cb40073715",
+        "packagetype": "sdist",
+        "python_version": "source",
+        "requires_python": ">=3.9",
+        "size": 16278,
+        "upload_time": "2025-01-14T04:31:35",
+        "upload_time_iso_8601": "2025-01-14T04:31:35.435407Z",
+        "url": "https://files.pythonhosted.org/packages/1c/19/dd3dd0cdf2ae92eddb64b9c22b5f35d78cdd95d544e2972b8f8f1bfeaa1b/arbejdstimer-2025.1.14.tar.gz",
+        "yanked": false,
+        "yanked_reason": null
+      }
     ]
   },
   "urls": [
     {
       "comment_text": "",
       "digests": {
-        "blake2b_256": "6d8baa29e794697d832d700c6b20f791df77c3b29e360dfa62ac40737d321d3a",
-        "md5": "60f67c52ca64717457a6db3a487b139a",
-        "sha256": "defcca5c044f7fae2ded07bea1235467582cd533fed40a321d11c138bce58b67"
+        "blake2b_256": "57299cf38df6d70a8bce7c4dfe30d1d3c5fc90ba5bcccaf68573def5bacafbce",
+        "md5": "0be3653a59fdd173ac4003902aeeb538",
+        "sha256": "b37617570213a97aa4e8f7a53f4f7f8d58705883bd85ce71650101f85b787b69"
       },
       "downloads": -1,
-      "filename": "arbejdstimer-2022.10.23-py2.py3-none-any.whl",
+      "filename": "arbejdstimer-2025.1.14-py3-none-any.whl",
       "has_sig": false,
-      "md5_digest": "60f67c52ca64717457a6db3a487b139a",
+      "md5_digest": "0be3653a59fdd173ac4003902aeeb538",
       "packagetype": "bdist_wheel",
-      "python_version": "py2.py3",
-      "requires_python": ">=3.8",
-      "size": 11299,
-      "upload_time": "2022-10-23T12:21:32",
-      "upload_time_iso_8601": "2022-10-23T12:21:32.326290Z",
-      "url": "https://files.pythonhosted.org/packages/6d/8b/aa29e794697d832d700c6b20f791df77c3b29e360dfa62ac40737d321d3a/arbejdstimer-2022.10.23-py2.py3-none-any.whl",
+      "python_version": "py3",
+      "requires_python": ">=3.9",
+      "size": 11288,
+      "upload_time": "2025-01-14T04:31:31",
+      "upload_time_iso_8601": "2025-01-14T04:31:31.716743Z",
+      "url": "https://files.pythonhosted.org/packages/57/29/9cf38df6d70a8bce7c4dfe30d1d3c5fc90ba5bcccaf68573def5bacafbce/arbejdstimer-2025.1.14-py3-none-any.whl",
       "yanked": false,
       "yanked_reason": null
     },
     {
       "comment_text": "",
       "digests": {
-        "blake2b_256": "de1cbc0f0dbdb96cb287c3e91a9e49dd81340f210dd9de18dc183bf4f4a3512f",
-        "md5": "dc5bb99cb53f870aa659e69460c1c09c",
-        "sha256": "e50f7e0aeca0d239f0f622d83bc7d43e1bd43a0b8a15436a23dab9fc5e18286a"
+        "blake2b_256": "1c19dd3dd0cdf2ae92eddb64b9c22b5f35d78cdd95d544e2972b8f8f1bfeaa1b",
+        "md5": "0e23130b3ad28b497b62f4cb40073715",
+        "sha256": "c7b8090125bc960f0372ad0ea6c9ac3dec01f9319af661f893acee403848a09f"
       },
       "downloads": -1,
-      "filename": "arbejdstimer-2022.10.23.tar.gz",
+      "filename": "arbejdstimer-2025.1.14.tar.gz",
       "has_sig": false,
-      "md5_digest": "dc5bb99cb53f870aa659e69460c1c09c",
+      "md5_digest": "0e23130b3ad28b497b62f4cb40073715",
       "packagetype": "sdist",
       "python_version": "source",
-      "requires_python": ">=3.8",
-      "size": 37883,
-      "upload_time": "2022-10-23T12:21:33",
-      "upload_time_iso_8601": "2022-10-23T12:21:33.913128Z",
-      "url": "https://files.pythonhosted.org/packages/de/1c/bc0f0dbdb96cb287c3e91a9e49dd81340f210dd9de18dc183bf4f4a3512f/arbejdstimer-2022.10.23.tar.gz",
+      "requires_python": ">=3.9",
+      "size": 16278,
+      "upload_time": "2025-01-14T04:31:35",
+      "upload_time_iso_8601": "2025-01-14T04:31:35.435407Z",
+      "url": "https://files.pythonhosted.org/packages/1c/19/dd3dd0cdf2ae92eddb64b9c22b5f35d78cdd95d544e2972b8f8f1bfeaa1b/arbejdstimer-2025.1.14.tar.gz",
       "yanked": false,
       "yanked_reason": null
     }
